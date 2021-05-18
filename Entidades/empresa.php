@@ -32,7 +32,7 @@
         }
 
         function getRutCompleto(){
-
+            return $this->rutEmp . "-" . $this->dvEmp;
         }
     }
 ?>
