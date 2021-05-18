@@ -9,7 +9,7 @@
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $query->setAttribute("INSERT INTO EMPRESA (RUTEMP,DVEMPRESA,RAZONSOCIALEMP,GIROEMP)
+            $query->$conn->prepare("INSERT INTO EMPRESA (RUTEMP,DVEMPRESA,RAZONSOCIALEMP,GIROEMP)
                                  VALUES (?, ?, ?, ?)");
 
             $result = $query->execute([$newEmpresa->getRutEmp(),
