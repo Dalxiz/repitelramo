@@ -7,7 +7,7 @@
         try {
             $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
 
-            $conn->setAttribute("INSER INTO EMPRESA (RUTEMP,DVEMPRESA,RAZONSOCIALEMP,GIROEMP)
+            $conn->setAttribute("INSERT INTO EMPRESA (RUTEMP,DVEMPRESA,RAZONSOCIALEMP,GIROEMP)
                                  VALUES (?, ?, ?, ?)");
 
             $result = $query->execute([$newEmpresa->getRutEmp(),
