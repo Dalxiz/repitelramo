@@ -3,7 +3,7 @@
     require_once 'encabezadoDocumento.php';
     require_once 'producto.php';
 
-    class DetalleDocuemnto{
+    class DetalleDocumento{
 
         private $idDetalle;
         private $encabezadoDocumento;
@@ -21,7 +21,7 @@
             $this->cantUnitaria=$cantUnitaria;
             $this->descuento=$descuento;
             $this->valor=$valor;
-        }
+        }        
 
         function getIdDetalle(){
             return $this->idDetalle;

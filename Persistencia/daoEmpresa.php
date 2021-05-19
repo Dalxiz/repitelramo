@@ -27,7 +27,7 @@
         }
     }
 
-    function actualizarAlumno(Alumno $nuevoAlumno){
+    function actualizarEmpresa(Empresa $newEmpresa){
 
         require_once 'parametrosBD.php';
 
