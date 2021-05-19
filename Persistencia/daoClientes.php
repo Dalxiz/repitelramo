@@ -1,6 +1,6 @@
 <?php 
 
-    function registrarCliente(Clientes $nuevoClientes){
+    function registrarCliente(Cliente $nuevoCliente){
 
         require_once 'parametrosBD.php';
 
@@ -11,15 +11,15 @@
 
             $query = $conn->prepare("INSERT INTO CLIENTE (RUTCLIENTE,DVCLIENTE,NOMB_RAZONSOCIAL,GIRO,DIRECCION,COMUNA,CIUDAD,TELEFONO,EMAIL)
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $result = $query->execute([$nuevoClientes->getRutCliente,
-                                        $nuevoClientes->getDvCliente,
-                                        $nuevoClientes->getNombRazonSocial,
-                                        $nuevoClientes->getGiroCliente,
-                                        $nuevoClientes->getDireccion,
-                                        $nuevoClientes->getComuna,
-                                        $nuevoClientes->getCiudad,
-                                        $nuevoClientes->getTelefono,
-                                        $nuevoClientes->getEmail]);    
+            $result = $query->execute([$nuevoCliente->getRutCliente(),
+                                        $nuevoCliente->getDvCliente(),
+                                        $nuevoCliente->getNombRazonSocial(),
+                                        $nuevoCliente->getGiroCliente(),
+                                        $nuevoCliente->getDireccion(),
+                                        $nuevoCliente->getComuna(),
+                                        $nuevoCliente->getCiudad(),
+                                        $nuevoCliente->getTelefono(),
+                                        $nuevoCliente->getEmail()]);    
 
             if ($result) {
                 return 'ok';
@@ -33,7 +33,7 @@
     }
 
     
-    function actualizaCliente(Clientes $nuevoClientes){
+    function modificarCliente(Cliente $nuevoCliente){
 
         require_once 'parametrosBD.php';
 
@@ -45,15 +45,16 @@
             $query = $conn->prepare("UPDATE CLIENTES SET dvCliente=:dvCliente, nombRazonSocial=:nombRazonSocial,
                                                          giroCliente=:giroCliente, direccion=:direccion, comuna=:comuna,
                                                          ciudad=:ciudad, telefono=:telefono, email=:email WHERE rutCliente=:rutCliente");
-            $queryUpdate->bindValue("rutCliente",$nuevoClientes->getRutCliente());
-            $queryUpdate->bindValue( "dvCliente",$nuevoClientes->getDvCliente());
-            $queryUpdate->bindValue("nombRazonSocial",$nuevoClientes->getNombRazonSocial());
-            $queryUpdate->bindValue("giroCliente",$nuevoClientes->getGiroCliente());
-            $queryUpdate->bindValue("direccion",$nuevoClientes->getDireccion());
-            $queryUpdate->bindValue("comuna",$nuevoClientes->getComuna());
-            $queryUpdate->bindValue("ciudad",$nuevoClientes->getCiudad());
-            $queryUpdate->bindValue("telefono",$nuevoClientes->getTelefono());
-            $queryUpdate->bindValue("email",$nuevoClientes->getEmail());    
+                                                         
+            $queryUpdate->bindValue("rutCliente",$nuevoCliente->getRutCliente());
+            $queryUpdate->bindValue( "dvCliente",$nuevoCliente->getDvCliente());
+            $queryUpdate->bindValue("nombRazonSocial",$nuevoCliente->getNombRazonSocial());
+            $queryUpdate->bindValue("giroCliente",$nuevoCliente->getGiroCliente());
+            $queryUpdate->bindValue("direccion",$nuevoCliente->getDireccion());
+            $queryUpdate->bindValue("comuna",$nuevoCliente->getComuna());
+            $queryUpdate->bindValue("ciudad",$nuevoCliente->getCiudad());
+            $queryUpdate->bindValue("telefono",$nuevoCliente->getTelefono());
+            $queryUpdate->bindValue("email",$nuevoCliente->getEmail());    
 
             $resultado = $queryUpdate->execute();
 
