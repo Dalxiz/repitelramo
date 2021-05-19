@@ -9,7 +9,7 @@
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $query->$conn->prepare("INSERT INTO EMPRESA (RUTEMP,DVEMPRESA,RAZONSOCIALEMP,GIROEMP)
+            $query=$conn->prepare("INSERT INTO EMPRESA (RUTEMP,DVEMP,RAZONSOCIALEMP,GIROEMP)
                                  VALUES (?, ?, ?, ?)");
 
             $result = $query->execute([$newEmpresa->getRutEmp(),
@@ -37,7 +37,7 @@
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $queryUpdate = $conn->prepare("UPDATE EMPRESA SET dvEmp=:dvEmp, razonEmp=:razonEmp, giroEmp=:giroEmp
+            $queryUpdate = $conn->prepare("UPDATE EMPRESA SET dvEmp=:dvEmp, razonSocialEmp=:razonEmp, giroEmp=:giroEmp
                                          WHERE rutEmp=:rutEmp");
 
             $queryUpdate->bindValue("rutEmp", $newEmpresa->getRutEmp());
