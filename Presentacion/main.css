@@ -3,6 +3,43 @@
     background-size: auto;
     background-repeat: no-repeat;
     background-position: left;
-    background-attachment: fixed;    
+    background-attachment: fixed;     
 }
 
+.caja{
+    background-color: rgba(0, 0, 0, 0.933);
+    margin-top: 8rem;
+    border-radius: 15px;   
+    width: 350px;
+    height: 400px;
+}
+
+.txt{
+    width: 90%;
+    margin: 15px;
+    height: 2.7rem;
+    border-radius: 7px;
+    font-size: 18px;
+}
+
+h3{
+    padding-top: 2.8rem;
+    padding-bottom: 1.8rem;
+    color: whitesmoke;
+    text-align: center;
+    font-size: 2.4rem;
+}
+
+.boton{
+    width: 90%;
+    margin: 15px;
+    height: 3rem;
+    border-radius: 7px;
+    font-size: 18px;
+    align-items: center;
+}
+
+.boton:hover{
+    background-color: #E0AE09;
+    color: #000;
+}

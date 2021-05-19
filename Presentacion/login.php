@@ -12,21 +12,22 @@
     <title>Login</title>
 </head>
 <body class="login">
-<div class="container">
-    <div class="container">
-        <h3>Iniciar sesión</h3>
-        <form action="">
-            <input class="input" type="text" name="" id="" placeholder="Usuario">
-            <input class="input" type="password" name="" id="" placeholder="Contraseña">
-        </form>
-    </div>
-</div>
-    
+    <div class="caja-body">
+        <div class="container">
+            <div class="container caja">
+                <h3>Iniciar sesión</h3>
+                    <input class="form-control txt" type="text" name="" id="" placeholder="Usuario">
+                    <input class="form-control txt" type="password" name="" id="" placeholder="Contraseña">
+                    <button class="btn btn-dark boton">Ingresar</button>
+                    <?php 
+                    // if (condition) {
+                    //    echo "<div class='alert alert-success' role='alert'>Datos Corectos</div>";
+                    // }else {
+                    //    echo "<div class='alert alert-success' role='alert'>Usuario y/o Contraseña Incorrectos</div>";
+                    // }           
+                    ?>        
+            </div>
+        </div>
+    </div>    
 </body>
-
-<footer>
-    <div class="container">
-    <p>©2021 Repi Elramo. Desarrollado por The Vapers. v.0.0</p>
-    </div>
-</footer>
 </html>
