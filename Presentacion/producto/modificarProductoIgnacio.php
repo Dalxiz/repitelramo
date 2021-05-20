@@ -110,11 +110,11 @@
 </div>
 
 
-<div class="col-lg-12">
-            <h4><b><i class="glyphicon glyphicon-education">&nbsp;</i>ADMINISTRAR ALUMNOS</b></h4>
+<div class="col-lg-12" style="padding: 60px">
+            <h4><b><i class="glyphicon glyphicon-education">&nbsp;</i>Modificar Productos</b></h4>
             <form action="modificarProductoIgnacio.php" method="POST">
-                <div>
-                    <table class='table table-bordered table-hover table-responsive'>
+                <div class="table-responsive">
+                    <table class='table table-bordered table-hover'>
 
                     <thead>
                         <tr>
@@ -122,7 +122,7 @@
                             <th>Descripción Producto</th>
                             <th>Unidad de Medida</th>
                             <th>Precio Unitario</th>
-                            <th>Modificar</th>
+                            <th class='text-center'>Modificar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -134,27 +134,27 @@
 
                             if(count($listaProductos) > 0){
                                 foreach($listaProductos as $producto)
-                                {
-                                    echo "<tr>";
-                                    echo "<td> <p class='label label-primary'>" . $producto->getCodProd() . "</p></td>";
-                                    echo "<td>" . $producto->getDescripcion() . "</td>";
-                                    echo "<td> <p class='badge badge-primary'>" . $producto->getUnidadMedida()->getNombreUM() . "</td>";
-                                    echo "<td> " . $producto->getPrecioUnitaro() . "</td>"; 
+                                { ?>
+                                    <tr>
+                                    <td> <span class='label label-primary'> <?php echo $producto->getCodProd();?></span></td>
+                                    <td> <?php echo $producto->getDescripcion(); ?> </td>
+                                    <td> <span class='badge badge-primary'> <?php echo $producto->getUnidadMedida()->getNombreUM() ?> </span> </td>
+                                    <td> <?php echo $producto->getPrecioUnitaro() ?> </td> 
+                                    
+                                    <td class="text-center"><button class="btn btn-primary" type='button' data-toggle='modal' data-target='#modalProd' data-prod-id='<?php echo $producto->getCodProd() ?>'
+                                    data-prod-des='<?php echo $producto->getDescripcion() ?>' data-prod-um='<?php echo $producto->getUnidadMedida()->getIdUm() ?>'
+                                    data-prod-precio='<?php echo $producto->getPrecioUnitaro() ?>'>Edit</button></td>
 
-                                    echo "<td><button type='button' data-toggle='modal' data-target='#modalProd' prod-id='" . $producto->getCodProd() . "'
-                                    prod-des='" . $producto->getDescripcion() . "' prod-um='" . $producto->getUnidadMedida()->getIdUm() . "'
-                                    prod-precio='" . $producto->getPrecioUnitaro() . "'>Edit</button></td>";
-                                    
-                                    
-                                    echo "</tr>";
+                                    </tr>
+                                <?php
                                 }
                             }
                             else
-                            {
-                                echo "<tr><td colspan=8 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td>";
-                                echo "<td class='text-center'><a href='registrar.php'><span class='glyphicon glyphicon-plus'></span></a></td>";
-                                echo "<td class='text-center'>--</td>";
-                                echo "<td class='text-center'>--</td>";
+                            { //TODO: IMPLEMENTAR REGISTAR en caso de no haber datos
+                                ?> 
+                                <tr><td colspan=4 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td>
+                                <td class='text-center'><a href='registrar.php'><span class='glyphicon glyphicon-plus'>Registar Producto</span></a></td>
+                            <?php 
                             }
 
 
@@ -178,13 +178,22 @@
         var opener=e.relatedTarget;//Esto tiene el elemento que llamó al modal (osea el botón correspondiente)
         
         //Obtenemos los valores de los atributos definidos
-        var prodId=$(opener).attr('prod-id');
-        var prodDesc=$(opener).attr('prod-des');
-        var prodUM=$(opener).attr('prod-um');
-        var prodPrecio=$(opener).attr('prod-precio');
+        
+        /* MANERA 1:
+        var prodId=$(opener).attr('data-prod-id');
+        var prodDesc=$(opener).attr('data-prod-des');
+        var prodUM=$(opener).attr('data-prod-um');
+        var prodPrecio=$(opener).attr('data-prod-precio');
+        */
+        
+        /* MANERA 2: */
+        var prodId=$(opener).data('prod-id');
+        var prodDesc=$(opener).data('prod-des');
+        var prodUM=$(opener).data('prod-um');
+        var prodPrecio=$(opener).data('prod-precio');
 
         //Ahora ponemos los valores a los campos del form
-        $('#formProd').find('[id="txtCodProd"]').val(prodId);
+        $('#formProd #txtCodProd').val(prodId);
         $('#formProd').find('[id="txtDescripcion"]').val(prodDesc);
         $('#formProd').find('[id="cbxUnidadMedida"]').val(prodUM);
         $('#formProd').find('[id="txtPrecioUnitario"]').val(prodPrecio);
