@@ -69,4 +69,29 @@
         }
     }
 
+    function eliminarCliente($rutCliente){
+
+        require_once 'parametrosBD.php';
+
+        try {
+            $conn = new PDO("msql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $queryDelete=$conn->prepare("DELETE FROM CLIENTE WHERE rutCliente=:rutCliente");
+
+            $queryDelete->bindValue("rutCliente",$rutCliente->getRutCliente());
+
+            $res=$queryDelete->execute();
+
+            if ($res) {
+                return 'ok';
+            }else{
+                return 'err';
+            }
+        } catch (PDOException $pe) {
+            echo 'Ocurrio un error:' . $pe->getMessage();
+        }
+    }
+
 ?>
