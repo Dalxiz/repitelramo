@@ -1,6 +1,6 @@
 <?php
     if(isset($_POST['registrar']))
-        { 
+    { 
             require_once '../Entidades/producto.php';
             require_once '../Entidades/unidadMedida.php';
             require_once '../Persistencia/daoProducto.php';
@@ -23,9 +23,9 @@
             //header("Location: ../Presentacion/producto/registarProductoIgnacio.php?msj=". registrarProducto($nuevoProducto) . " - Producto: " . $nuevoProducto->getCodProd() . " - " . $nuevoProducto->getDescripcion());
 
             die();
-        }
+    }
 
-        function getTodosLosProductos(){
+    function getTodosLosProductos(){
             require_once '../../Persistencia/daoProducto.php';
             //require_once '../../Persistencia/daoUM.php';
             require_once '../../Entidades/Producto.php';
@@ -34,6 +34,6 @@
             $lista = consultarProductos();
             
             return $lista;
-        }
+    }
 
-    ?>
+?>
