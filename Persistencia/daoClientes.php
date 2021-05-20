@@ -33,7 +33,7 @@
     }
 
     
-    function modificarCliente(Cliente $nuevoCliente){
+    function modificarCliente(Cliente $nuevoClientes){
 
         require_once 'parametrosBD.php';
 
@@ -42,19 +42,19 @@
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $query = $conn->prepare("UPDATE CLIENTES SET dvCliente=:dvCliente, nombRazonSocial=:nombRazonSocial,
-                                                         giroCliente=:giroCliente, direccion=:direccion, comuna=:comuna,
+            $queryUpdate = $conn->prepare("UPDATE CLIENTE SET dvCliente=:dvCliente, nomb_RazonSocial=:nombRazonSocial,
+                                                         giro=:giroCliente, direccion=:direccion, comuna=:comuna,
                                                          ciudad=:ciudad, telefono=:telefono, email=:email WHERE rutCliente=:rutCliente");
-                                                         
-            $queryUpdate->bindValue("rutCliente",$nuevoCliente->getRutCliente());
-            $queryUpdate->bindValue( "dvCliente",$nuevoCliente->getDvCliente());
-            $queryUpdate->bindValue("nombRazonSocial",$nuevoCliente->getNombRazonSocial());
-            $queryUpdate->bindValue("giroCliente",$nuevoCliente->getGiroCliente());
-            $queryUpdate->bindValue("direccion",$nuevoCliente->getDireccion());
-            $queryUpdate->bindValue("comuna",$nuevoCliente->getComuna());
-            $queryUpdate->bindValue("ciudad",$nuevoCliente->getCiudad());
-            $queryUpdate->bindValue("telefono",$nuevoCliente->getTelefono());
-            $queryUpdate->bindValue("email",$nuevoCliente->getEmail());    
+
+            $queryUpdate->bindValue("rutCliente",$nuevoClientes->getRutCliente());
+            $queryUpdate->bindValue( "dvCliente",$nuevoClientes->getDvCliente());
+            $queryUpdate->bindValue("nombRazonSocial",$nuevoClientes->getNombRazonSocial());
+            $queryUpdate->bindValue("giroCliente",$nuevoClientes->getGiroCliente());
+            $queryUpdate->bindValue("direccion",$nuevoClientes->getDireccion());
+            $queryUpdate->bindValue("comuna",$nuevoClientes->getComuna());
+            $queryUpdate->bindValue("ciudad",$nuevoClientes->getCiudad());
+            $queryUpdate->bindValue("telefono",$nuevoClientes->getTelefono());
+            $queryUpdate->bindValue("email",$nuevoClientes->getEmail());    
 
             $resultado = $queryUpdate->execute();
 
