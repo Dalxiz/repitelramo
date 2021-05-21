@@ -44,7 +44,7 @@
 </head>
 <body>
 
-<div class="col-lg-5 contFormulario">
+<!--<div class="col-lg-5 contFormulario">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalProd">
   Modificar Empresa
 </button>
@@ -97,7 +97,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 
 
 <div class="col-lg-12">
@@ -108,48 +108,50 @@
 
                     <thead>
                         <tr>
-                            <th>Codigo Producto</th>
-                            <th>Descripción Producto</th>
-                            <th>Unidad de Medida</th>
-                            <th>Precio Unitario</th>
+                            <th>Rut empresa</th>
+                            <th>Dv</th>
+                            <th>Razon Social</th>
+                            <th>Giro</th>
                             <th>Modificar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
+                            <?php
 
-                            require '../../Controlador/controladorProducto.php';
+                            require '../../Controlador/controladorEmpresa.php';
 
-                            $listaProductos = getTodosLosProductos();
+                            $listaEmpresas = getTodasLasEmpresas();
 
-                            if(count($listaProductos) > 0){
-                                foreach($listaProductos as $producto)
-                                {
-                                    echo "<tr>";
-                                    echo "<td> <p class='label label-primary'>" . $producto->getCodProd() . "</p></td>";
-                                    echo "<td>" . $producto->getDescripcion() . "</td>";
-                                    echo "<td> <p class='badge badge-primary'>" . $producto->getUnidadMedida()->getNombreUM() . "</td>";
-                                    echo "<td> " . $producto->getPrecioUnitaro() . "</td>"; 
+                            if(count($listaEmpresas) > 0){
+                                foreach($listaEmpresas as $empresa)
+                                { ?>
+                                    <tr>
+                                    <td> <span class='label label-primary'> <?php echo $empresa->getRutEmp();?> </span></td>
+                                    <td> <span class='label label-primary'> <?php echo $empresa->getdvEmp();?> </span></td>
+                                    <td> <span class='label label-primary'> <?php echo $empresa->getrazonEmp();?> </span></td>
+                                    <td> <span class='label label-primary'> <?php echo $empresa->getgiroEmp();?> </span></td>
 
-                                    echo "<td><button type='button' data-toggle='modal' data-target='#modalProd' prod-id='" . $producto->getCodProd() . "'
-                                    prod-des='" . $producto->getDescripcion() . "' prod-um='" . $producto->getUnidadMedida()->getIdUm() . "'
-                                    prod-precio='" . $producto->getPrecioUnitaro() . "'>Edit</button></td>";
                                     
-                                    
-                                    echo "</tr>";
+                                    <td class="text-center"><button class="btn btn-primary" type='button' data-toggle='modal' data-target='#modalProd' data-prod-rut='<?php echo $empresa->getRutEmp() ?>'
+                                    data-prod-dv='<?php echo $empresa->getdvEmp() ?>' data-prod-razonem='<?php echo $empresa->getrazonEmp() ?>' 
+                                    data-prod-giro='<?php echo $empresa->getgiroEmp() ?>'>Edit</button></td>
+
+                                    </tr>
+                                <?php
                                 }
                             }
                             else
-                            {
-                                echo "<tr><td colspan=8 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td>";
-                                echo "<td class='text-center'><a href='registrar.php'><span class='glyphicon glyphicon-plus'></span></a></td>";
-                                echo "<td class='text-center'>--</td>";
-                                echo "<td class='text-center'>--</td>";
+                            { //TODO: IMPLEMENTAR REGISTAR en caso de no haber datos
+                                ?> 
+                                <tr><td colspan=4 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td>
+                                <td class='text-center'><a href='registrar.php'><span class='glyphicon glyphicon-plus'>Registar Producto</span></a></td>
+                            <?php 
                             }
 
 
 
-                        ?>
+                            ?>
+
                     </tbody>
 
                     </table>

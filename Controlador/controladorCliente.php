@@ -19,7 +19,7 @@
 
         $mensaje = registrarCliente($nuevoCliente);
 
-        echo $mensaje;
+        header("Location: ../Presentacion/cliente/principalCliente.php");
 
         die();
 
@@ -42,7 +42,7 @@
 
         $mensaje = modificarCliente($nuevoCliente);
 
-        echo $mensaje;
+        header("Location: ../Presentacion/cliente/principalCliente.php");
 
     }elseif (isset($_POST['eliminar'])) {
         
@@ -63,7 +63,7 @@
 
         $mensaje=eliminarCliente($cliente);
         
-        echo $mensaje;
+        header("Location: ../Presentacion/cliente/principalCliente.php");
     }
 
     function getTodosLosClientes(){
