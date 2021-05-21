@@ -35,9 +35,6 @@
 
     </script>
 
-
-    
-
     <title>Registrar Producto</title>
 
 
@@ -82,9 +79,6 @@
                 </div>
             </form>
        </div>
-
-    
-
 
 </body>
 </html>

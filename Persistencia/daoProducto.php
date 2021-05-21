@@ -75,6 +75,68 @@
 
         }
     }
+
+    function actualizarProducto(Producto $nuevoProducto){
+
+        require 'parametrosBD.php';
+
+        try{
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $queryUpdate = $conn->prepare("UPDATE PRODUCTO SET descripcion=?, idUM=?, precioUnitario=? 
+                                    WHERE codProd=?");
+    
+            $result = $queryUpdate->execute([$nuevoProducto->getDescripcion(), $nuevoProducto->getUnidadMedida()->getIdUM(),
+                                        $nuevoProducto->getPrecioUnitaro(), $nuevoProducto->getCodProd()]);
+            
+            if($result === true)
+            {
+                return 'ok';
+            }
+            else
+            {
+                return 'err';
+            }
+
+        }catch(PDOException $pe){
+
+            return "err : " . $pe->getMessage();
+            
+        }
+    }
+
+    function eliminarProducto(Producto $nuevoProducto){
+
+        require 'parametrosBD.php';
+
+        try{
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $queryDelete = $conn->prepare("DELETE FROM PRODUCTO WHERE codProd=?");
+    
+            $result = $queryDelete->execute([$nuevoProducto->getCodProd()]);
+            
+            if($result === true)
+            {
+                return 'ok';
+            }
+            else
+            {
+                return 'err';
+            }
+
+        }catch(PDOException $pe){
+
+            return "err : " . $pe->getMessage();
+            
+        }
+    }
+
+
     
 
 ?>
