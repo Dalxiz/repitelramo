@@ -132,9 +132,9 @@
                                     <td> <span class='label label-primary'> <?php echo $empresa->getgiroEmp();?> </span></td>
 
                                     
-                                    <td class="text-center"><button class="btn btn-primary" type='button' data-toggle='modal' data-target='#modalProd' data-prod-id='<?php echo $empresa->getRutEmp() ?>'
-                                    data-prod-des='<?php echo $empresa->getdvEmp() ?>' data-prod-um='<?php echo $empresa->getrazonEmp() ?>' 
-                                    data-prod-des='<?php echo $empresa->getgiroEmp() ?>'>Edit</button></td>
+                                    <td class="text-center"><button class="btn btn-primary" type='button' data-toggle='modal' data-target='#modalProd' data-prod-rut='<?php echo $empresa->getRutEmp() ?>'
+                                    data-prod-dv='<?php echo $empresa->getdvEmp() ?>' data-prod-razonem='<?php echo $empresa->getrazonEmp() ?>' 
+                                    data-prod-giro='<?php echo $empresa->getgiroEmp() ?>'>Edit</button></td>
 
                                     </tr>
                                 <?php
