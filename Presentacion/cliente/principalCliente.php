@@ -34,7 +34,7 @@
             }
             .contenedorTabla{
                 padding-top: 15px;
-                width: 90%;
+                width: 80%;
             }
             
         </style>
@@ -42,7 +42,7 @@
 </head>
 <body>
     <div class="container-fluid contenedorH3"> 
-            <h3>Registro Clientes</h3>
+            <h3>Mantenedor Clientes</h3>
     </div>
     <div class="container-fluid contenedorBoton">
         <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-plus-circle-fill"></i> Nuevo Cliente</button>
@@ -76,7 +76,7 @@
                 <td>2011/04/25</td>
                 <td>$320,800</td>
                 <td>
-                <span class="btn btn-warning"><i class="bi bi-pencil-fill"></i></span>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-pencil-fill"></i></button>
                 <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
                 </td>
             </tr>
@@ -91,7 +91,7 @@
                 <td>2011/04/25</td>
                 <td>$320,800</td>
                 <td>
-                <span class="btn btn-warning"><i class="bi bi-pencil-fill"></i></span>
+                <span class="btn btn-warning" data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-pencil-fill"></i></span>
                 <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
                 </td>
             </tr>
@@ -106,7 +106,7 @@
                 <td>2011/04/25</td>
                 <td>$320,800</td>
                 <td>
-                <span class="btn btn-warning"><i class="bi bi-pencil-fill"></i></span>
+                <span class="btn btn-warning" data-toggle="modal" data-target="#ventanaModal" ><i class="bi bi-pencil-fill"></i></span>
                 <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
                 </td>
             </tr>           

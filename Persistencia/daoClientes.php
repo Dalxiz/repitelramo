@@ -71,10 +71,10 @@
 
     function eliminarCliente($rutCliente){
 
-        require_once 'parametrosBD.php';
+        require 'parametrosBD.php';
 
         try {
-            $conn = new PDO("msql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);            
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
