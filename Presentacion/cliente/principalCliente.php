@@ -30,7 +30,8 @@
             }
             .contenedorBoton{
                 padding-top: 7px;
-                padding-bottom: 7px;
+                margin-bottom: 40px;
+                margin-left: -1rem;
             }
             .contenedorTabla{
                 padding-top: 15px;
@@ -44,11 +45,13 @@
     <div class="container-fluid contenedorH3"> 
             <h3>Mantenedor Clientes</h3>
     </div>
+    
+    <!-- datatable -->
+    <div class="container-fluid  contenedorTabla">
+    <!-- contenedor de registro nuevo -->
     <div class="container-fluid contenedorBoton">
         <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-plus-circle-fill"></i> Nuevo Cliente</button>
     </div>
-    
-    <div class="container-fluid  contenedorTabla">
     <table id="example" class="table is-striped" style="width:100%">
         <thead>
             <tr>
