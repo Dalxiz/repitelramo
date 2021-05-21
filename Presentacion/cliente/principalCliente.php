@@ -35,7 +35,9 @@
             }
             .contenedorTabla{
                 padding-top: 15px;
-                width: 80%;
+                width: 100%;
+                padding-left: 4rem;
+                padding-right: 4rem;
             }
             
         </style>
@@ -47,7 +49,7 @@
     </div>
     
     <!-- datatable -->
-    <div class="container-fluid  contenedorTabla">
+    <div class="container-fluid contenedorTabla">
     <!-- contenedor de registro nuevo -->
     <div class="container-fluid contenedorBoton">
         <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-plus-circle-fill"></i> Nuevo Cliente</button>
@@ -68,50 +70,38 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-                <td>
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-pencil-fill"></i></button>
-                <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
-                </td>
-            </tr>
-            <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011/07/25</td>
-                <td>$170,750</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-                <td>
-                <span class="btn btn-warning" data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-pencil-fill"></i></span>
-                <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
-                </td>
-            </tr>
-            <tr>
-                <td>Ashton Cox</td>
-                <td>Junior Technical Author</td>
-                <td>San Francisco</td>
-                <td>66</td>
-                <td>2009/01/12</td>
-                <td>$86,000</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-                <td>
-                <span class="btn btn-warning" data-toggle="modal" data-target="#ventanaModal" ><i class="bi bi-pencil-fill"></i></span>
-                <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
-                </td>
+            <?php 
+
+                require '../../Controlador/controladorCliente.php';
+
+                $listaClientes = getTodosLosClientes();
+
+                if (count($listaClientes) > 0) {
+                    foreach ($listaClientes as $cliente) {
+                ?>
+                <tr>
+                    <td><?php echo $cliente->getRutCliente(); ?></td>
+                    <td><?php echo $cliente->getDvCliente(); ?></td>
+                    <td><?php echo $cliente->getNombRazonSocial();?></td>
+                    <td><?php echo $cliente->getGiroCliente();?></td>
+                    <td><?php echo $cliente->getDireccion();?></td>
+                    <td><?php echo $cliente->getComuna();?></td>
+                    <td><?php echo $cliente->getCiudad();?></td>
+                    <td><?php echo $cliente->getTelefono();?></td>
+                    <td><?php echo $cliente->getEmail();?></td>
+                    <td>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-pencil-fill"></i></button>
+                        <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
+                    </td>
+                </tr>
+                <?php
+                    }
+                }else{
+
+                }
+            
+            
+            ?>            
             </tr>           
           
     </table>

@@ -71,7 +71,7 @@
 
     function eliminarCliente($rutCliente){
 
-        require 'parametrosBD.php';
+        require_once 'parametrosBD.php';
 
         try {
             $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);            
@@ -91,6 +91,44 @@
             }
         } catch (PDOException $pe) {
             echo 'Ocurrio un error:' . $pe->getMessage();
+        }
+    }
+
+    function consultarCliente(){
+
+        require_once 'parametrosBD.php';
+
+        try {
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $listarClientes=[];
+
+            $querySelect = $conn->query("SELECT * FROM CLIENTE");
+
+            foreach ($querySelect->fetchAll() as $tablaClienteBBDD) {
+                
+                $clienteSelect = new cliente($tablaClienteBBDD['rutCliente'],
+                                             $tablaClienteBBDD['dvCliente'],
+                                             $tablaClienteBBDD['nomb_razonSocial'],
+                                             $tablaClienteBBDD['giro'],
+                                             $tablaClienteBBDD['direccion'],
+                                             $tablaClienteBBDD['comuna'],
+                                             $tablaClienteBBDD['ciudad'],
+                                             $tablaClienteBBDD['telefono'],
+                                             $tablaClienteBBDD['email'],);
+
+                $listarClientes[]=$clienteSelect;
+            }
+
+            if (count($listarClientes) > 0) {
+                return $listarClientes;
+            }else{
+                return ($lista=[]);
+            }
+        } catch (PDOException $pe) {
+            return $pe->getMessage();
         }
     }
 
