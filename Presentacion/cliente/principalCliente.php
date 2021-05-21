@@ -131,10 +131,10 @@
                         <div class="container-fluid">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col col-lg-10">
+                                    <div class="col col-lg-9">
                                         <input class="form-control" type="text" name="Rut" id="" placeholder="Ingrese su Rut">                        
                                     </div>
-                                    <div class="col col-xs-2">                        
+                                    <div class="col col-xs-3">                        
                                         <input class="form-control l" type="text" name="Dv" id="" placeholder="Dv">
                                     </div>
                                 </div>
