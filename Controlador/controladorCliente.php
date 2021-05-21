@@ -66,6 +66,15 @@
         echo $mensaje;
     }
 
+    function getTodosLosClientes(){
+        require_once '../../Persistencia/daoClientes.php';
+        require_once '../../Entidades/clientes.php';
+
+        $lista = consultarCliente();
+
+        return $lista;
+    }
+
     
 
 ?>

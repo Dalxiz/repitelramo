@@ -30,11 +30,14 @@
             }
             .contenedorBoton{
                 padding-top: 7px;
-                padding-bottom: 7px;
+                margin-bottom: 40px;
+                margin-left: -1rem;
             }
             .contenedorTabla{
                 padding-top: 15px;
-                width: 90%;
+                width: 100%;
+                padding-left: 4rem;
+                padding-right: 4rem;
             }
             
         </style>
@@ -42,13 +45,15 @@
 </head>
 <body>
     <div class="container-fluid contenedorH3"> 
-            <h3>Registro Clientes</h3>
+            <h3>Mantenedor Clientes</h3>
     </div>
+    
+    <!-- datatable -->
+    <div class="container-fluid contenedorTabla">
+    <!-- contenedor de registro nuevo -->
     <div class="container-fluid contenedorBoton">
         <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-plus-circle-fill"></i> Nuevo Cliente</button>
     </div>
-    
-    <div class="container-fluid  contenedorTabla">
     <table id="example" class="table is-striped" style="width:100%">
         <thead>
             <tr>
@@ -65,50 +70,38 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-                <td>
-                <span class="btn btn-warning"><i class="bi bi-pencil-fill"></i></span>
-                <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
-                </td>
-            </tr>
-            <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011/07/25</td>
-                <td>$170,750</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-                <td>
-                <span class="btn btn-warning"><i class="bi bi-pencil-fill"></i></span>
-                <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
-                </td>
-            </tr>
-            <tr>
-                <td>Ashton Cox</td>
-                <td>Junior Technical Author</td>
-                <td>San Francisco</td>
-                <td>66</td>
-                <td>2009/01/12</td>
-                <td>$86,000</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-                <td>
-                <span class="btn btn-warning"><i class="bi bi-pencil-fill"></i></span>
-                <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
-                </td>
+            <?php 
+
+                require '../../Controlador/controladorCliente.php';
+
+                $listaClientes = getTodosLosClientes();
+
+                if (count($listaClientes) > 0) {
+                    foreach ($listaClientes as $cliente) {
+                ?>
+                <tr>
+                    <td><?php echo $cliente->getRutCliente(); ?></td>
+                    <td><?php echo $cliente->getDvCliente(); ?></td>
+                    <td><?php echo $cliente->getNombRazonSocial();?></td>
+                    <td><?php echo $cliente->getGiroCliente();?></td>
+                    <td><?php echo $cliente->getDireccion();?></td>
+                    <td><?php echo $cliente->getComuna();?></td>
+                    <td><?php echo $cliente->getCiudad();?></td>
+                    <td><?php echo $cliente->getTelefono();?></td>
+                    <td><?php echo $cliente->getEmail();?></td>
+                    <td>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-pencil-fill"></i></button>
+                        <span class="btn btn-danger"><i class="bi bi-trash2-fill"></i></span>
+                    </td>
+                </tr>
+                <?php
+                    }
+                }else{
+
+                }
+            
+            
+            ?>            
             </tr>           
           
     </table>
@@ -128,10 +121,10 @@
                         <div class="container-fluid">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col col-lg-10">
+                                    <div class="col col-lg-9">
                                         <input class="form-control" type="text" name="Rut" id="" placeholder="Ingrese su Rut">                        
                                     </div>
-                                    <div class="col col-xs-2">                        
+                                    <div class="col col-xs-3">                        
                                         <input class="form-control l" type="text" name="Dv" id="" placeholder="Dv">
                                     </div>
                                 </div>
