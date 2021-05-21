@@ -101,7 +101,9 @@
                                 data-telefono='<?php echo $cliente->getTelefono()?>'
                                 data-email='<?php echo $cliente->getEmail()?>'><i class="bi bi-pencil-fill"></i></button>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar" 
-                                data-rut='<?php echo $cliente->getRutCliente()?>'><i class="bi bi-trash2-fill"></i></button>
+                                data-rut='<?php echo $cliente->getRutCliente()?>'
+                                data-dv='<?php echo $cliente->getDvCliente()?>'
+                                data-razon='<?php echo $cliente->getNombRazonSocial()?>'><i class="bi bi-trash2-fill"></i></button>
                     </td>
                 </tr>
                 <?php
@@ -185,9 +187,7 @@
             </div>
         </div>
     </div>
-
-    </div>
-
+    
     <!-- ventana modal editar-->
     <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -269,14 +269,30 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../Controlador/controladorCliente.php" method="POST">
+                    <form action="../../Controlador/controladorCliente.php" method="POST">                         
+                        <div class="container-fluid">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col col-lg-9">
+                                        <input class="form-control" type="text" readonly="true" name="Rut" id="txtRut" placeholder="Ingrese su Rut">                        
+                                    </div>
+                                    <div class="col col-xs-3">                        
+                                        <input class="form-control l" type="text" readonly="true" name="Dv" id="txtDv" placeholder="Dv">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="Razon" readonly="true" id="txtRazon" placeholder="Razón Social">
+                            </div>                     
                         <div class="container-fluid">
                             <div class="form-group">
                                 <center>
                                 <label for="">¿Seguro que desea Eliminar los registros?</label>
                                 </center>
                             </div>
-                        </div>  
+                        </div> 
                         <div class="container-fluid">
                             <div class="form-group">
                                 <div class="row">
@@ -295,7 +311,7 @@
         </div>
     </div>
 
-    </div>
+    
     <!-- script de jquery -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
