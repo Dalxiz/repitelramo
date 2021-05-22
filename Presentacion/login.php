@@ -74,7 +74,7 @@
         }
       }
     </style>
-    <title>Document</title>
+    <title>Inicio Sesión</title>
 </head>
     <body>
         <form class="form-signin form-color">
