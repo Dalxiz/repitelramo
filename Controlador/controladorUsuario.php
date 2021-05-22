@@ -14,13 +14,13 @@
         $nuevoUsuario = new usuario("",$tipoUsuario,$usuario,$password,"");
 
         $mensaje = validarUsuario($nuevoUsuario);
-        echo $mensaje;
-        // if ($mensaje ==='ok') {
+        
+        if ($mensaje ==='ok') {
             
-        //     header("Location: ../Presentacion/principal.php");
-        // }else{
-        //     echo "andate a la chachu";
-        // }
+            header("Location: ../Presentacion/principal.php");
+        }else{
+            echo "andate a la chachu";
+        }
     }
 
 
