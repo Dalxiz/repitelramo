@@ -44,6 +44,7 @@
     <title>Registro Cliente</title>
 </head>
 <body>
+    <?php require_once '../menu.php' ?>
     <div class="container-fluid contenedorH3"> 
             <h3>Mantenedor Clientes</h3>
     </div>
@@ -257,7 +258,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- ventana modal Eliminar-->
     <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -310,10 +311,12 @@
             </div>
         </div>
     </div>
+  </div>
+</div>
 
     
     <!-- script de jquery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    
 
     <!-- script de bootstrap 4 -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -323,9 +326,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
 
     <script type="text/javascript" src="../main.js"></script>
+
 </body>
+    <!-- <?php require_once '../footer.php' ?> -->
 </html>
-
-
-                            
-                                
