@@ -7,16 +7,16 @@
   <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
     <ul class="navbar-nav">
     <li class="nav-item">
-        <a class="nav-link" href=<?php echo "//localhost/repitelramo/presentacion/principal.php" ?>><i class="bi bi-house-door-fill"></i></a>
+        <a class="nav-link" href=<?php echo "/repitelramo/presentacion/principal.php" ?>><i class="bi bi-house-door-fill"></i></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href=<?php echo "//localhost/repitelramo/presentacion/empresa/principalEmpresa.php"?>>Empresa</a>
+        <a class="nav-link" href=<?php echo "/repitelramo/presentacion/empresa/principalEmpresa.php"?>>Empresa</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href=<?php echo "//localhost/repitelramo/presentacion/cliente/principalCliente.php"?>>Clientes</a>
+        <a class="nav-link" href=<?php echo "/repitelramo/presentacion/cliente/principalCliente.php"?>>Clientes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href=<?php echo "//localhost/repitelramo/presentacion/producto/principalProducto.php"?>>Productos</a>
+        <a class="nav-link" href=<?php echo "/repitelramo/presentacion/producto/principalProducto.php"?>>Productos</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Mantenedor</a>
@@ -25,7 +25,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Documentos</a>
         <div class="dropdown-menu" aria-labelledby="dropdown08">
           <a class="dropdown-item navbar-dark disabled" href="#">Boleta</a>
-          <a class="dropdown-item" href=<?php echo "//localhost/repitelramo/presentacion/documento/factura/principalFactura.php"?>>Factura</a>
+          <a class="dropdown-item" href=<?php echo "/repitelramo/presentacion/documento/factura/principalFactura.php"?>>Factura</a>
           <a class="dropdown-item disabled" href="#">Nota de Credito</a>
         </div>
       </li>

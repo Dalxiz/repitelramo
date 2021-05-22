@@ -95,7 +95,7 @@
     </div>
     
     <!-- datatable -->
-    <div class="container-fluid contenedorTabla">
+    <div class="container-fluid contenedorTabla table-responsive">
     
     <!-- alert -->
     <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok",) === 0) {  ?>
@@ -122,7 +122,7 @@
 
 
     
-    <table id="example" class="table is-striped" style="width:100%">
+    <table id="example" class="table is-striped table-hover " style="width:100%">
         <thead>
             <tr>
             <th>Codigo Producto</th>
@@ -159,12 +159,13 @@
                 </tr>
                 <?php
                     }
-                }else{
-
+                }else
+                {
+                    ?> 
+                    <tr><td colspan=4 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td>
+                <?php 
                 }
 
-
-            
             
             ?>            
             </tr>           
@@ -176,7 +177,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 ><i class="bi bi-bookmark-plus-fill"></i><span id="txtTituloModal">Nuevo Cliente</span></h5>
+                    <h5 ><i id="iconoModal" class="bi bi-bookmark-plus-fill"> </i><span id="txtTituloModal">Nuevo Cliente</span></h5>
                     <button class="close" data-dismiss="modal" aria-label="cerrar">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -218,6 +219,10 @@
                                 <label class="labelForm" for="txtPrecioUnitario">Precio unitario</label>
                                 <input required="required" class="form-control" onkeydown="return validarNumeroEntero(event)" type="number" name="precioUnitario" id="txtPrecioUnitario" placeholder="Precio unitario" min="0">
                              </div>
+                        </div>
+
+                        <div class="text-center form-group" id="lblEliminar">
+                        <label>Si esta seguro de eliminar el registro presione el botón</label>
                         </div>
 
                         <div class="container-fluid">
@@ -274,6 +279,10 @@
             $('#cbxUnidadMedida').val('') //ComboBox se selecciona opción con valor vacío
             $('#btnAccion').text("Registrar"); //Texto Botón
             $('#formProd label').attr("hidden",true); 
+            $('#btnAccion').attr("class", "btn btn-dark col-lg-12");
+
+            //Icono del modal
+            $('#iconoModal').attr("class","bi bi-bookmark-plus-fill"); 
         }
 
         else if (txtTituloModal == "Actualizar Producto"){
@@ -281,9 +290,16 @@
             $('#txtDescripcion').attr("readonly", false);
             $('#cbxUnidadMedida').attr("disabled", false);
             $('#txtPrecioUnitario').attr("readonly", false);
+            
             $('#btnAccion').attr("name", "actualizar");
             $('#btnAccion').text("Actualizar");
+            $('#btnAccion').attr("class", "btn btn-dark col-lg-12");
             $('#formProd label').removeAttr('hidden'); 
+
+            //Icono del modal
+            $('#iconoModal').attr("class","bi bi-pencil-square"); 
+
+            $('#formProd #lblEliminar').attr("hidden",true); 
         }
 
         else if (txtTituloModal == "Eliminar Producto"){
@@ -294,7 +310,13 @@
 
             $('#btnAccion').attr("name", "eliminar");
             $('#btnAccion').text("Eliminar");
+            $('#btnAccion').attr("class", "btn btn-danger col-lg-12");
             $('#formProd label').removeAttr('hidden'); 
+
+            //Icono del modal
+            $('#iconoModal').attr("class","bi bi-x-octagon-fill"); 
+
+            $('#formProd #lblEliminar').removeAttr("hidden"); 
         }
 
         });

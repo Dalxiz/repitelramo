@@ -50,12 +50,12 @@
     </div>
     
     <!-- datatable -->
-    <div class="container-fluid contenedorTabla">
+    <div class="container-fluid contenedorTabla table-responsive">
     <!-- contenedor de registro nuevo -->
     <div class="container-fluid contenedorBoton">
         <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-plus-circle-fill"></i> Nuevo Cliente</button>
     </div>
-    <table id="example" class="table is-striped" style="width:100%">
+    <table id="example" class="table is-striped table-hover" style="width:100%">
         <thead>
             <tr>
                 <th>Rut</th>
