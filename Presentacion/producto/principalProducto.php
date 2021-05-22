@@ -95,7 +95,7 @@
     </div>
     
     <!-- datatable -->
-    <div class="container-fluid contenedorTabla">
+    <div class="container-fluid contenedorTabla table-responsive">
     
     <!-- alert -->
     <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok",) === 0) {  ?>
@@ -122,7 +122,7 @@
 
 
     
-    <table id="example" class="table is-striped" style="width:100%">
+    <table id="example" class="table is-striped table-hover " style="width:100%">
         <thead>
             <tr>
             <th>Codigo Producto</th>
@@ -159,12 +159,13 @@
                 </tr>
                 <?php
                     }
-                }else{
-
+                }else
+                {
+                    ?> 
+                    <tr><td colspan=4 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td>
+                <?php 
                 }
 
-
-            
             
             ?>            
             </tr>           

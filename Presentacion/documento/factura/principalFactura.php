@@ -66,7 +66,7 @@
     </div>
 
     <!-- datatable -->
-    <div class="container-fluid contenedorTabla">
+    <div class="container-fluid contenedorTabla table-responsive">
 
         <!-- contenedor de registro nuevo y libro factura q -->
         <div class="container-fluid contenedorBoton">
@@ -75,7 +75,7 @@
         </div>
         
 
-        <table id="example" class="table is-striped" style="width:100%">
+        <table id="example" class="table is-striped table-hover" style="width:100%">
         <thead>
             <tr>
             <th>Folio Documento</th>
