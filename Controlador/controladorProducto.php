@@ -16,11 +16,7 @@
 
             $mensaje = registrarProducto($nuevoProducto);
             
-            //header("Location: ../presentacion/alumno/registrar.php?msj=" . registrarAlumno($nuevoAlumno) . " [Alumno: " . $nuevoAlumno->getNombreCompleto() . "]");
-            
-            //echo $mensaje;
-            
-            header("Location: ../Presentacion/producto/principalProducto.php?msj=". $mensaje . " - Producto: " . $nuevoProducto->getCodProd() . " - " . $nuevoProducto->getDescripcion()  . " Registrado Correctamente!");
+            header("Location: ../Presentacion/producto/principalProducto.php?msj=". $mensaje);
 
             die();
     }
@@ -42,9 +38,6 @@
 
             $mensaje = actualizarProducto($nuevoProducto);
             
-            //header("Location: ../presentacion/alumno/registrar.php?msj=" . registrarAlumno($nuevoAlumno) . " [Alumno: " . $nuevoAlumno->getNombreCompleto() . "]");
-            
-            //echo $mensaje;
             
             header("Location: ../Presentacion/producto/principalProducto.php?msj=".  $mensaje . " - Producto: " . $nuevoProducto->getCodProd() . " - " . $nuevoProducto->getDescripcion() . " Actualizado Correctamente!");
 
@@ -68,17 +61,10 @@
 
             $mensaje = eliminarProducto($nuevoProducto);
             
-            //header("Location: ../presentacion/alumno/registrar.php?msj=" . registrarAlumno($nuevoAlumno) . " [Alumno: " . $nuevoAlumno->getNombreCompleto() . "]");
-            
-            //echo $mensaje;
-            
-            header("Location: ../Presentacion/producto/principalProducto.php?msj=".  $mensaje . " - Producto: " . $nuevoProducto->getCodProd() . " - " . $nuevoProducto->getDescripcion() . " Eliminado Correctamente!");
+            header("Location: ../Presentacion/producto/principalProducto.php?msj=".  $mensaje );
 
             die();
     }
-
-
-
 
 
     function getTodosLosProductos(){

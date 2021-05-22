@@ -34,7 +34,7 @@
         var unidadMedida = document.getElementById("cbxUnidadMedida").value;
         var accion = document.getElementById("btnAccion").getAttribute("name");
 
-        if(codProd === "" || descripcion === "" || precioUnitario === ""){
+        if(codProd === "" || descripcion === "" || precioUnitario === "" || unidadMedida == ""){
             if( accion == "registrar"){
             alert("¡Debe rellenar todos los campos antes de ingresar un producto!");
             }
@@ -93,13 +93,9 @@
     
     <!-- datatable -->
     <div class="container-fluid contenedorTabla">
-    <!-- contenedor de registro nuevo -->
-    <div class="container-fluid contenedorBoton">
-        <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalProd" data-prod-accion='Nuevo Producto'><i class="bi bi-plus-circle-fill"></i> Nuevo Producto</button>
-    </div>
-
+    
     <!-- alert -->
-    <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") !== false) {  ?>
+    <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok",) === 0) {  ?>
         
         <div class='alert alert-success alert-dismissible'>
             <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -114,6 +110,13 @@
             </div>
     
     <?php    } ?>
+
+    <!-- contenedor de registro nuevo -->
+    <div class="container-fluid contenedorBoton">
+        <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalProd" data-prod-accion='Nuevo Producto'><i class="bi bi-plus-circle-fill"></i> Nuevo Producto</button>
+    </div>
+
+
 
     
     <table id="example" class="table is-striped" style="width:100%">
@@ -226,6 +229,7 @@
     </div>
 
     </div>
+
     <script type="text/javascript">
 
         $('#modalProd').on('show.bs.modal', function (e) {
