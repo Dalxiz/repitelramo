@@ -325,7 +325,7 @@
     <!-- script de datatable -->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
 
-    <script type="text/javascript" src="../main.js"></script>
+    <script type="text/javascript" src="../dist/js/main.js"></script>
 
 </body>
     <?php require_once '../footer.php' ?>
