@@ -70,7 +70,7 @@
     function getTodosLosProductos(){
             require_once '../../Persistencia/daoProducto.php';
             //require_once '../../Persistencia/daoUM.php';
-            require_once '../../Entidades/Producto.php';
+            require_once '../../Entidades/producto.php';
             //require_once '../../Entidades/unidadMedida.php';
     
             $lista = consultarProductos();

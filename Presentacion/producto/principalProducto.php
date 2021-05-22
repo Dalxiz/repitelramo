@@ -98,7 +98,7 @@
     <div class="container-fluid contenedorTabla table-responsive">
     
     <!-- alert -->
-    <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok",) === 0) {  ?>
+    <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") === 0) {  ?>
         
         <div class='alert alert-success alert-dismissible'>
             <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -239,12 +239,12 @@
     </div>
 
     <script type="text/javascript">
-
+        
+        //Función que se ejecuta al mostar el modal.
         $('#modalProd').on('show.bs.modal', function (e) {
-        //A penas se habrá el modal la infomraicon se carga
-        var opener=e.relatedTarget;//Esto tiene el elemento que llamó al modal (osea el botón correspondiente)
+        var opener=e.relatedTarget;//Esta var tiene el elemento que llamó al modal (osea el botón correspondiente)
 
-        //Obtenemos los valores de los atributos definidos
+        //Obtenemos los valores de los atributos definidos con data-*
 
         /* MANERA 1:
         var prodId=$(opener).attr('data-prod-id');
@@ -267,7 +267,7 @@
         $('#formProd').find('[id="txtPrecioUnitario"]').val(prodPrecio);
         $('#txtTituloModal').text(txtTituloModal);
 
-        //Segun el model abierto, los atributos cambian:
+        //Segun el modal abierto, los atributos cambian:
         if(txtTituloModal == "Nuevo Producto"){
             //Condición de disabled o readonly
             $('#txtCodProd').attr("readonly", false);
