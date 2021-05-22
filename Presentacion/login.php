@@ -74,22 +74,22 @@
         }
       }
     </style>
-    <title>Document</title>
+    <title>Inicio Sesión</title>
 </head>
     <body>
-        <form class="form-signin form-color">
+        <form action="../Controlador/controladorUsuario.php" class="form-signin form-color" method="POST">
             <center>
                 <img class="mb-4" src="../img/logo.png" alt="" width="150" height="150">
                 <h1 class="h3 mb-3 font-weight-normal">Registro</h1>
             </center>
                 <label for="txtUsuario" class="sr-only">Usuario</label>
-                <input type="text" id="txtUsuario" class="form-control" placeholder="Usuario" required autofocus><br>
+                <input type="text" id="txtUsuario" name="Usuario" class="form-control" placeholder="Usuario" required autofocus><br>
                 <label for="txtPassword" class="sr-only">Password</label>
-                <input type="password" id="txtPassword" class="form-control" placeholder="Contraseña" required>
+                <input type="password" id="txtPassword" name="Password" class="form-control" placeholder="Contraseña" required>
             <div class="checkbox mb-3">
                 <label><input type="checkbox" value="remember-me"> Recuerdame</label>
             </div>
-                <button class="btn btn-lg btn-dark btn-block" type="submit">Ingresar</button>
+                <button class="btn btn-lg btn-dark btn-block" name="validar" type="submit">Ingresar</button>
             <center>
                 <p class="mt-5 mb-3 text-muted">&copy; 2021 Repi Telramo. Desarrollado por The Vapers</p>
             </center>

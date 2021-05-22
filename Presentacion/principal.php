@@ -30,48 +30,10 @@
 </head>
 <body>
 
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
-    <ul class="navbar-nav">
-    <li class="nav-item">
-        <a class="nav-link" href="http://localhost/repitelramo/presentacion/principal.php"><i class="bi bi-house-door-fill"></i></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../Presentacion/empresa/principalEmpresa.php">Empresa</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../Presentacion/cliente/principalCliente.php">Clientes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../Presentacion/producto/principalProducto.php">Productos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Mantenedor</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Documentos</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown08">
-          <a class="dropdown-item navbar-dark disabled" href="#">Boleta</a>
-          <a class="dropdown-item" href="../Presentacion/documento/factura/principalFactura.php">Factura</a>
-          <a class="dropdown-item disabled" href="#">Nota de Credito</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+<?php require_once 'menu.php' ?>
 
 
-<footer class="footer mt-auto py-3">
-  <div class="contenedor-footer">
-    <a href="http://localhost/repitelramo/presentacion/principal.php"><img src="../img/logo.png" height="70" width="70" alt=""></a>
-    <span class="text-muted">© 2021 Repi Telramo Copyright . Desarrollado por The Vapers</span>
-  </div>
-</footer>
+
 
 
     <!-- script de bootstrap 4 -->
@@ -83,4 +45,5 @@
 
     <script type="text/javascript" src="main.js"></script>
 </body>
+    <?php require_once 'footer.php' ?>
 </html>
