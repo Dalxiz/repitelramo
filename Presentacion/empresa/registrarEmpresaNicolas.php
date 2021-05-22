@@ -21,7 +21,7 @@
 <body>
     
 <div class="col-lg-5 formulario">
-            <form action="../../Controlador/controladorEmpresa.php" method="POST">
+            <form action="../../controlador/controladorEmpresa.php" method="POST">
 
                 <div class="form-group">
                     <label for="txtRutEmpresa"></label>

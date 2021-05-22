@@ -135,7 +135,7 @@
         <tbody>
             <?php 
 
-                require '../../Controlador/controladorProducto.php';
+                require '../../controlador/controladorProducto.php';
 
                 $listaProductos = getTodosLosProductos();
 
@@ -183,7 +183,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../Controlador/controladorProducto.php" id="formProd" method="POST">
+                    <form action="../../controlador/controladorProducto.php" id="formProd" method="POST">
                         
                         <div class="container-fluid">
                             <div class="form-group">
@@ -202,7 +202,7 @@
                                     <select class="form-control" name="unidadMedida" id="cbxUnidadMedida" required="required">
                                     <option selected value="" disabled="1">Unidad de medida</option>
                                     <?php
-                                        include_once "../../Controlador/controladorUM.php";
+                                        include_once "../../controlador/controladorUM.php";
 
                                         $listaUM = getTodasUM();
 

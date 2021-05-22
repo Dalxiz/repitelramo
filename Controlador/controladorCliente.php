@@ -2,8 +2,8 @@
 
     if (isset($_POST['registrar'])) {
         
-        require_once '../Entidades/clientes.php';        
-        require_once '../Persistencia/daoClientes.php';
+        require_once '../entidades/clientes.php';        
+        require_once '../persistencia/daoClientes.php';
 
         $rutCliente = $_POST['Rut'];
         $dvcliente = $_POST['Dv'];
@@ -19,14 +19,14 @@
 
         $mensaje = registrarCliente($nuevoCliente);
 
-        header("Location: ../Presentacion/cliente/principalCliente.php");
+        header("Location: ../presentacion/cliente/principalCliente.php");
 
         die();
 
     }elseif (isset($_POST['modificar'])) {
 
-        require_once '../Entidades/clientes.php';
-        require_once '../Persistencia/daoClientes.php';
+        require_once '../entidades/clientes.php';
+        require_once '../persistencia/daoClientes.php';
 
         $rutCliente = $_POST['Rut'];
         $dvcliente = $_POST['Dv'];
@@ -42,12 +42,12 @@
 
         $mensaje = modificarCliente($nuevoCliente);
 
-        header("Location: ../Presentacion/cliente/principalCliente.php");
+        header("Location: ../presentacion/cliente/principalCliente.php");
 
     }elseif (isset($_POST['eliminar'])) {
         
-        require_once '../Entidades/clientes.php';
-        require_once '../Persistencia/daoClientes.php';
+        require_once '../entidades/clientes.php';
+        require_once '../persistencia/daoClientes.php';
 
         $rutCliente = $_POST['Rut'];
         $dvcliente = $_POST['Dv'];
@@ -63,14 +63,14 @@
 
         $mensaje=eliminarCliente($cliente);
         
-        header("Location: ../Presentacion/cliente/principalCliente.php");
+        header("Location: ../presentacion/cliente/principalCliente.php");
 
         die();
     }
 
     function getTodosLosClientes(){
-        require_once '../../Persistencia/daoClientes.php';
-        require_once '../../Entidades/clientes.php';
+        require_once '../../persistencia/daoClientes.php';
+        require_once '../../entidades/clientes.php';
 
         $lista = consultarCliente();
 

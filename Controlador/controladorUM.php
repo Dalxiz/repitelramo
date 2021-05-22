@@ -1,7 +1,7 @@
 <?php
     function getTodasUM(){
-        include_once "../../Persistencia/daoUM.php";
-        include_once "../../Entidades/unidadMedida.php";
+        include_once "../../persistencia/daoUM.php";
+        include_once "../../entidades/unidadMedida.php";
 
         $lista = consultarTodasUM();
         

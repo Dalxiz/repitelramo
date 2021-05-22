@@ -63,7 +63,7 @@
       </div>
       <div class="modal-body">
         <div class="col-lg-12">
-            <form action="../../Controlador/controladorEmpresa.php" id="formEmpr" method="POST">
+            <form action="../../controlador/controladorEmpresa.php" id="formEmpr" method="POST">
                 <div class="form-group">
                     <label for="txtCodProd"></label>
                     <input required="required" class="form-control" type="number" name="rutEmp" id="txtRutEmp" placeholder="Rut empresa sin dv" maxlength="10">
@@ -118,7 +118,7 @@
                     <tbody>
                             <?php
 
-                            require '../../Controlador/controladorEmpresa.php';
+                            require '../../controlador/controladorEmpresa.php';
 
                             $listaEmpresas = getTodasLasEmpresas();
 

@@ -72,7 +72,7 @@
         <tbody>
             <?php 
 
-                require '../../Controlador/controladorCliente.php';
+                require '../../controlador/controladorCliente.php';
 
                 $listaClientes = getTodosLosClientes();
 
@@ -129,7 +129,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../Controlador/controladorCliente.php" method="POST">
+                    <form action="../../controlador/controladorCliente.php" method="POST">
                         <div class="container-fluid">
                             <div class="form-group">
                                 <div class="row">
@@ -199,7 +199,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../Controlador/controladorCliente.php" method="POST">
+                    <form action="../../controlador/controladorCliente.php" method="POST">
                         <div class="container-fluid">
                             <div class="form-group">
                                 <div class="row">
@@ -269,7 +269,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../Controlador/controladorCliente.php" method="POST">                         
+                    <form action="../../controlador/controladorCliente.php" method="POST">                         
                         <div class="container-fluid">
                             <div class="form-group">
                                 <div class="row">

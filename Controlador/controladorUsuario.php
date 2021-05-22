@@ -2,9 +2,9 @@
 
     if (isset($_POST['validar'])) {
         
-        require_once '../Entidades/usuario.php';
-        require_once '../Persistencia/daoUsuario.php';
-        require_once '../Entidades/tipoUsuario.php';
+        require_once '../entidades/usuario.php';
+        require_once '../persistencia/daoUsuario.php';
+        require_once '../entidades/tipoUsuario.php';
 
         $usuario = $_POST['Usuario'];
         $password = $_POST['Password'];

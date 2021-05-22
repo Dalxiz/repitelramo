@@ -77,7 +77,7 @@
     <title>Inicio Sesión</title>
 </head>
     <body>
-        <form action="../Controlador/controladorUsuario.php" class="form-signin form-color" method="POST">
+        <form action="../controlador/controladorUsuario.php" class="form-signin form-color" method="POST">
             <center>
                 <img class="mb-4" src="../img/logo.png" alt="" width="150" height="150">
                 <h1 class="h3 mb-3 font-weight-normal">Registro</h1>

@@ -1,8 +1,8 @@
 <?php
     if(isset($_POST['registrar']))
         { 
-            require_once '../Entidades/empresa.php';
-            require_once '../Persistencia/daoEmpresa.php';
+            require_once '../entidades/empresa.php';
+            require_once '../persistencia/daoEmpresa.php';
 
             $rutEmp = $_POST['rutEmp'];
             $dvEmpresa = $_POST['dvEmpresa'];
@@ -19,8 +19,8 @@
         }
         elseif(isset($_POST['actualizar']))
         { 
-            require_once '../Entidades/empresa.php';
-            require_once '../Persistencia/daoEmpresa.php';
+            require_once '../entidades/empresa.php';
+            require_once '../persistencia/daoEmpresa.php';
 
             $rutEmp = $_POST['rutEmp'];
             $dvEmpresa = $_POST['dvEmpresa'];
@@ -37,8 +37,8 @@
         }
 
         function getTodasLasEmpresas(){
-            require_once '../../Persistencia/daoEmpresa.php';
-            require_once '../../Entidades/empresa.php';
+            require_once '../../persistencia/daoEmpresa.php';
+            require_once '../../entidades/empresa.php';
     
             $lista = consultarEmpresa();
             
