@@ -89,7 +89,7 @@
                     <select class="form-control" name="unidadMedida" id="cbxUnidadMedida">
                           
                         <?php
-                            include_once "../../Controlador/controladorUM.php";
+                            include_once "../../controlador/controladorUM.php";
 
                             $listaUM = getTodasUM();
 
