@@ -4,30 +4,95 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- css de bootstrap 4 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="main.css">
+    <!-- css de datdatble-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/> 
+    <!-- css de icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-    <title>Login</title>
+    <style>
+        
+        html,body {
+        height: 100%;
+        }
+
+        body {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #211E1C;
+        }
+        .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+        background-color: whitesmoke;
+        border-radius: 5px;
+        }
+        .form-signin .checkbox {
+        font-weight: 400;
+        }
+        .form-signin .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+        z-index: 2;
+        }
+        .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        }
+        .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        }
+
+        
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <title>Document</title>
 </head>
-<body class="login">
-    <div class="caja-body">
-        <div class="container">
-            <div class="container caja">
-                <h3>Iniciar sesión</h3>
-                    <input class="form-control txt" type="text" name="" id="" placeholder="Usuario">
-                    <input class="form-control txt" type="password" name="" id="" placeholder="Contraseña">
-                    <button class="btn btn-dark boton">Ingresar</button>
-                    <?php 
-                    // if (condition) {
-                    //    echo "<div class='alert alert-success' role='alert'>Datos Corectos</div>";
-                    // }else {
-                    //    echo "<div class='alert alert-success' role='alert'>Usuario y/o Contraseña Incorrectos</div>";
-                    // }           
-                    ?>        
+    <body>
+        <form class="form-signin form-color">
+            <center>
+                <img class="mb-4" src="../img/logo.png" alt="" width="150" height="150">
+                <h1 class="h3 mb-3 font-weight-normal">Registro</h1>
+            </center>
+                <label for="txtUsuario" class="sr-only">Usuario</label>
+                <input type="text" id="txtUsuario" class="form-control" placeholder="Usuario" required autofocus><br>
+                <label for="txtPassword" class="sr-only">Password</label>
+                <input type="password" id="txtPassword" class="form-control" placeholder="Contraseña" required>
+            <div class="checkbox mb-3">
+                <label><input type="checkbox" value="remember-me"> Recuerdame</label>
             </div>
-        </div>
-    </div>    
-</body>
+                <button class="btn btn-lg btn-dark btn-block" type="submit">Ingresar</button>
+            <center>
+                <p class="mt-5 mb-3 text-muted">&copy; 2021 Repi Telramo. Desarrollado por The Vapers</p>
+            </center>
+        </form>
+    </body>
 </html>
