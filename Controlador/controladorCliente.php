@@ -64,6 +64,8 @@
         $mensaje=eliminarCliente($cliente);
         
         header("Location: ../Presentacion/cliente/principalCliente.php");
+
+        die();
     }
 
     function getTodosLosClientes(){
