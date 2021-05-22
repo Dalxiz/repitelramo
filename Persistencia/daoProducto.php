@@ -17,7 +17,7 @@
             
             if($result === true)
             {
-                return 'ok';
+                return 'ok'  . " - Producto: " . $nuevoProducto->getCodProd() . " - " . $nuevoProducto->getDescripcion()  . " Registrado Correctamente!";
             }
             else
             {
@@ -27,7 +27,7 @@
         }catch(PDOException $pe){
 
             if(strpos($pe->getMessage(),"violation: 1062")){
-                return "err : El Código del Producto: '" . $nuevoProducto->getCodProd() ."' ya se encuentra registrada. El código debe ser único.";
+                return "err : El Código del Producto: '" . $nuevoProducto->getCodProd() ."' ya se encuentra registrado. El código debe ser único.";
             }
 
             else{
@@ -122,7 +122,7 @@
             
             if($result === true)
             {
-                return 'ok';
+                return 'ok  - Producto: ' . $nuevoProducto->getCodProd() . ' - ' . $nuevoProducto->getDescripcion() . ' Eliminado Correctamente!';
             }
             else
             {
@@ -130,6 +130,10 @@
             }
 
         }catch(PDOException $pe){
+
+            if(strpos($pe->getMessage(),"violation: 1451")){
+                return "err : El Código del Producto: '" . $nuevoProducto->getCodProd() ."' esta siendo utilizado por documentos, no es posible eliminarlo. Contactese con el administador del sistema si desea eleminarlo del sistema";
+            }
 
             return "err : " . $pe->getMessage();
             
