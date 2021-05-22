@@ -28,12 +28,12 @@
         }
     }
 
-    function consultarProducto(){
+    function consultarUSuario(){
         require_once 'parametrosBD.php';
         require_once 'daoTipoUsuario.php';
 
         try {
-            $conn = new PDo("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -41,11 +41,61 @@
 
             $querySelect=$conn->query("SELECT * FROM");
 
-            // foreach ($querySelect->fetchAll() as $tablaUsuBBDD) {
+            foreach ($querySelect->fetchAll() as $tablaUsuBBDD) {
                 
-            // }
-        } catch (\Throwable $th) {
-            //throw $th;
+                $tipoUsuario = consultarTUPorId($tablaUsuBBDD['idTipoUsu']);
+                $usuarioSel=new TipoUsuario($tablaUsuBBDD['idUsu'],
+                                            $tablaUsuBBDD['nombreUsu'],
+                                            $tablaUsuBBDD['passUsu'],
+                                            $tablaUsuBBDD['correoUsu']);
+            $listaUsuarios[]=$usuarioSel;
+
+            }
+
+            if(count($listaUsuarios) > 0){
+                return $listaUsuarios;
+            }else{
+                return ($lista=[]);
+            }
+
+        } catch (PDOException $pe) {
+            return $pe->getMessage();
+        }
+    }
+
+    function validarUsuario(Usuario $nuevoUsuario){
+
+        require_once 'parametrosBD.php';
+        require_once 'daoTipoUsuario.php';
+
+        try {
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $queryValidar=$conn->query("SELECT * FROM USUARIO WHERE nombreUsu='".$nuevoUsuario->getNombreUsu()."' and passUsu='".$nuevoUsuario->getPassUsu()."'");
+
+            $listaUsuarios=[];
+
+            foreach ($queryValidar->fetchAll() as $tablaUsuBBDD) {
+                
+                $tipoUsuario = consultarTUPorId($tablaUsuBBDD['idTipoUsu']);
+                $usuarioSel=new TipoUsuario($tablaUsuBBDD['idUsu'],
+                                            $tablaUsuBBDD['nombreUsu'],
+                                            $tablaUsuBBDD['passUsu'],
+                                            $tablaUsuBBDD['correoUsu']);
+            $listaUsuarios[]=$usuarioSel;
+
+            }
+
+            if(count($listaUsuarios) > 0){
+                return 'ok';
+            }else{
+                return 'err';
+            }
+
+        } catch (PDOException $pe) {
+            return "err : ". $pe->getMessage();
         }
     }
 

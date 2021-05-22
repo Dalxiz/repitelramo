@@ -4,8 +4,9 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+  <div class="collapse navbar-collapse justify-content-*-start" id="navbarsExample08">
     <ul class="navbar-nav">
+      <a href="" class="navbar-brand">Repi <small class="font-weight-bold lead">Telramo Electronics</small> </a>
     <li class="nav-item">
         <a class="nav-link" href=<?php echo "/repitelramo/presentacion/principal.php" ?>><i class="bi bi-house-door-fill"></i></a>
       </li>
@@ -28,7 +29,15 @@
           <a class="dropdown-item" href=<?php echo "/repitelramo/presentacion/documento/factura/principalFactura.php"?>>Factura</a>
           <a class="dropdown-item disabled" href="#">Nota de Credito</a>
         </div>
-      </li>
+      </li>                             
     </ul>
-  </div>
+    <li class="navbar-nav nav-item dropdown ml-auto dropleft">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+        <div class="dropdown-menu ml" aria-labelledby="dropdown08">
+          <a class="dropdown-item navbar-dark disabled" href="#">Mi Perfil</a>
+          <a class="dropdown-item" href=<?php echo "/repitelramo/presentacion/documento/factura/principalFactura.php"?>>Cerrar sesión</a>
+        </div>
+      </li>
+            
+  </div>  
 </nav>
