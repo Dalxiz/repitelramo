@@ -73,7 +73,7 @@
         <tbody>
             <?php 
 
-                require '../../Controlador/controladorCliente.php';
+                require '../../controlador/controladorCliente.php';
 
                 $listaClientes = getTodosLosClientes();
 
@@ -130,7 +130,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../Controlador/controladorCliente.php" method="POST">
+                    <form action="../../controlador/controladorCliente.php" method="POST">
                         <div class="container-fluid">
                             <div class="form-group">
                                 <div class="row">
@@ -200,7 +200,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../Controlador/controladorCliente.php" method="POST">
+                    <form action="../../controlador/controladorCliente.php" method="POST">
                         <div class="container-fluid">
                             <div class="form-group">
                                 <div class="row">
@@ -270,7 +270,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../Controlador/controladorCliente.php" method="POST">                         
+                    <form action="../../controlador/controladorCliente.php" method="POST">                         
                         <div class="container-fluid">
                             <div class="form-group">
                                 <div class="row">
@@ -325,7 +325,7 @@
     <!-- script de datatable -->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
 
-    <script type="text/javascript" src="../main.js"></script>
+    <script type="text/javascript" src="../dist/js/main.js"></script>
 
 </body>
     <?php require_once '../footer.php' ?>

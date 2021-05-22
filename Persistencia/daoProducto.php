@@ -58,7 +58,7 @@
                 $unidadMedida = consultarUMPorId($tablaProdBBDD['idUM']);
 
                 $productoSel= new Producto($tablaProdBBDD['codProd'], $tablaProdBBDD['descripcion'],
-                $unidadMedida, $tablaProdBBDD['precioUnitario'], );
+                $unidadMedida, $tablaProdBBDD['precioUnitario']);
 
                 $listaProductos[]=$productoSel; //1,2,3,4,5,6,7,
             }

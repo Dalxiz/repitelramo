@@ -73,7 +73,7 @@
       </div>
       <div class="modal-body">
         <div class="col-lg-12">
-            <form action="../../Controlador/controladorProducto.php" id="formProd" method="POST">
+            <form action="../../controlador/controladorProducto.php" id="formProd" method="POST">
                 <div class="form-group">
                     <label for="txtCodProd"></label>
                     <input readonly=true required="required" class="form-control" type="text" name="codProd" id="txtCodProd" placeholder="Código del producto" maxlength="10">
@@ -89,7 +89,7 @@
                     <select class="form-control" name="unidadMedida" id="cbxUnidadMedida">
                           
                         <?php
-                            include_once "../../Controlador/controladorUM.php";
+                            include_once "../../controlador/controladorUM.php";
 
                             $listaUM = getTodasUM();
 
@@ -138,7 +138,7 @@
                     <tbody>
                         <?php
 
-                            require '../../Controlador/controladorProducto.php';
+                            require '../../controlador/controladorProducto.php';
 
                             $listaProductos = getTodosLosProductos();
 

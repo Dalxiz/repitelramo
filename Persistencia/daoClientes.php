@@ -117,7 +117,7 @@
                                              $tablaClienteBBDD['comuna'],
                                              $tablaClienteBBDD['ciudad'],
                                              $tablaClienteBBDD['telefono'],
-                                             $tablaClienteBBDD['email'],);
+                                             $tablaClienteBBDD['email']);
 
                 $listarClientes[]=$clienteSelect;
             }

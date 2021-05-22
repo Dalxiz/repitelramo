@@ -1,9 +1,9 @@
 <?php
     if(isset($_POST['registrar']))
     { 
-            require_once '../Entidades/producto.php';
-            require_once '../Entidades/unidadMedida.php';
-            require_once '../Persistencia/daoProducto.php';
+            require_once '../entidades/producto.php';
+            require_once '../entidades/unidadMedida.php';
+            require_once '../persistencia/daoProducto.php';
 
             $codProd = $_POST['codProd'];
             $descripcion = $_POST['descripcion'];
@@ -16,16 +16,16 @@
 
             $mensaje = registrarProducto($nuevoProducto);
             
-            header("Location: ../Presentacion/producto/principalProducto.php?msj=". $mensaje);
+            header("Location: ../presentacion/producto/principalProducto.php?msj=". $mensaje);
 
             die();
     }
 
     else if(isset($_POST['actualizar']))
     { 
-            require_once '../Entidades/producto.php';
-            require_once '../Entidades/unidadMedida.php';
-            require_once '../Persistencia/daoProducto.php';
+            require_once '../entidades/producto.php';
+            require_once '../entidades/unidadMedida.php';
+            require_once '../persistencia/daoProducto.php';
 
             $codProd = $_POST['codProd'];
             $descripcion = $_POST['descripcion'];
@@ -39,16 +39,16 @@
             $mensaje = actualizarProducto($nuevoProducto);
             
             
-            header("Location: ../Presentacion/producto/principalProducto.php?msj=".  $mensaje . " - Producto: " . $nuevoProducto->getCodProd() . " - " . $nuevoProducto->getDescripcion() . " Actualizado Correctamente!");
+            header("Location: ../presentacion/producto/principalProducto.php?msj=".  $mensaje . " - Producto: " . $nuevoProducto->getCodProd() . " - " . $nuevoProducto->getDescripcion() . " Actualizado Correctamente!");
 
             die();
     }
 
     else if(isset($_POST['eliminar']))
     { 
-            require_once '../Entidades/producto.php';
-            require_once '../Entidades/unidadMedida.php';
-            require_once '../Persistencia/daoProducto.php';
+            require_once '../entidades/producto.php';
+            require_once '../entidades/unidadMedida.php';
+            require_once '../persistencia/daoProducto.php';
 
             $codProd = $_POST['codProd'];
             $descripcion = $_POST['descripcion'];
@@ -61,17 +61,17 @@
 
             $mensaje = eliminarProducto($nuevoProducto);
             
-            header("Location: ../Presentacion/producto/principalProducto.php?msj=".  $mensaje );
+            header("Location: ../presentacion/producto/principalProducto.php?msj=".  $mensaje );
 
             die();
     }
 
 
     function getTodosLosProductos(){
-            require_once '../../Persistencia/daoProducto.php';
-            //require_once '../../Persistencia/daoUM.php';
-            require_once '../../Entidades/Producto.php';
-            //require_once '../../Entidades/unidadMedida.php';
+            require_once '../../persistencia/daoProducto.php';
+            //require_once '../../persistencia/daoUM.php';
+            require_once '../../entidades/producto.php';
+            //require_once '../../entidades/unidadMedida.php';
     
             $lista = consultarProductos();
             

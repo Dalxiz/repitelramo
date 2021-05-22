@@ -42,7 +42,7 @@
 <body>
     
 <div class="col-lg-5 contFormulario">
-            <form action="../../Controlador/controladorProducto.php" method="POST">
+            <form action="../../controlador/controladorProducto.php" method="POST">
                 <div class="form-group">
                     <label for="txtCodProd"></label>
                     <input required="required" class="form-control" type="text" name="codProd" id="txtCodProd" placeholder="Código del producto" maxlength="10">
@@ -58,7 +58,7 @@
                     <select class="form-control" name="unidadMedida" id="cbxUnidadMedida">
                           
                         <?php
-                            include "../../Controlador/controladorUM.php";
+                            include "../../controlador/controladorUM.php";
 
                             $listaUM = getTodasUM();
 

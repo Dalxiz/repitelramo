@@ -17,7 +17,7 @@
     <!-- Js boostrap 4 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="../main.js"></script>
+    <script type="text/javascript" src="../dist/js/main.js"></script>
 
     <script type="text/javascript">
 
@@ -98,7 +98,7 @@
     <div class="container-fluid contenedorTabla table-responsive">
     
     <!-- alert -->
-    <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok",) === 0) {  ?>
+    <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") === 0) {  ?>
         
         <div class='alert alert-success alert-dismissible'>
             <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -135,7 +135,7 @@
         <tbody>
             <?php 
 
-                require '../../Controlador/controladorProducto.php';
+                require '../../controlador/controladorProducto.php';
 
                 $listaProductos = getTodosLosProductos();
 
@@ -183,7 +183,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../Controlador/controladorProducto.php" id="formProd" method="POST">
+                    <form action="../../controlador/controladorProducto.php" id="formProd" method="POST">
                         
                         <div class="container-fluid">
                             <div class="form-group">
@@ -202,7 +202,7 @@
                                     <select class="form-control" name="unidadMedida" id="cbxUnidadMedida" required="required">
                                     <option selected value="" disabled="1">Unidad de medida</option>
                                     <?php
-                                        include_once "../../Controlador/controladorUM.php";
+                                        include_once "../../controlador/controladorUM.php";
 
                                         $listaUM = getTodasUM();
 
@@ -239,12 +239,12 @@
     </div>
 
     <script type="text/javascript">
-
+        
+        //Función que se ejecuta al mostar el modal.
         $('#modalProd').on('show.bs.modal', function (e) {
-        //A penas se habrá el modal la infomraicon se carga
-        var opener=e.relatedTarget;//Esto tiene el elemento que llamó al modal (osea el botón correspondiente)
+        var opener=e.relatedTarget;//Esta var tiene el elemento que llamó al modal (osea el botón correspondiente)
 
-        //Obtenemos los valores de los atributos definidos
+        //Obtenemos los valores de los atributos definidos con data-*
 
         /* MANERA 1:
         var prodId=$(opener).attr('data-prod-id');
@@ -267,7 +267,7 @@
         $('#formProd').find('[id="txtPrecioUnitario"]').val(prodPrecio);
         $('#txtTituloModal').text(txtTituloModal);
 
-        //Segun el model abierto, los atributos cambian:
+        //Segun el modal abierto, los atributos cambian:
         if(txtTituloModal == "Nuevo Producto"){
             //Condición de disabled o readonly
             $('#txtCodProd').attr("readonly", false);
