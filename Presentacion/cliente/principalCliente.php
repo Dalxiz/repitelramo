@@ -328,5 +328,5 @@
     <script type="text/javascript" src="../main.js"></script>
 
 </body>
-    <!-- <?php require_once '../footer.php' ?> -->
+    <?php require_once '../footer.php' ?>
 </html>
