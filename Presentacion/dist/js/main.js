@@ -70,24 +70,24 @@ $(document).ready(function() {
         var clRut=$(opener).data('rut');
         var clDv=$(opener).data('dv');
         var clRazon=$(opener).data('razon');        
-        var clGiro=$(opener).data('giro');
-        var clDireccion=$(opener).data('direccion');
-        var clComuna=$(opener).data('comuna');
-        var clCiudad=$(opener).data('ciudad');
-        var clTelefono=$(opener).data('telefono');
-        var clEmail=$(opener).data('email');
+        // var clGiro=$(opener).data('giro');
+        // var clDireccion=$(opener).data('direccion');
+        // var clComuna=$(opener).data('comuna');
+        // var clCiudad=$(opener).data('ciudad');
+        // var clTelefono=$(opener).data('telefono');
+        // var clEmail=$(opener).data('email');
 
         //Ahora ponemos los valores a los campos del form
         
         $('#modalEliminar #txtRut').val(clRut);
         $('#modalEliminar #txtDv').val(clDv);
         $('#modalEliminar #txtRazon').val(clRazon);
-        $('#modalEliminar #txtGiro').val(clGiro);
-        $('#modalEliminar #txtDireccion').val(clDireccion);
-        $('#modalEliminar #txtComuna').val(clComuna);
-        $('#modalEliminar #txtCiudad').val(clCiudad);
-        $('#modalEliminar #txtTelefono').val(clTelefono);
-        $('#modalEliminar #txtEmail').val(clEmail);        
+        // $('#modalEliminar #txtGiro').val(clGiro);
+        // $('#modalEliminar #txtDireccion').val(clDireccion);
+        // $('#modalEliminar #txtComuna').val(clComuna);
+        // $('#modalEliminar #txtCiudad').val(clCiudad);
+        // $('#modalEliminar #txtTelefono').val(clTelefono);
+        // $('#modalEliminar #txtEmail').val(clEmail);        
     });
 
     
