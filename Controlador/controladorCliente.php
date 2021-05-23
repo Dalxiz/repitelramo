@@ -19,7 +19,7 @@
 
         $mensaje = registrarCliente($nuevoCliente);
 
-        header("Location: ../presentacion/cliente/principalCliente.php");
+        header("Location: ../presentacion/cliente/principalCliente.php?msj=". $mensaje);
 
         die();
 
@@ -42,7 +42,7 @@
 
         $mensaje = modificarCliente($nuevoCliente);
 
-        header("Location: ../presentacion/cliente/principalCliente.php");
+        header("Location: ../presentacion/cliente/principalCliente.php?msj=". $mensaje);
 
     }elseif (isset($_POST['eliminar'])) {
         
@@ -63,7 +63,7 @@
 
         $mensaje=eliminarCliente($cliente);
         
-        header("Location: ../presentacion/cliente/principalCliente.php");
+        header("Location: ../presentacion/cliente/principalCliente.php?msj=". $mensaje);
 
         die();
     }

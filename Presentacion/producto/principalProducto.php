@@ -19,6 +19,9 @@
 
     <script type="text/javascript" src="../dist/js/main.js"></script>
 
+    <link rel="stylesheet" href="../dist/css/number.css">
+
+
     <script type="text/javascript">
 
     function validarNumeroEntero(e){

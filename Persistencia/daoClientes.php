@@ -90,7 +90,7 @@
                 return 'err';
             }
         } catch (PDOException $pe) {
-            echo 'Ocurrio un error:' . $pe->getMessage();
+            return 'Ocurrio un error:' . $pe->getMessage();
         }
     }
 

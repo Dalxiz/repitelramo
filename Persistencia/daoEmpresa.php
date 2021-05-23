@@ -85,7 +85,7 @@
                 //$unidadMedida = consultarUMPorId($tablaEmprBBDD['idUM']);
 
                 $empresaSel= new Empresa($tablaEmprBBDD['rutEmp'], $tablaEmprBBDD['dvEmp'],
-                $tablaEmprBBDD['razonSocialEmp'], $tablaEmprBBDD['giroEmp'],);
+                $tablaEmprBBDD['razonSocialEmp'], $tablaEmprBBDD['giroEmp']);
 
                 $listaEmpresas[]=$empresaSel; //1,2,3,4,5,6,7,
             }

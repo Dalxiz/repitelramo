@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/> 
     <!-- css de icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
+    <link rel="stylesheet" href="../dist/css/number.css">
         <style>
             .contenedor{
                 width: 40%;
@@ -51,6 +51,25 @@
     
     <!-- datatable -->
     <div class="container-fluid contenedorTabla table-responsive">
+
+     
+    <!-- alert -->
+    <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") === 0) {  ?>
+        
+        <div class='alert alert-success alert-dismissible'>
+            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>¡Operación Realizada!</strong> <?php echo $_GET['msj'] ?> 
+        </div>
+    
+    <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"err") !== false) { ?>
+
+            <div class='alert alert-danger alert-dismissible'>
+                <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>¡Operación Incorrecta!</strong> Sucedió algo inesperado:  <?php echo $_GET['msj'] ?> 
+            </div>
+    
+    <?php    } ?>
+
     <!-- contenedor de registro nuevo -->
     <div class="container-fluid contenedorBoton">
         <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#ventanaModal"><i class="bi bi-plus-circle-fill"></i> Nuevo Cliente</button>
@@ -135,10 +154,10 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col col-lg-9">
-                                        <input class="form-control" type="text" name="Rut" id="" placeholder="Ingrese su Rut">                        
+                                        <input class="form-control" name="Rut" id="" placeholder="Ingrese su Rut" type="text" pattern="\d*" maxlength="8">                        
                                     </div>
                                     <div class="col col-xs-3">                        
-                                        <input class="form-control l" type="text" name="Dv" id="" placeholder="Dv">
+                                        <input class="form-control l" type="text" name="Dv" id="" placeholder="Dv" maxlength="1">
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +189,7 @@
                             <div class="form-group">
                                     <div class="row">
                                         <div class="col col-lg-6">
-                                            <input class="form-control" type="tel" name="Telefono" id="" placeholder="Telefono">                        
+                                            <input class="form-control" type="number" name="Telefono" id="" placeholder="Telefono">                        
                                         </div>
                                         <div class="col col-lg-6">                        
                                             <input class="form-control l" type="email" name="Email" id="" placeholder="E-mail">
@@ -205,10 +224,10 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col col-lg-9">
-                                        <input class="form-control" type="text" readonly="true" name="Rut" id="txtRut" placeholder="Ingrese su Rut">                        
+                                        <input class="form-control" type="number" readonly="true" name="Rut" id="txtRut" placeholder="Ingrese su Rut" type="text" pattern="\d*" maxlength="8">                        
                                     </div>
                                     <div class="col col-xs-3">                        
-                                        <input class="form-control l" type="text" readonly="true" name="Dv" id="txtDv" placeholder="Dv">
+                                        <input class="form-control l" type="text" readonly="true" name="Dv" id="txtDv" placeholder="Dv" maxlength="1" >
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +259,7 @@
                             <div class="form-group">
                                     <div class="row">
                                         <div class="col col-lg-6">
-                                            <input class="form-control" type="tel" name="Telefono" id="txtTelefono" placeholder="Telefono">                        
+                                            <input class="form-control" type="number" name="Telefono" id="txtTelefono" placeholder="Telefono">                        
                                         </div>
                                         <div class="col col-lg-6">                        
                                             <input class="form-control l" type="email" name="Email" id="txtEmail" placeholder="E-mail">
@@ -275,10 +294,10 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col col-lg-9">
-                                        <input class="form-control" type="text" readonly="true" name="Rut" id="txtRut" placeholder="Ingrese su Rut">                        
+                                        <input class="form-control" type="number" readonly="true" name="Rut" id="txtRut" placeholder="Ingrese su Rut" type="text" pattern="\d*" maxlength="8">                        
                                     </div>
                                     <div class="col col-xs-3">                        
-                                        <input class="form-control l" type="text" readonly="true" name="Dv" id="txtDv" placeholder="Dv">
+                                        <input class="form-control l" type="text" readonly="true" name="Dv" id="txtDv" placeholder="Dv" maxlength="1">
                                     </div>
                                 </div>
                             </div>
