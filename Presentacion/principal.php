@@ -32,7 +32,68 @@
 
 <?php require_once 'menu.php' ?>
 
+      <div class="container d-block">
+      <div class="row no-gutters  ">
+        <div class="d-inline-block p-12 m-auto pt-3">
+        <h2>Bienvenido al proyecto con HTML, CSS, JAVASCRIPT, PHP.-</h2>
+        <small class="text-muted">Proyecto se divide en 2 entregas</small>
+        <small class="text-muted">Realizado por:
+          <ul>
+            <li>Ignacio Barria</li>
+            <li>Niculas Guzman</li>
+            <li>Ignacio Hao Ten LO</li>
+            <li>David Morales</li>
+          </ul>
+        </small>
+        </div>
+        <div class="col-lg-4 p-5 m-auto">
+          <p><strong>22/05/2021 Primera Etapa (ENTREGA POR CORREO ELECTRÓNICO HASTA LAS 23:59H)</strong><br>
+                Diseño e implementación de Base de Datos.
+                Mantenedor de Productos.
+                Diseño de interfaces propuestas.
+                * Para esta entrega se espera:
+          <ul>
+          <li>El CRUD completo de la entidad producto.</li>
 
+          <li>El diseño de interfaces.</li>
+
+          <li>Las clases implementadas asociadas a la entidad producto y el resto en avance.</li>
+
+          <li>Estructuras de segmentación avanzadas (presentacion/entidades/controladores/persistencia).</li>
+
+          <li>Modelo relacional completo y su script de implementación.</li>
+           </ul>
+          </p>
+        </div>
+        <div class="col-lg-4 p-sm m-auto pt-4">
+          <p><strong>29/05/2021 Segunda Etapa y final (ENTREGA POR CORREO ELECTRÓNICO HASTA LAS 23:59H)</strong><br>
+                Mantenedor de Clientes y Empresa
+                Módulo de Administración documentos de venta.
+                Módulo de Administración consulta de facturas y Libro de Ventas.
+                Implementación de acceso por login según perfil. (opcional)
+                * Para esta entrega se espera:
+          <ul>
+           <strong>El CRUD completo de la entidad producto, clientes y empresa.</strong>
+
+              <li>El diseño de interfaces finalizado.</li>
+              <li>Las clases implementadas asociadas a todas las entidades..</li>
+              <li>Estructuras de segmentación finalizadas (presentacion/entidades/controladores/persistencia).</li>
+              <li>Model relacional completo y su script de implementación.</li>
+              <li>Los modulos de administración de venta, consulta y libro de ventas finalizados.</li>
+              <li>Inicio de sesión implementado con direccionamiento por perfil (OPCIONAL).</li>
+
+           </ul>
+          </p>
+        </div>
+            <div class="col-lg-2 p-sm pt-5">
+                <p><strong>Evaluación:</strong>  <br>        
+                    <li>Primera Etapa : Nota 2 (40% del promedio EX1)</li>
+                    <li>Segunda Etapa : Nota 3 (60% del promedio EX1)</li>
+                    <li>Promedio : Examen de Primera Oportunidad..</li>
+                </p>
+            </div>
+      </div>
+      </div>
 
 
 
