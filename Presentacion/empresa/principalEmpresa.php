@@ -19,7 +19,7 @@
     <script type="text/javascript" src="../../dist/js/main.js"></script>
 
 
-    <title>Mantenedor Empresa</title>
+    <title>Mantenedor Empresas</title>
 
     <style>
         .contenedor{

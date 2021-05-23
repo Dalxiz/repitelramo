@@ -41,7 +41,7 @@
             }
             
         </style>
-    <title>Registro Cliente</title>
+    <title>Mantenedor Cliente</title>
 </head>
 <body>
     <?php require_once '../menu.php' ?>
