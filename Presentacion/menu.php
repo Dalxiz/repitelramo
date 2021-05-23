@@ -35,7 +35,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
         <div class="dropdown-menu ml" aria-labelledby="dropdown08">
           <a class="dropdown-item navbar-dark disabled" href="#">Mi Perfil</a>
-          <a class="dropdown-item" href=<?php echo "/repitelramo/presentacion/documento/factura/principalFactura.php"?>>Cerrar sesión</a>
+          <a class="dropdown-item" href=<?php echo "/repitelramo/index.php"?>>Cerrar sesión</a>
         </div>
       </li>
             

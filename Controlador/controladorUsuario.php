@@ -19,7 +19,7 @@
             
             header("Location: ../Presentacion/principal.php");
         }else{
-            echo "andate a la chachu";
+            header("Location: ../index.php?msj=". $mensaje);
         }
     }
 
