@@ -19,7 +19,7 @@
     <script type="text/javascript" src="../../dist/js/main.js"></script>
 
 
-    <title>Administración de Facturas</title>
+    <title>Mantenedor Empresa</title>
 
     <style>
         .contenedor{
@@ -62,7 +62,7 @@
     <?php require_once '../menu.php' ?>
    
     <div class="container-fluid contenedorH3"> 
-        <h3>Mantenedor de Empresas</h3>
+        <h3>Mantenedor Empresas</h3>
     </div>
 
     <!-- datatable -->
