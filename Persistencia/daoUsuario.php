@@ -67,6 +67,11 @@
 
         require_once 'parametrosBD.php';
         require_once 'daoTipoUsuario.php';
+        
+        //Coroborar si la sesion se ha iniciado
+        if(session_status() !== 2  || session_id() === ""){
+            session_start();
+        } 
 
         try {
             $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
@@ -80,15 +85,23 @@
             foreach ($queryValidar->fetchAll() as $tablaUsuBBDD) {
                 
                 $tipoUsuario = consultarTUPorId($tablaUsuBBDD['idTipoUsu']);
-                $usuarioSel=new TipoUsuario($tablaUsuBBDD['idUsu'],
-                                            $tablaUsuBBDD['nombreUsu'],
-                                            $tablaUsuBBDD['passUsu'],
-                                            $tablaUsuBBDD['correoUsu']);
+
+                $usuarioSel=new Usuario($tablaUsuBBDD['idUsu'],
+                                        $tipoUsuario,
+                                        $tablaUsuBBDD['nombreUsu'],
+                                        $tablaUsuBBDD['passUsu'],
+                                        $tablaUsuBBDD['correoUsu']);
             $listaUsuarios[]=$usuarioSel;
 
             }
 
             if(count($listaUsuarios) > 0){
+                $_SESSION['usuario'] = $listaUsuarios[0];
+                /*echo $listaUsuarios[0]->getNombreUsu();
+                echo $_SESSION['usuario']->getNombreUsu();
+                $_SESSION['nombre'] = $listaUsuarios[0]->getNombreUsu();
+                echo $_SESSION['nombre']; */
+                //die();
                 return 'ok';
             }else{
                 return 'err';

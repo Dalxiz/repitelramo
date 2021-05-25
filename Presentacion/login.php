@@ -1,3 +1,22 @@
+<?php  
+    //Si se ha cerrado sesión se destruye la sesión
+    if(isset($_GET['msj']) && strpos($_GET['msj'],"logout") === 0){
+    session_start();
+    session_destroy();
+    }
+
+    //If para ver si la session esta activa o no, si no esta activa se comienza
+    if(session_status() !== 2  || session_id() === ""){
+        session_start();
+    } 
+
+    //Si hay usuario logeado redirige a principal
+    if(isset($_SESSION['usuario'])){
+        header ("Location: /repitelramo/presentacion/principal.php");
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,14 +108,23 @@
                         <strong>¡Autenticación incorrecta!</strong> Usario y/o contraseña inválidos
                 </div>
             
-            <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"ok") !== false) { ?>
+            <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"inc") !== false) { //Si intenta acceder a una página sin iniciar sesión ?>
                     
-                <div class='alert alert-success alert-dismissible'>
+                <div class='alert alert-warning alert-dismissible'>
                     <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>¡Autenticación corecta!</strong> <?php echo $_GET['msj'] ?> 
+                    <strong>¡Debe iniciar sesión para acceder y navegar por el sitio!</strong> 
                 </div>
             
-            <?php    } ?>
+            <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"logout") !== false) { //Si intenta acceder a una página sin iniciar sesión ?>
+                    
+                    <div class='alert alert-success alert-dismissible'>
+                        <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>¡Ha cerrado sesión correctamente!</strong> 
+                    </div>
+                
+                <?php    } ?>
+
+            
         <form action="/repitelramo/controlador/controladorUsuario.php" class="form-signin form-color" method="POST">
       
             <center>

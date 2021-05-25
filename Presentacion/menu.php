@@ -1,4 +1,15 @@
-
+<?php
+  //Llamamos a la clase usuario.php, ocupamos document_root para evitar problemas con los directorios
+  require $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/entidades/usuario.php";
+      //If para ver si la session esta activa o no 
+      if(session_status() !== 2  || session_id() === ""){
+        session_start();
+    }
+    
+    //Corroboramos que la sesión a sido inicada
+    require_once "validacionSesion.php";
+  
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -32,10 +43,10 @@
       </li>                             
     </ul>
     <li class="navbar-nav nav-item dropdown ml-auto dropleft">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['usuario']->getNombreUsu(); ?> </a>
         <div class="dropdown-menu ml" aria-labelledby="dropdown08">
           <a class="dropdown-item navbar-dark disabled" href="#">Mi Perfil</a>
-          <a class="dropdown-item" href=<?php echo "/repitelramo/index.php"?>>Cerrar sesión</a>
+          <a class="dropdown-item" href=<?php echo "/repitelramo/index.php?msj=logout"?>>Cerrar sesión</a>
         </div>
       </li>
             

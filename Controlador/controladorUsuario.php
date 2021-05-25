@@ -16,7 +16,6 @@
         $mensaje = validarUsuario($nuevoUsuario);
         
         if ($mensaje ==='ok') {
-            
             header("Location: ../presentacion/principal.php");
         }else{
             header("Location: ../index.php?msj=". $mensaje);
