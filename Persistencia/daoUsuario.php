@@ -13,7 +13,7 @@
                                      VALUES (?, ?, ?, ?, ?, ?)");
 
             $result = $query->execute([$nuevoUsuario->getIdUsu(),
-                                $nuevoUsuario->getTipoUsuario(),
+                                $nuevoUsuario->getTipoUsuario()->getIdTipoUsu(),
                                 $nuevoUsuario->getNombreUsu(),
                                 $nuevoUsuario->getPassUsu(),
                                 $nuevoUsuario->getCorreoUsu()]);
@@ -25,41 +25,6 @@
             }
         } catch (PDOException $pe) {
             return "err : ". $pe->getMessage();
-        }
-    }
-
-    function consultarUSuario(){
-        require_once 'parametrosBD.php';
-        require_once 'daoTipoUsuario.php';
-
-        try {
-            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
-
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $listaUsuarios=[];
-
-            $querySelect=$conn->query("SELECT * FROM");
-
-            foreach ($querySelect->fetchAll() as $tablaUsuBBDD) {
-                
-                $tipoUsuario = consultarTUPorId($tablaUsuBBDD['idTipoUsu']);
-                $usuarioSel=new TipoUsuario($tablaUsuBBDD['idUsu'],
-                                            $tablaUsuBBDD['nombreUsu'],
-                                            $tablaUsuBBDD['passUsu'],
-                                            $tablaUsuBBDD['correoUsu']);
-            $listaUsuarios[]=$usuarioSel;
-
-            }
-
-            if(count($listaUsuarios) > 0){
-                return $listaUsuarios;
-            }else{
-                return ($lista=[]);
-            }
-
-        } catch (PDOException $pe) {
-            return $pe->getMessage();
         }
     }
 
@@ -97,11 +62,6 @@
 
             if(count($listaUsuarios) > 0){
                 $_SESSION['usuario'] = $listaUsuarios[0];
-                /*echo $listaUsuarios[0]->getNombreUsu();
-                echo $_SESSION['usuario']->getNombreUsu();
-                $_SESSION['nombre'] = $listaUsuarios[0]->getNombreUsu();
-                echo $_SESSION['nombre']; */
-                //die();
                 return 'ok';
             }else{
                 return 'err';

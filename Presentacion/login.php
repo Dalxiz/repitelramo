@@ -101,11 +101,18 @@
     <body class="justify-content-center">
     <div class="justify-content-center">
     
-        <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"err") === 0) {  ?>
+        <?php if(isset($_GET['msj']) && $_GET['msj'] == "err") { //Error autenticación ?>
                 
                 <div class='alert alert-danger alert-dismissible'>
                         <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>¡Autenticación incorrecta!</strong> Usario y/o contraseña inválidos
+                </div>
+            
+            <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"err") === 0) { //Error tipo excepción ?>
+                    
+                <div class='alert alert-danger alert-dismissible'>
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>A ocurrido un error: </strong>  <?php echo $_GET['msj'] ?> 
                 </div>
             
             <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"inc") !== false) { //Si intenta acceder a una página sin iniciar sesión ?>
@@ -115,7 +122,7 @@
                     <strong>¡Debe iniciar sesión para acceder y navegar por el sitio!</strong> 
                 </div>
             
-            <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"logout") !== false) { //Si intenta acceder a una página sin iniciar sesión ?>
+            <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"logout") !== false) { //Si cierra sesión?>
                     
                     <div class='alert alert-success alert-dismissible'>
                         <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
