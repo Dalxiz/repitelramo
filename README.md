@@ -3,7 +3,7 @@ Para que el proyeto funcione correctamente, se debe clonar el repositorio manten
 \
 Además, se debe crear o pegar un archivo llamado parametrosBD.php en el directorio de "persitencia" con los datos de conexión a la BBDD correspondiente.\
 \
-Un ejemplo de estructuura de parametrosBD.php es el siguente:
+Un ejemplo de estructura de parametrosBD.php es el siguente:
 ```php
 <?php
     $host = 'localhost';
