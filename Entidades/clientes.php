@@ -59,6 +59,10 @@
         function getEmail(){
             return $this->email;
         }
+
+        function getRutCompleto(){
+            return $this->rutCliente . '-' . $this->dvCliente;
+        }
     }
 
 

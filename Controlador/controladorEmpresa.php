@@ -37,8 +37,8 @@
         }
 
         function getTodasLasEmpresas(){
-            require_once '../../persistencia/daoEmpresa.php';
-            require_once '../../entidades/empresa.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEmpresa.php";
+            require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/entidades/empresa.php";
     
             $lista = consultarEmpresa();
             

@@ -69,8 +69,8 @@
     }
 
     function getTodosLosClientes(){
-        require_once '../../persistencia/daoClientes.php';
-        require_once '../../entidades/clientes.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoClientes.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/entidades/clientes.php";
 
         $lista = consultarCliente();
 

@@ -72,4 +72,42 @@
         }
     }
 
+    function consultarUsuarioPorId($idUsu){
+
+        require 'parametrosBD.php';
+        require_once 'daoTipoUsuario.php';
+        
+        try {
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $queryValidar=$conn->query("SELECT * FROM USUARIO WHERE idUsu='" . $idUsu ."'");
+
+            $listaUsuarios=[];
+
+            foreach ($queryValidar->fetchAll() as $tablaUsuBBDD) {
+                
+                $tipoUsuario = consultarTUPorId($tablaUsuBBDD['idTipoUsu']);
+
+                $usuarioSel=new Usuario($tablaUsuBBDD['idUsu'],
+                                        $tipoUsuario,
+                                        $tablaUsuBBDD['nombreUsu'],
+                                        $tablaUsuBBDD['passUsu'],
+                                        $tablaUsuBBDD['correoUsu']);
+            $listaUsuarios[]=$usuarioSel;
+
+            }
+
+            if(count($listaUsuarios) > 0){
+                return $listaUsuarios[0];
+            }else{
+                return "La Consulta no devuelve valores";
+            }
+
+        } catch (PDOException $pe) {
+            return "err : ". $pe->getMessage();
+        }
+    }
+
 ?>

@@ -8,25 +8,27 @@
 
         private $usuario;//clave foranea de usuario
         private $empresa;// clave foranea empresa
-        private $idTipoDoc;
+        private $tipoDoc;
         private $folioDoc;
         private $fechaEmision;
         private $cliente;// clave foranea cliente
         private $condPago;
+        private $estadoDoc;
         private $neto;
         private $iva;
         private $total;
         private $observaciones;
         private $canceladoPor;
 
-        function __construct(Usuario $usuario,Empresa $empresa,$idTipoDoc,$folioDoc,$fechaEmision,$cliente,$condPago,$neto,$iva,$total,$observaciones,$canceladoPor){
+        function __construct(Usuario $usuario,Empresa $empresa,TIpoDocumento $tipoDoc,$folioDoc,$fechaEmision, Cliente $cliente,$condPago,$estadoDoc,$neto,$iva,$total,$observaciones,$canceladoPor){
             $this->usuario=$usuario;
             $this->empresa=$empresa;
-            $this->idTipoDoc=$idTipoDoc;
+            $this->tipoDoc=$tipoDoc;
             $this->folioDoc=$folioDoc;
             $this->fechaEmision=$fechaEmision;
             $this->cliente=$cliente;
             $this->condPago=$condPago;
+            $this->estadoDoc=$estadoDoc;
             $this->neto=$neto;
             $this->iva=$iva;
             $this->total=$total;
@@ -42,8 +44,8 @@
             return $this->empresa;
         }
 
-        function getIdTipoDoc(){
-            return $this->idTipoDoc;
+        function getTipoDoc(){
+            return $this->tipoDoc;
         }
 
         function getFolioDoc(){

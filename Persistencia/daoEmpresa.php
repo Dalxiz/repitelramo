@@ -103,4 +103,39 @@
         }
     }
 
+    function consultarEmpresaPorRut($rutEmp){
+
+        require 'parametrosBD.php';
+        
+        try
+        {
+            $conexion = new PDO("mysql:host=$host;dbname=$nombreBaseDatos;charset=UTF8", $usuario, $password);
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $listaEmpresas=[];
+
+            $querySelect = $conexion->query("SELECT * FROM EMPRESA WHERE rutEmp = " . $rutEmp );
+
+            foreach($querySelect->fetchAll() as $tablaEmprBBDD)
+            {
+
+                $empresaSel= new Empresa($tablaEmprBBDD['rutEmp'], $tablaEmprBBDD['dvEmp'],
+                $tablaEmprBBDD['razonSocialEmp'], $tablaEmprBBDD['giroEmp']);
+
+                $listaEmpresas[]=$empresaSel; //1,2,3,4,5,6,7,
+            }
+
+            if(count($listaEmpresas) > 0){
+                return $listaEmpresas[0];
+            }else{
+                return "La consulta no devuelve registros";
+            }
+        }
+        catch(PDOException $pe)
+        {
+            return $pe->getMessage();
+
+        }
+    }
+
 ?>

@@ -96,7 +96,7 @@
 
     function consultarCliente(){
 
-        require_once 'parametrosBD.php';
+        require 'parametrosBD.php';
 
         try {
             $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
@@ -131,5 +131,44 @@
             return $pe->getMessage();
         }
     }
+
+    function consultarClientePorRut($rutCliente){
+
+        require 'parametrosBD.php';
+
+        try {
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos",$usuario,$password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $listarClientes=[];
+
+            $querySelect = $conn->query("SELECT * FROM CLIENTE WHERE rutCliente = " . $rutCliente);
+
+            foreach ($querySelect->fetchAll() as $tablaClienteBBDD) {
+                
+                $clienteSelect = new Cliente($tablaClienteBBDD['rutCliente'],
+                                             $tablaClienteBBDD['dvCliente'],
+                                             $tablaClienteBBDD['nomb_razonSocial'],
+                                             $tablaClienteBBDD['giro'],
+                                             $tablaClienteBBDD['direccion'],
+                                             $tablaClienteBBDD['comuna'],
+                                             $tablaClienteBBDD['ciudad'],
+                                             $tablaClienteBBDD['telefono'],
+                                             $tablaClienteBBDD['email']);
+
+                $listarClientes[]=$clienteSelect;
+            }
+
+            if (count($listarClientes) > 0) {
+                return $listarClientes[0];
+            }else{
+                return "La consulta no devuelve registros";
+            }
+        } catch (PDOException $pe) {
+            return $pe->getMessage();
+        }
+    }
+
 
 ?>

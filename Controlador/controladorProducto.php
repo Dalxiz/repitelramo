@@ -68,14 +68,27 @@
 
 
     function getTodosLosProductos(){
-            require_once '../../persistencia/daoProducto.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/persistencia/daoProducto.php';
             //require_once '../../persistencia/daoUM.php';
-            require_once '../../entidades/producto.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/producto.php';
             //require_once '../../entidades/unidadMedida.php';
     
             $lista = consultarProductos();
             
             return $lista;
     }
+
+    function getProductoPorCodigo($codProd){
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/persistencia/daoProducto.php';
+        //require_once '../../persistencia/daoUM.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/producto.php';
+        //require_once '../../entidades/unidadMedida.php';
+
+        $lista = consultarProductoPorCodigo($codProd);
+        
+        return $lista;
+}
+
+
 
 ?>

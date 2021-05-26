@@ -1,6 +1,7 @@
 <?php
 
-    function registrarProducto(Producto $nuevoProducto){
+    ///POR IMPLEMENTAR
+    function registrarEncabezadoDocumento(Producto $nuevoProducto){
 
         require 'parametrosBD.php';
 
@@ -37,10 +38,14 @@
         }
     }
 
-    function consultarProductos(){
+    function consultarEncabezadoDocumento(){
 
         require 'parametrosBD.php';
-        require_once 'daoUM.php';
+        require_once 'daoEmpresa.php';
+        require_once 'daoUsuario.php';
+        require_once 'daoTipoDocumento.php';
+        require_once 'daoClientes.php';
+
         
         try
         {
@@ -48,23 +53,28 @@
 
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $listaProductos=[];
+            $listaEncabezados=[];
 
-            $querySelect = $conexion->query("SELECT * FROM PRODUCTO");
+            $querySelect = $conexion->query("SELECT * FROM ENCABEZADO_DOCUMENTO");
 
-            foreach($querySelect->fetchAll() as $tablaProdBBDD)
+            foreach($querySelect->fetchAll() as $tablaEncabezadoBBDD)
             {
 
-                $unidadMedida = consultarUMPorId($tablaProdBBDD['idUM']);
+                $usuario = consultarUsuarioPorId($tablaEncabezadoBBDD['idUsu']);
+                $empresa = consultarEmpresaPorRut($tablaEncabezadoBBDD['rutEmp']);
+                $tipoDoc = consultarTiposDocumentoPorId($tablaEncabezadoBBDD['idTipoDoc']);
+                $cliente = consultarClientePorRut($tablaEncabezadoBBDD['rutCliente']);
 
-                $productoSel= new Producto($tablaProdBBDD['codProd'], $tablaProdBBDD['descripcion'],
-                $unidadMedida, $tablaProdBBDD['precioUnitario']);
+                $encabeadoSel= new EncabezadoDocumento($usuario, $empresa, $tipoDoc, $tablaEncabezadoBBDD['folioDoc'],
+                $tablaEncabezadoBBDD['fechaEmision'], $cliente, $tablaEncabezadoBBDD['condPago'], $tablaEncabezadoBBDD['estadoDoc'], 
+                $tablaEncabezadoBBDD['neto'], $tablaEncabezadoBBDD['iva'], $tablaEncabezadoBBDD['total'], $tablaEncabezadoBBDD['observaciones'],
+                $tablaEncabezadoBBDD['canceladoPor']);
 
-                $listaProductos[]=$productoSel; //1,2,3,4,5,6,7,
+                $listaEncabezados[]=$encabeadoSel; //1,2,3,4,5,6,7,
             }
 
-            if(count($listaProductos) > 0){
-                return $listaProductos;
+            if(count($listaEncabezados) > 0){
+                return $listaEncabezados;
             }else{
                 return ($lista=[]);
             }
@@ -76,7 +86,8 @@
         }
     }
 
-    function actualizarProducto(Producto $nuevoProducto){
+    ///POR IMPLEMENTAR
+    function actualizarEncabezadoDocumento(Producto $nuevoProducto){
 
         require 'parametrosBD.php';
 
@@ -107,7 +118,8 @@
         }
     }
 
-    function eliminarProducto(Producto $nuevoProducto){
+    ///POR IMPLEMENTAR
+    function cambiarEstadoEncabezadoDocumento(Producto $nuevoProducto){
 
         require 'parametrosBD.php';
 
@@ -137,45 +149,6 @@
 
             return "err : " . $pe->getMessage();
             
-        }
-    }
-
-    function consultarProductoPorCodigo($codProd){
-
-        require 'parametrosBD.php';
-        require_once 'daoUM.php';
-        
-        try
-        {
-            $conexion = new PDO("mysql:host=$host;dbname=$nombreBaseDatos;charset=UTF8", $usuario, $password);
-
-            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $listaProductos=[];
-
-            $querySelect = $conexion->query("SELECT * FROM PRODUCTO WHERE codProd = " . $codProd );
-
-            foreach($querySelect->fetchAll() as $tablaProdBBDD)
-            {
-
-                $unidadMedida = consultarUMPorId($tablaProdBBDD['idUM']);
-
-                $productoSel= new Producto($tablaProdBBDD['codProd'], $tablaProdBBDD['descripcion'],
-                $unidadMedida, $tablaProdBBDD['precioUnitario']);
-
-                $listaProductos[]=$productoSel; //1,2,3,4,5,6,7,
-            }
-
-            if(count($listaProductos) > 0){
-                return $listaProductos[0];
-            }else{
-                return "La consulta no devuelve registros";
-            }
-        }
-        catch(PDOException $pe)
-        {
-            return $pe->getMessage();
-
         }
     }
 

@@ -170,13 +170,13 @@
                 }else
                 {
                     ?> 
-                    <tr><td colspan=4 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td>
+                    <tr><td colspan=4 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td></tr> 
                 <?php 
                 }
 
             
             ?>            
-            </tr>           
+          
           
     </table>
 
