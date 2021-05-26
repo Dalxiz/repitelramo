@@ -113,7 +113,6 @@
         }
     }
 
-<<<<<<< HEAD
     function consultarEmpresaPorRut($rutEmp){
 
         require 'parametrosBD.php';
@@ -146,7 +145,6 @@
         {
             return $pe->getMessage();
 
-=======
 
     function eliminarEmpresa(Empresa $newEmpresa){
 
@@ -178,7 +176,6 @@
 
             return "err : " . $pe->getMessage();
             
->>>>>>> 935d610819686046ea314fd0e9f3dcc0134e76e7
         }
     }
 
