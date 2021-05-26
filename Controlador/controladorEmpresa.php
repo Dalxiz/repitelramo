@@ -13,7 +13,7 @@
 
             //header("Location: ../presentacion/alumno/registrar.php?msj=" . registrarAlumno($nuevoAlumno) . " [Alumno: " . $nuevoAlumno->getNombreCompleto() . "]");
             $mensaje = insertarEmpresa($nuevaEmpresa);
-            echo $mensaje;
+            header("Location: ../presentacion/empresa/principalEmpresa.php?msj=".  $mensaje );
 
             die();    
         }
@@ -31,9 +31,27 @@
 
             //header("Location: ../presentacion/alumno/actualizar.php?msj=" . actualizarAlumno($nuevoAlumno) . " [Alumno: " . $nuevoAlumno->getNombreCompleto() . "]");
             $mensaje = actualizarEmpresa($nuevaEmpresa);
-            echo $mensaje;
+            header("Location: ../presentacion/empresa/principalEmpresa.php?msj=".  $mensaje );
 
             die();    
+        }
+        else if(isset($_POST['eliminar']))
+        { 
+                require_once '../entidades/empresa.php';
+                require_once '../persistencia/daoEmpresa.php';
+    
+                $rutEmp = $_POST['rutEmp'];
+                $dvEmpresa = $_POST['dvEmpresa'];
+                $razonSocial = $_POST['razonSocial'];
+                $giroEmpresa = $_POST['giroEmpresa'];
+    
+                $newEmpresa = new Empresa($rutEmp, $dvEmpresa, $razonSocial, $giroEmpresa);
+    
+                $mensaje = eliminarEmpresa($newEmpresa);
+                
+                header("Location: ../presentacion/empresa/principalEmpresa.php?msj=".  $mensaje );
+    
+                die();
         }
 
         function getTodasLasEmpresas(){
