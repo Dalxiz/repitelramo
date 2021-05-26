@@ -1,3 +1,8 @@
+<?php   
+    //No dejar acceder a esta página si no es admin
+    require_once "../permisosAdmin.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

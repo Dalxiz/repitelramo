@@ -71,7 +71,12 @@
         <!-- contenedor de registro nuevo y libro factura q -->
         <div class="container-fluid contenedorBoton">
             <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalFact" data-prod-accion='Nueva Factura'><i class="bi bi-plus-circle-fill"></i> Nueva Factura</button>
+            
+            <!-- Botón libro de venta restringido solo para admin -->
+            <?php if($_SESSION['usuario']->getTipoUsuario()->getNombreTipoUsu() == "Administrador"){?>
             <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalFact" data-prod-accion='Libro de Venta'><i class="bi bi-plus-circle-fill"></i> Libro de Venta</button>
+            <?php } ?>
+
         </div>
         
 
