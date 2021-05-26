@@ -144,6 +144,8 @@
         catch(PDOException $pe)
         {
             return $pe->getMessage();
+        }
+    }
 
 
     function eliminarEmpresa(Empresa $newEmpresa){
