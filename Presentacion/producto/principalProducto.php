@@ -30,7 +30,8 @@
     <script type="text/javascript">
 
     function validarNumeroEntero(e){
-        if(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8)) {
+        if(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8 || e.keyCode == 9 
+            || e.ctrlKey == true || (e.ctrlKey == true && e.keyCode == 86) || (e.ctrlKey == true && e.keyCode == 67))) {
             return false;
         }
     }
@@ -154,15 +155,15 @@
                     <td><?php echo $producto->getCodProd();?></td>
                     <td><?php echo $producto->getDescripcion(); ?></td>
                     <td><?php echo $producto->getUnidadMedida()->getNombreUM()?></td>
-                    <td><?php echo $producto->getPrecioUnitaro() ?></td>
+                    <td><?php echo number_format ( $producto->getPrecioUnitaro(),  0, ",", "." ) //numberFormat para poner separador de miles y sacar decimales 0 ?></td>
 
                     <td class="text-center">
                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalProd" data-prod-id='<?php echo $producto->getCodProd() ?>'
                                     data-prod-des='<?php echo $producto->getDescripcion() ?>' data-prod-um='<?php echo $producto->getUnidadMedida()->getIdUm() ?>'
-                                    data-prod-precio='<?php echo $producto->getPrecioUnitaro() ?>' data-prod-accion='Actualizar Producto'><i class="bi bi-pencil-fill"></i></button>
+                                    data-prod-precio='<?php echo floatval($producto->getPrecioUnitaro())?>' data-prod-accion='Actualizar Producto'><i class="bi bi-pencil-fill"></i></button>
                         <span class="btn btn-danger"  data-toggle="modal" data-target="#modalProd" data-prod-id='<?php echo $producto->getCodProd() ?>'
                                     data-prod-des='<?php echo $producto->getDescripcion() ?>' data-prod-um='<?php echo $producto->getUnidadMedida()->getIdUm() ?>'
-                                    data-prod-precio='<?php echo $producto->getPrecioUnitaro() ?>' data-prod-accion='Eliminar Producto'><i class="bi bi-trash2-fill"></i></span>
+                                    data-prod-precio='<?php echo floatval($producto->getPrecioUnitaro()) ?>' data-prod-accion='Eliminar Producto'><i class="bi bi-trash2-fill"></i></span>
                     </td>
                 </tr>
                 <?php

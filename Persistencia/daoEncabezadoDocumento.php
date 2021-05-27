@@ -1,40 +1,62 @@
 <?php
 
-    ///POR IMPLEMENTAR
-    function registrarEncabezadoDocumento(Producto $nuevoProducto){
+    //Función para registar documento incluyendo el detalle de documento, usando éste para ingresar un documento
+    function registrarDocumentoCompleto(EncabezadoDocumento $nuevoEncabezado){
 
         require 'parametrosBD.php';
+        require 'daoDetalleDocumento.php';
+        
 
         try{
             $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $query = $conn->prepare("INSERT INTO PRODUCTO (codProd, descripcion, idUM, precioUnitario) 
-                                    VALUES (?, ?, ?, ?)");
+            $conn->beginTransaction(); //Comenzar trasnacción para evitar duplicados
+            
+            $query = $conn->prepare("INSERT INTO ENCABEZADO_DOCUMENTO (idUsu, rutEmp, idTipoDoc, folioDoc, fechaEmision,
+                                    rutCliente, condPago, estadoDoc, neto, iva, total, observaciones, canceladoPor) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
-            $result = $query->execute([$nuevoProducto->getCodProd(), $nuevoProducto->getDescripcion(), 
-            $nuevoProducto->getUnidadMedida()->getIdUM(), $nuevoProducto->getPrecioUnitaro()]);
+            $resultadoDetalles;
+            $result = $query->execute([$nuevoEncabezado->getUsuario()->getIdUsu(),
+                                       $nuevoEncabezado->getEmpresa()->getRutEmp(),
+                                       $nuevoEncabezado->getTipoDoc()->getIdTipoDoc(),
+                                       $nuevoEncabezado->getFolioDoc(),
+                                       $nuevoEncabezado->getFechaEmision(),
+                                       $nuevoEncabezado->getCliente()->getRutCliente(),
+                                       $nuevoEncabezado->getCondPago(),
+                                       $nuevoEncabezado->getEstadoDoc(),
+                                       $nuevoEncabezado->getNeto(),
+                                       $nuevoEncabezado->getIva(),
+                                       $nuevoEncabezado->getTotal(),
+                                       !empty($nuevoEncabezado->getObservaciones()) ? $nuevoEncabezado->getObservaciones() : NULL ,
+                                       !empty($nuevoEncabezado->getCanceladoPor()) ?  $nuevoEncabezado->getCanceladoPor() : NULL,                                    
+                                       ]);
+
+            foreach($nuevoEncabezado->getListaDetalles() as $detalles){
+                $resultadoDetalles = registrarDetalleDocumentoDesdeEncabezado($detalles, $conn);
+                if( strpos($resultadoDetalles, "err") === 0 ){ //Si da error detalle, quiebra el foreach y devuelve result false para hacer rollback
+                    $result = false;
+                    break;
+                }
+            }
+
+            
             
             if($result === true)
             {
-                return 'ok'  . " - Producto: " . $nuevoProducto->getCodProd() . " - " . $nuevoProducto->getDescripcion()  . " Registrado Correctamente!";
+                $conn->commit();
+                return 'ok' ;
             }
             else
             {
-                return 'err';
+                $conn->rollBack(); //Si hay algun problema, se devuelve toda la transacción (incuyendo tablas de detalle)
+                return $resultadoDetalles; //Se retorna el mensaje de error desde detalleDocumento
             }
 
         }catch(PDOException $pe){
-
-            if(strpos($pe->getMessage(),"violation: 1062")){
-                return "err : El Código del Producto: '" . $nuevoProducto->getCodProd() ."' ya se encuentra registrado. El código debe ser único.";
-            }
-
-            else{
-                return "err : " . $pe->getMessage();
-            }
-
+            $conn->rollBack();
+            return "err : " . $pe->getMessage();
         }
     }
 
@@ -152,6 +174,49 @@
         }
     }
 
+    //Metodo solo para ingresar encabezado, no usado por ahora y por ahora usado solo registrarDocumentoCompleto()
+    function registrarEncabezadoDocumento(EncabezadoDocumento $nuevoEncabezado){
+
+    require 'parametrosBD.php';
+
+    try{
+        $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
+
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $query = $conn->prepare("INSERT INTO ENCABEZADO_DOCUMENTO (idUsu, rutEmp, idTipoDoc, folioDoc, fechaEmision,
+                                rutCliente, condPago, estadoDoc, neto, iva, total, observaciones, canceladoPor) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        $result = $query->execute([$nuevoEncabezado->getUsuario()->getIdUsu(),
+                                    $nuevoEncabezado->getEmpresa()->getRutEmp(),
+                                    $nuevoEncabezado->getTipoDoc()->getIdTipoDoc(),
+                                    $nuevoEncabezado->getFolioDoc(),
+                                    $nuevoEncabezado->getFechaEmision(),
+                                    $nuevoEncabezado->getCliente()->getRutCliente(),
+                                    $nuevoEncabezado->getCondPago(),
+                                    $nuevoEncabezado->getEstadoDoc(),
+                                    $nuevoEncabezado->getNeto(),
+                                    $nuevoEncabezado->getIva(),
+                                    $nuevoEncabezado->getTotal(),
+                                    !empty($nuevoEncabezado->getObservaciones()) ? $nuevoEncabezado->getObservaciones() : NULL ,
+                                    !empty($nuevoEncabezado->getCanceladoPor()) ?  $nuevoEncabezado->getCanceladoPor() : NULL,                                    
+                                    ]);
+        
+        if($result === true)
+        {
+            return 'ok' ;
+        }
+        else
+        {
+            return 'err';
+        }
+
+    }catch(PDOException $pe){
+
+        return "err : " . $pe->getMessage();
+    }
+}
 
     
 

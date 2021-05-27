@@ -56,7 +56,7 @@
         }
 
 
-        /*Modificación del modal*/
+        /*Modificación tamaño a diferentes pantallas del modal*/
         @media (max-width: 992px) AND (min-width: 576px){
         .modal-dialog {
             max-width: 85%;
@@ -78,11 +78,13 @@
 
         <!-- contenedor de registro nuevo y libro factura q -->
         <div class="container-fluid contenedorBoton">
-            <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalFact" data-prod-accion='Nueva Factura'><i class="bi bi-plus-circle-fill"></i> Nueva Factura</button>
+            <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalFact" data-prod-accion='nueva'><i class="bi bi-plus-circle-fill"></i> Nueva Factura</button>
             
             <!-- Botón libro de venta restringido solo para admin -->
             <?php if($_SESSION['usuario']->getTipoUsuario()->getNombreTipoUsu() == "Administrador"){?>
-            <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalFact" data-prod-accion='Libro de Venta'><i class="bi bi-plus-circle-fill"></i> Libro de Venta</button>
+
+                <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalFact" data-prod-accion='libro'><i class="bi bi-plus-circle-fill"></i> Libro de Venta</button>
+            
             <?php } ?>
 
         </div>
@@ -102,54 +104,50 @@
             </tr>
         </thead>
 
-        <?php 
+        <tbody>
+            <?php 
 
-            require '../../../controlador/controladorEncabezadoDocumento.php';
+                require '../../../controlador/controladorEncabezadoDocumento.php';
 
-            $listaEncabezados = getTodosEncabezadoDocumento();
+                $listaEncabezados = getTodosEncabezadoDocumento();
+                $listaFolios; //Para guardar folios y luego corroborar si el folio ingresado ya existe con javascript
 
-            if (count($listaEncabezados) > 0) {
-                foreach ($listaEncabezados as $encabezado) {
-        ?>
-           <tr>
-                    <td><?php echo $encabezado->getFolioDoc();?></td>
-                    <td><?php echo $encabezado->getTipoDoc()->getNombreTipoDoc(); ?></td>
-                    <td><?php echo $encabezado->getFechaEmision() ?></td>
-                    <td><?php echo $encabezado->getCliente()->getNombRazonSocial() ?></td>
-                    <td><?php echo $encabezado->getNeto() ?></td>
-                    <td><?php echo $encabezado->getIva() ?></td>
-                    <td><?php echo $encabezado->getTotal() ?></td>          
+                if (count($listaEncabezados) > 0) {
+                    foreach ($listaEncabezados as $encabezado) {
+                        $listaFolios[] = array($encabezado->getTipoDoc()->getIdTipoDoc() . $encabezado->getFolioDoc());
+
+            ?>
+            <tr>
+                <td><?php echo $encabezado->getFolioDoc();?></td>
+                <td><?php echo $encabezado->getTipoDoc()->getNombreTipoDoc(); ?></td>
+                <td><?php echo date("d-m-Y", strtotime($encabezado->getFechaEmision())); //Formatear fecha ?></td>
+                <td><?php echo $encabezado->getCliente()->getNombRazonSocial() ?></td>
+                <td><?php echo number_format ($encabezado->getNeto(), 0, ",", ".")//number_format para poner separador de miles y sacar decimales 0 ?></td>
+                <td><?php echo number_format ( $encabezado->getIva(), 0, ",", "." ) ?></td>
+                <td><?php echo number_format ( $encabezado->getTotal(), 0, ",", "." ) ?></td>          
 
 
-                    <td class="text-center">
-                        <div style="min-width : 136px">
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalFact"><i class="bi bi-eye-fill"></i></button>
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalFact"><i class="bi bi-pencil-fill"></i></button>
-                            <span class="btn btn-danger"  data-toggle="modal" data-target="#modalFact" ><i class="bi bi-trash2-fill"></i></span>
-                        </div>
-                    </td>
-                </tr>
+                <td class="text-center">
+                    <div style="min-width : 136px">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalFact"><i class="bi bi-eye-fill"></i></button>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalFact"><i class="bi bi-pencil-fill"></i></button>
+                        <span class="btn btn-danger"  data-toggle="modal" data-target="#modalFact" ><i class="bi bi-trash2-fill"></i></span>
+                    </div>
+                </td>
+            </tr>
 
         
-        <?php
-                }
-                }else
-                {
-                    ?> 
-                    <tr><td colspan=4 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen facturas registradas</td></tr> 
-                <?php 
-                }
-                ?>  
-
-        <tbody>
-  
+            <?php   }
+                }else{ ?>
+                <tr><td colspan=8 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen facturas registradas</td></tr> 
+            <?php   } ?>    
         </tbody>         
     </table>
 
     </div>
 
       <!-- ventana modal -->
-   <div class="modal fade bd-example-modal-lg" id="modalFact" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="modalFact" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -159,50 +157,50 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../controlador/controladorProducto.php" id="formProd" method="POST">
+                    <form action="../../../controlador/controladorEncabezadoDocumento.php" id="formProd" method="POST">
                                                 
                     <div class="container-fluid">
                             <div class="form-group row">
-                            <div class="col col-md-6 col-12 mb-3 mb-md-0">
+                                <div class="col col-md-6 col-12 mb-3 mb-md-0">
                                     <label for="cbxEmpresa" class="labelForm">Empresa</label>
                                     <select class="form-control" name="empresa" id="cbxEmpresa" required="required">
                                     <option selected value="" disabled="1">Empresa</option>
-                                    <?php
-                                        include_once "../../../controlador/controladorEmpresa.php";
-
-                                        $listaEmpresas = getTodasLasEmpresas();
-
-                                        foreach($listaEmpresas as $empresas){
-                                            echo "<option value='" . $empresas->getRutEmp() . "'>" . $empresas->getRazonEmp(). "</option>"; 
-                                        }
-                                    ?>
-                                    </select>
-                            </div>  
-                       
-    
-                            <div class="col col-md-6 col-12">
-                                        <label for="cbxTipoDoc" class="labelForm">Tipo de documento</label>
-                                        <select class="form-control" name="tipoDoc" id="cbxTipoDoc" required="required">
-                                        <option selected value="" disabled="1">Tipo de documento</option>
                                         <?php
-                                            include_once "../../../controlador/controladorTipoDocumento.php";
+                                            include_once "../../../controlador/controladorEmpresa.php";
 
-                                            $listaTipoDoc = getTodosTipoDocumento();
+                                            $listaEmpresas = getTodasLasEmpresas();
 
-                                            foreach($listaTipoDoc as $tipoDoc){
-                                                echo "<option value='" . $tipoDoc->getIdTipoDoc() . "'>" . $tipoDoc->getNombreTipoDoc(). "</option>"; 
+                                            foreach($listaEmpresas as $empresas){
+                                                echo "<option value='" . $empresas->getRutEmp() . "'>" . $empresas->getRazonEmp(). "</option>"; 
                                             }
                                         ?>
-                                        </select>
+                                    </select>
                                 </div>  
-                            </div>
-                            </div>
+                       
+    
+                                <div class="col col-md-6 col-12">
+                                            <label for="cbxTipoDoc" class="labelForm">Tipo de documento</label>
+                                            <select class="form-control" name="tipoDoc" id="cbxTipoDoc" required="required">
+                                                <option selected value="" disabled="1">Tipo de documento</option>
+                                                <?php
+                                                    include_once "../../../controlador/controladorTipoDocumento.php";
 
-                            <div class="container-fluid">
-                                <div class="form-group row">
-                                    <div class="col col-md-6 col-12 mb-3 mb-md-0">
-                                        <label for="cbxCliente" class="labelForm">Cliente</label>
-                                        <select class="form-control" name="cliente" id="cbxCliente" required="required">
+                                                    $listaTipoDoc = getTodosTipoDocumento();
+
+                                                    foreach($listaTipoDoc as $tipoDoc){
+                                                        echo "<option value='" . $tipoDoc->getIdTipoDoc() . "'>" . $tipoDoc->getNombreTipoDoc(). "</option>"; 
+                                                    }
+                                                ?>
+                                            </select>
+                                    </div>  
+                            </div>
+                        </div>
+
+                        <div class="container-fluid">
+                            <div class="form-group row">
+                                <div class="col col-md-6 col-12 mb-3 mb-md-0">
+                                    <label for="cbxCliente" class="labelForm">Cliente</label>
+                                    <select class="form-control" name="cliente" id="cbxCliente" required="required">
                                         <option selected value="" disabled="1">Cliente</option>
                                         <?php
                                             include_once "../../../controlador/controladorCliente.php";
@@ -213,16 +211,16 @@
                                                 echo "<option value='" . $clientes->getRutCliente() . "'>" . $clientes->getRutCompleto() . " | " . $clientes->getNombRazonSocial(). "</option>"; 
                                             }
                                         ?>
-                                        </select>
-                                    </div>
+                                    </select>
+                                </div>
 
-                                    <div class="col col-md-6 col-12">
+                                <div class="col col-md-6 col-12">
                                     <label for="txtFolio" class="labelForm">Folio del documento</label>
                                     <input required="required" class="form-control" type="number" name="folio" id="txtFolio" placeholder="Folio del documento">
-                                 </div>
+                                </div>
 
-                                </div>  
-                            </div>
+                            </div>  
+                        </div>
 
                         <div class="container-fluid">
                         
@@ -252,64 +250,83 @@
                         </div>
 
                         <div class="container-fluid">
-                            <div class="form-group row">
-                                <div class="col-4">
-                                <label for="cbxProducto" class="labelForm">Agregar producto</label>
-                                <select onchange="cargaPrecioUnit()"  class="form-control" name="producto" id="cbxProducto">
-                                    <option selected value="" disabled="1">Selecciona Producto</option>
-                                    <?php
-                                        include_once "../../../controlador/controladorProducto.php";
+                            <label><strong>Agregar productos</strong></label>
+                        </div>
 
-                                        $listaProductos = getTodosLosProductos();
+                        <div class="container-fluid">
+                            <div class="container-fluid bg-light pb-1">
+                                <div class="form-group row ">
+                                    <div class="col-7">
+                                        <label for="cbxProducto" class="labelForm">Selecciona producto</label>
+                                        <select onchange="cargaPrecioUnitYUM()"  class="form-control" name="producto" id="cbxProducto">
+                                            <option selected value="" disabled="1">Selecciona Producto</option>
+                                            <?php
+                                                include_once "../../../controlador/controladorProducto.php";
 
-                                        foreach($listaProductos as $productos){
-                                            echo "<option value='" . $productos->getCodProd() . "' data-prod-precio=" . $productos->getPrecioUnitaro() . " data-prod-um='" . $productos->getUnidadMedida()->getNombreUM() ."'>" . $productos->getDescripcion(). "</option>"; 
-                                        }
-                                    ?>
-                                </select>
+                                                $listaProductos = getTodosLosProductos();
+
+                                                foreach($listaProductos as $productos){
+                                                    echo "<option value='" . $productos->getCodProd() . "' data-prod-precio=" . floatval($productos->getPrecioUnitaro()) . " data-prod-um='" . $productos->getUnidadMedida()->getNombreUM() ."'>" . $productos->getDescripcion(). "</option>"; 
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-5">
+                                        <label for="txtPrecioUnitario" class="labelForm">Unidad Medida</label>
+                                        <input readonly=true class="form-control" type="text" name="unidadMeida" id="txtUnidadMedida" placeholder="-">
+                                    </div>
                                 </div>
 
-                                <div class="col-4">
-                                    <label for="txtPrecioUnitario" class="labelForm">Precio Unitario</label>
-                                    <input readonly=true class="form-control" type="text" name="precioUnitario" id="txtPrecioUnitario" placeholder="-">
-                                </div>
 
-                                <div class="col-3">
-                                    <label for="txtCantidad" class="labelForm">Cantidad</label>
-                                    <input class="form-control" type="number" name="cantidad" id="txtCantidad" placeholder="Cantidad" maxlength="10">
-                                </div>
- 
-                                <div class="col-offset-1">
-                                <label for="btnAgregar" class="labelForm"> &nbsp;  </label>
-                                <div class="text-center">
-                                <button onclick="agregarProd()" type="button" class="btn btn-success" id="btnAgregar" name="btnAgregar"><i class="bi bi-plus-circle-fill"></i></button>                 
-                                </div>
+                                <div class="form-group row">
+                                
+                                    <div class="col-4">
+                                        <label for="txtPrecioUnitario" class="labelForm">Precio Unitario</label>
+                                        <input readonly=true class="form-control" type="text" name="precioUnitario" id="txtPrecioUnitario" placeholder="-">
+                                    </div>
+
+                                    <div class="col-2">
+                                        <label for="txtPrecioUnitario" class="labelForm">% Descuento</label>
+                                        <input class="form-control" onkeydown="return validarNumeroEntero(event)" type="text" name="porcDesc" value=0 id="txtPorcDesc" placeholder="" maxlength="3">
+                                    </div>
+
+                                    <div class="col-5">
+                                        <label for="txtCantidad" class="labelForm">Cantidad</label>
+                                        <input class="form-control" onkeydown="return validarNumeroEntero(event)" type="text" name="cantidad" id="txtCantidad" placeholder="Cantidad" maxlength="10">
+                                    </div>
+    
+                                    <div class="col-offset-1">
+                                        <label for="btnAgregar" class="labelForm"> &nbsp;  </label>
+                                        <div class="text-center">
+                                            <button onclick="agregarProd()" type="button" class="btn btn-success" id="btnAgregar" name="btnAgregar"><i class="bi bi-plus-circle-fill"></i></button>                 
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="container-fluid">
-                            <!-- datatable -->
-                            <div class="container-fluid table-responsive">  
-                            <table id="tablaProd" class="table is-striped table-hover bg-light" style="width:100%;">
-                                <thead>
-                                    <tr>
-                                   <!-- <th>Item</th> -->
-                                    <th>Cód</th>
-                                    <th>Descripción</th>
-                                    <th>UM</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio Unit</th>
-                                    <th>Descuento</th>
-                                    <th>Valor</th>
-                                    <th class='text-center'>Borrar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <div class="container-fluid mt-3 mb-3">
+                            <!-- tabla -->
+                            <div class="container-fluid table-responsive bg-light">  
+                                <table id="tablaProd" class="table is-striped table-hover " style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                        <th class="text-center">Cód</th>
+                                        <th class="text-center">Descripción</th>
+                                        <th class="text-center">UM</th>
+                                        <th class="text-center">Cantidad</th>
+                                        <th class="text-center">Precio Unit</th>
+                                        <th class="text-center">Descuento</th>
+                                        <th class="text-center">Valor</th>
+                                        <th class='text-center'>Borrar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                </tbody>
-                                    </table>
+                                    </tbody>
+                                </table>
                                     
                             </div>    
 
@@ -317,18 +334,18 @@
 
                         <div class="container-fluid">
                             <div class="form-group row">
-                            <div class="col col-lg-4">
-                                <label class="labelForm" for="txtNeto">Neto</label>
-                                <input readonly="true" required="required" class="form-control" type="number" name="neto" id="txtNeto" placeholder="-">
-                            </div>
-                            <div class="col col-lg-4">
-                                <label class="labelForm" for="txtIVA">IVA</label>
-                                <input readonly="true" required="required" class="form-control" type="number" name="iva" id="txtIVA" placeholder="-">
-                            </div>
-                            <div class="col col-lg-4">
-                                <label class="labelForm" for="txtTotal">Total</label>
-                                <input readonly="true" required="required" class="form-control" type="number" name="total" id="txtTotal" placeholder="-">
-                            </div>
+                                <div class="col col-lg-4">
+                                    <label class="labelForm" for="txtNeto">Neto</label>
+                                    <input readonly="true" required="required" class="form-control" type="text" name="neto" id="txtNeto" placeholder="-">
+                                </div>
+                                <div class="col col-lg-4">
+                                    <label class="labelForm" for="txtIVA">IVA</label>
+                                    <input readonly="true" required="required" class="form-control" type="text" name="iva" id="txtIVA" placeholder="-">
+                                </div>
+                                <div class="col col-lg-4">
+                                    <label class="labelForm" for="txtTotal">Total</label>
+                                    <input readonly="true" required="required" class="form-control" type="text" name="total" id="txtTotal" placeholder="-">
+                                </div>
                             </div>
                         </div>
 
@@ -336,23 +353,22 @@
                             <div class="form-group row">
                                 <div class="col col-lg-12">
                                     <label class="labelForm" for="txtObservaciones">Observaciones</label>
-                                    <textarea class="form-control" id="txtObservaciones" mame="observaciones" rows="2"></textarea>
+                                    <textarea class="form-control" id="txtObservaciones" name="observaciones" rows="2"></textarea>
                                 </div>
                             </div>
                         </div>
 
                         <div class="container-fluid">
                             <div class="form-group row">
-                            <div class="col col-lg-12">
-                                <label class="labelForm" for="txtCancelado">Cancelado por</label>
-                                <input class="form-control" type="text" name="cancelado" id="txtCancelado" placeholder="Cancelado por">
-                            </div>
-
+                                <div class="col col-lg-12">
+                                    <label class="labelForm" for="txtCancelado">Cancelado por</label>
+                                    <input class="form-control" type="text" name="cancelado" id="txtCancelado" placeholder="Cancelado por">
+                                </div>
                             </div>
                         </div>
 
                         <div class="text-center form-group" id="lblEliminar">
-                        <label>Si esta seguro de eliminar el registro presione el botón</label>
+                            <label>Si esta seguro de eliminar el registro presione el botón</label>
                         </div>
 
                         <div class="container-fluid">
@@ -365,143 +381,220 @@
             </div>
         </div>
     </div>
-
+                                    
+    <!-- Javascript -->
     <script type="text/javascript">
 
-    var numFila = 1;
-    var neto = 0;
+        var numFila = 1; //Contador de filas y para asigar un id unico
+        var neto = 0; //Almacena el neto
 
-    function validarCampos(){
-        var cantCeldas = (($('#tablaProd td').length));
-        if (cantCeldas == 0){
-            alert("¡Agrege productos!");
-            return false;
-        }
-    }
-
-    function cargaPrecioUnit(){
-        var precioUn = $('#cbxProducto :selected').data("prod-precio");
-        $('#txtPrecioUnitario').val(precioUn);
-    }
-
-    function agregarProd(){
-        var prodSel = $("#cbxProducto :selected").text(); 
-        var idProdSel = $("#cbxProducto :selected").val();
-        var um = $("#cbxProducto :selected").data("prod-um");
-        var precioUn = $('#cbxProducto :selected').data("prod-precio");
-        var cantUn = parseInt($("#txtCantidad").val());
-        var total = cantUn * precioUn;
-        //Para corroborar si ya existe el producto en la tabla
-        var existe = (($('#tablaProd [name="idProd[]"]:contains(' + idProdSel + ')').length));
-
-        if(idProdSel == "" || isNaN(cantUn) || cantUn <0 ){
-            alert ("¡Debe seleccionar un producto y una cantidad para agregarlo!");
-        }
-        else if (existe >0){
-            alert ("¡El producto seleccionado ya esta ingresado en la factura!")
+        //Permite que solo se puedan ingresar numeros y uso de ctrl+c y ctrl+v
+        function validarNumeroEntero(e){
+            if(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8 || e.keyCode == 9 
+                || e.ctrlKey == true || (e.ctrlKey == true && e.keyCode == 86) || (e.ctrlKey == true && e.keyCode == 67))) {
+                return false;
+            }
         }
 
-        else{
-        
-        $("#tablaProd").find('tbody')
-        .append($('<tr>')
-            .append($('<td>')
-                .append($('<span>')
-                    .attr('name', 'idProd[]')
-                    .attr('id', 'idProd'+ numFila)
-                    .text(idProdSel)
-                )
-            )
-            .append($('<td>')
-                .append($('<span>')
-                    .attr('name', 'nomProd[]')
-                    .attr('id', 'nomProd'+ numFila)
-                    .text(prodSel)
-                )
-            )
-            .append($('<td>')
-                .append($('<span>')
-                    .attr('name', 'um[]')
-                    .attr('id', 'um'+ numFila)
-                    .text(um)
-                )
-            )
-            .append($('<td>')
-                .append($('<span>')
-                    .attr('name', 'cantUn[]')
-                    .attr('id', 'cantUn'+ numFila)
-                    .text(cantUn)
-                )
-            )
-            .append($('<td>')
-                .append($('<span>')
-                    .attr('name', 'precioUn[]')
-                    .attr('id', 'precioUn'+ numFila)
-                    .text(precioUn)
-                )
-            )
-            .append($('<td>')
-                .append($('<span>')
-                    .attr('name', 'desc[]')
-                    .attr('id', 'desc'+ numFila)
-                    .text('0')
-                )
-            )
-            .append($('<td>')
-                .append($('<span>')
-                    .attr('name', 'valor[]')
-                    .attr('id', 'valor'+ numFila)
-                    .text(total)
-                )
-            )
-            .append($('<td>')
-                .append($('<button>')
-                    .attr('class', 'btn btn-danger')
-                    .attr('type', 'button')
-                    .attr('onclick', 'eliminarProd(this)')
-                        .append($('<span>')
-                            .attr('class', 'bi bi-dash-circle-fill')
-                        )
-                )
-            )
-        )
-
-        numFila++;
-
-        //Limpiar campos
-        $("#cbxProducto").val('');
-        $("#txtPrecioUnitario").val('-');
-        $("#txtCantidad").val('');
-
-        //Calcular totales
-        calcularTotales();
-        }
-    
-    }
-
-    function eliminarProd(e){
-        var opener=e.relatedTarget;//Esta var tiene el elemento que llamó al modal (osea el botón correspondiente)
-        $(e).parent().parent().remove();
-        alert("se borra");
-        calcularTotales();
-    }
-
-    function calcularTotales(){
-        neto=0;
-
-        $('#tablaProd [name="valor[]"]').each(function( index ) {
-            neto = neto + parseInt($( this ).text());
+        //Evento para evitar pegar datos no numericos en los textbxo que son exclusivo de numeros
+        $('#txtPorcDesc, #txtCantidad').on('paste', function (event) {
+            if (event.originalEvent.clipboardData.getData('Text').match(/[^\d]/)) { 
+                event.preventDefault();
+            }
         });
 
-        var iva = neto * 0.19;
-        var total = iva+neto;
 
-        $('#txtNeto').val(neto);
-        $('#txtIVA').val(iva);
-        $('#txtTotal').val(total);
-    }
+        //Validar campos, ver si ya existe el folio antes de enviar datos al servidro
+        function validarCampos(){
+            //Coroborar si existe ya el folio:
+            var arrayDeFolios = <?php echo json_encode($listaFolios); ?>; //El array de folios la pasamos desde PHP por json a javascript
+            var folioIngresado =  $("#cbxTipoDoc :selected").val() + "" + $('#txtFolio').val(); //folio ingresado la unimo con tipoDoc (por ser PK en la tabla encabezado_doc)
+            
+            //Revisamos si el folio existe
+            for(var i = 0; i < arrayDeFolios.length ; i++){
+                if(folioIngresado === String(arrayDeFolios[i])){
+                    alert("¡El folio ingresado ya existe para el tipo de documento seleccionado!");
+                    return false;
+                }
+            }
 
+            //Corroborar si existen productos agregados:
+            var cantCeldas = (($('#tablaProd td').length));
+            if (cantCeldas == 0){
+                alert("¡Agrege productos!");
+                return false;
+            }
 
+        }
+
+        //Carga Precio Unitario y Unidad de Medida a los txtbox segun producto elegido
+        function cargaPrecioUnitYUM(){
+            var precioUn = $('#cbxProducto :selected').data("prod-precio");
+            $('#txtPrecioUnitario').val(precioUn.toLocaleString("es-CL"));
+
+            var um = $('#cbxProducto :selected').data("prod-um");
+            $('#txtUnidadMedida').val(um);
+
+        }
+
+        //Función para agregar productos a la tabla
+        function agregarProd(){
+            var prodSel = $("#cbxProducto :selected").text(); 
+            var idProdSel = $("#cbxProducto :selected").val();
+            var um = $("#cbxProducto :selected").data("prod-um");
+            var precioUn = $('#cbxProducto :selected').data("prod-precio");
+            var cantUn = parseInt($("#txtCantidad").val());
+            var descuento = parseInt($('#txtPorcDesc').val());
+            var total = (cantUn * precioUn);
+            var valorDescuento = (total * descuento/100);
+            total = Math.round(total - valorDescuento);
+
+            //Para corroborar si ya existe el producto en la tabla
+            var existe = (($('#tablaProd [name="idProd[]"]:contains(' + idProdSel + ')').length));
+            
+            if(isNaN(descuento) || !(descuento >=0 && descuento <=100)){
+                alert("¡El descuento debe ser entre 0 al 100% del producto!");
+            }
+            
+            else if(idProdSel == "" || isNaN(cantUn) || cantUn <0 ){
+                alert ("¡Debe seleccionar un producto y una cantidad para agregarlo!");
+            }
+            else if (existe >0){
+                alert ("¡El producto seleccionado ya esta ingresado en la factura!")
+            }
+
+            else{
+            //Agregar a la tabla:               
+                $("#tablaProd").find('tbody')
+                .append($('<tr>')
+                    .append($('<td class="text-center align-middle">')
+                        .text(idProdSel)
+                            .append($('<input>')
+                                .attr('type', 'hidden')
+                                .attr('name', 'idProd[]')
+                                .attr('id', 'idProd'+ numFila)
+                                .attr('value', idProdSel)
+                            
+                        )
+                    )
+                    .append($('<td class="text-center align-middle">')
+                        .text(prodSel)
+                            .append($('<input>')
+                                .attr('type', 'hidden')
+                                .attr('name', 'nomProd[]')
+                                .attr('id', 'nomProd'+ numFila)
+                                .attr('value', prodSel)
+                        )
+                    )
+                    .append($('<td class="text-center align-middle">')
+                        .text(um)
+                            .append($('<input>')
+                                .attr('type', 'hidden')
+                                .attr('name', 'um[]')
+                                .attr('id', 'um'+ numFila)
+                                .attr('value', um)
+                        )
+                    )
+                    .append($('<td class="text-center align-middle">')
+                        .text(cantUn)
+                            .append($('<input>')
+                                .attr('type', 'hidden')
+                                .attr('name', 'cantUn[]')
+                                .attr('id', 'cantUn'+ numFila)
+                                .attr('value', cantUn)
+                        )
+                    )
+                    .append($('<td class="text-center align-middle">')
+                        .text(precioUn.toLocaleString("es-CL"))
+                            .append($('<input>')
+                                .attr('type', 'hidden')
+                                .attr('name', 'precioUn[]')
+                                .attr('id', 'precioUn'+ numFila)
+                                .attr('value', precioUn)
+                        )
+                    )
+                    .append($('<td class="text-center align-middle">')
+                        .text(descuento.toLocaleString("es-CL"))
+                            .append($('<input>')
+                                .attr('type', 'hidden')
+                                .attr('name', 'desc[]')
+                                .attr('id', 'desc'+ numFila)
+                                .attr('value', descuento)
+                        )
+                        .append($('<span>')
+                            .text("%")
+                        )
+                        .append($('<br><span>')
+                            .text(" (" + valorDescuento.toLocaleString("es-CL") + ")")
+                        )
+                        
+                    )
+                    .append($('<td class="text-center align-middle" name="valorparacalculo">')
+                        .text(total.toLocaleString("es-CL"))
+                            .append($('<input>')
+                                .attr('type', 'hidden')
+                                .attr('name', 'valor[]')
+                                .attr('id', 'valor'+ numFila)
+                                .attr('value', total)
+                        )
+                    )
+                    .append($('<td class="text-center align-middle">')
+                        .append($('<button>')
+                            .attr('class', 'btn btn-danger')
+                            .attr('type', 'button')
+                            .attr('onclick', 'eliminarProd(this)')
+                                .append($('<span>')
+                                    .attr('class', 'bi bi-dash-circle-fill')
+                                )
+                        )
+                    )
+                )
+
+                numFila++;
+
+                //Limpiar campos
+                $("#cbxProducto").val('');
+                $("#txtPrecioUnitario").val('-');
+                $("#txtCantidad").val('');
+                $('#txtPorcDesc').val(0);
+
+                //Calcular totales
+                calcularTotales();
+            }
+        
+        }
+
+        function eliminarProd(e){
+            //Removemos la fila correspondiente al botón de eliminar
+            $(e).parent().parent().remove();
+            alert("se borra");
+            calcularTotales();
+        }
+        
+        //Se llama cada vez que se elmina o agrega un producto, calcula los totales
+        function calcularTotales(){
+            neto=0;
+
+            $('#tablaProd [name="valorparacalculo"]').each(function( index ) {
+                neto = neto + parseInt($( this ).text().split('.').join("")); //Tomamos el texto, le sacamos los puntos y lo pasamos a numero
+            });
+
+            var iva = neto * 0.19;
+            //Dejar iva con solo dos decimales cómo máximo
+            iva = Math.round (iva * 100) / 100
+            
+            //Total sin decimales   
+            var total = Math.round(iva+neto);
+
+            //Para formatear por miles
+            netoFor = neto.toLocaleString("es-CL");
+            ivaFor = iva.toLocaleString("es-CL");
+            totalFor = total.toLocaleString("es-CL");
+
+            $('#txtNeto').val(netoFor);
+            $('#txtIVA').val(ivaFor);
+            $('#txtTotal').val(totalFor);
+        }
 
     </script>
         
