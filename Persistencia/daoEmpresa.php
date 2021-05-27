@@ -163,7 +163,7 @@
             
             if($result === true)
             {
-                return 'ok  - Producto: ' . $newEmpresa->getRutEmp() . ' - ' . $newEmpresa->getRazonEmp() . ' Eliminado Correctamente!';
+                return 'ok  - Empresa: ' . $newEmpresa->getRutEmp() . ' - ' . $newEmpresa->getRazonEmp() . ' Eliminada Correctamente!';
             }
             else
             {

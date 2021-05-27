@@ -76,6 +76,23 @@
     <!-- datatable -->
     <div class="container-fluid contenedorTabla table-responsive">
 
+        <!-- alert -->
+        <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") === 0) {  ?>
+            
+            <div class='alert alert-success alert-dismissible'>
+                <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>¡Operación Realizada!</strong> <?php echo $_GET['msj'] ?> 
+            </div>
+        
+        <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"err") !== false) { ?>
+
+                <div class='alert alert-danger alert-dismissible'>
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>¡Operación Incorrecta!</strong> Sucedió algo inesperado:  <?php echo $_GET['msj'] ?> 
+                </div>
+        
+        <?php    } ?>
+
         <!-- contenedor de registro nuevo y libro factura q -->
         <div class="container-fluid contenedorBoton">
             <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalFact" data-prod-accion='nueva'><i class="bi bi-plus-circle-fill"></i> Nueva Factura</button>
@@ -122,8 +139,8 @@
                 <td><?php echo $encabezado->getTipoDoc()->getNombreTipoDoc(); ?></td>
                 <td><?php echo date("d-m-Y", strtotime($encabezado->getFechaEmision())); //Formatear fecha ?></td>
                 <td><?php echo $encabezado->getCliente()->getNombRazonSocial() ?></td>
-                <td><?php echo number_format ($encabezado->getNeto(), 0, ",", ".")//number_format para poner separador de miles y sacar decimales 0 ?></td>
-                <td><?php echo number_format ( $encabezado->getIva(), 0, ",", "." ) ?></td>
+                <td><?php echo number_format ($encabezado->getNeto(), 0, ",", ".")//number_format para poner separador de miles ?></td>
+                <td><?php echo str_replace(",00", "", number_format ($encabezado->getIva(), 2, ",", "." ) ) //str_replace para no mostrar ,00 innceesarios?></td> 
                 <td><?php echo number_format ( $encabezado->getTotal(), 0, ",", "." ) ?></td>          
 
 
@@ -567,7 +584,6 @@
         function eliminarProd(e){
             //Removemos la fila correspondiente al botón de eliminar
             $(e).parent().parent().remove();
-            alert("se borra");
             calcularTotales();
         }
         

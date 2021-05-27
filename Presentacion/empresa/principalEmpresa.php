@@ -29,7 +29,7 @@
     <script type="text/javascript">
 
 
-
+    //OJO ESTO
         function validarCampos(){
             var codProd = document.getElementById("txtCodProd").value;
             var descripcion = document.getElementById("txtDescripcion").value;

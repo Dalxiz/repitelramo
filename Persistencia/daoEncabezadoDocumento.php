@@ -46,7 +46,7 @@
             if($result === true)
             {
                 $conn->commit();
-                return 'ok' ;
+                return 'ok' . " - ¡Factura electrónica con Folio: " . $nuevoEncabezado->getFolioDoc() . " registrado correctamente!";
             }
             else
             {

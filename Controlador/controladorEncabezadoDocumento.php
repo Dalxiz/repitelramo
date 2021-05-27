@@ -59,17 +59,7 @@
 
       $mensaje = registrarDocumentoCompleto($nuevoEncabezado);
 
-      echo $mensaje;
-
-      /*
-      
-      $unidadMedida = new UnidadMedida($idUM, ""); // Por ahora solo id.
-
-      $nuevoProducto = new Producto($codProd, $descripcion, $unidadMedida, $precioUnitario);
-
-      $mensaje = registrarProducto($nuevoProducto);*/
-      
-      //header("Location: ../presentacion/producto/principalProducto.php?msj=". $mensaje);
+      header("Location: /repitelramo/presentacion/documento/factura/principalFactura.php?msj=". $mensaje);
 
       die();
    }
