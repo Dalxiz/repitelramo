@@ -60,6 +60,85 @@
         }
     }
 
+    function actualizarDocumentoCompleto(EncabezadoDocumento $nuevoEncabezado){
+
+        require 'parametrosBD.php';
+        require 'daoDetalleDocumento.php';
+
+        //Coroborar si la sesion se ha iniciado
+        if(session_status() !== 2  || session_id() === ""){
+            session_start();
+        } 
+
+        try{
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conn->beginTransaction(); //Comenzar trasnacción para evitar duplicados
+            
+            $query = $conn->prepare("UPDATE ENCABEZADO_DOCUMENTO SET rutEmp=?, idTipoDoc=?, folioDoc=?, fechaEmision=?,
+                                    rutCliente=?, condPago=?, estadoDoc=?, neto=?, iva=?, total=?, observaciones=?, canceladoPor=? 
+                                    WHERE idTipoDoc=? AND folioDoc=?");
+    
+            $resultadoDetalles;
+
+            $result = $query->execute([$nuevoEncabezado->getEmpresa()->getRutEmp(),
+                                       $nuevoEncabezado->getTipoDoc()->getIdTipoDoc(),
+                                       $nuevoEncabezado->getFolioDoc(),
+                                       $nuevoEncabezado->getFechaEmision(),
+                                       $nuevoEncabezado->getCliente()->getRutCliente(),
+                                       $nuevoEncabezado->getCondPago(),
+                                       $nuevoEncabezado->getEstadoDoc(),
+                                       $nuevoEncabezado->getNeto(),
+                                       $nuevoEncabezado->getIva(),
+                                       $nuevoEncabezado->getTotal(),
+                                       !empty($nuevoEncabezado->getObservaciones()) ? $nuevoEncabezado->getObservaciones() : NULL ,
+                                       !empty($nuevoEncabezado->getCanceladoPor()) ?  $nuevoEncabezado->getCanceladoPor() : NULL,                                    
+                                       $_SESSION['encabezado'][0]->getTipoDoc()->getIdTipoDoc(),
+                                       $_SESSION['encabezado'][0]->getFolioDoc()]);
+
+            if($nuevoEncabezado->getListaDetalles() != $_SESSION['encabezado'][0]->getListaDetalles()){
+                $resultadoDetalles = "SI hay cambios de productos";
+                $resultadoDetalles = eliminarDetalleDocumentoDesdeEncabezado($nuevoEncabezado, $conn);
+                
+                if(strpos($resultadoDetalles, "err") === 0 ){
+                    $result = false;
+                }
+
+                else{
+                    foreach($nuevoEncabezado->getListaDetalles() as $detalles){
+                        
+                        $resultadoDetalles = registrarDetalleDocumentoDesdeEncabezadoCon2Clases($detalles, $nuevoEncabezado, $conn);
+                        if(strpos($resultadoDetalles, "err") === 0 ){ //Si da error detalle, quiebra el foreach y devuelve result false para hacer rollback
+                            $result = false;
+                            break;
+                        }
+                    }
+
+                }  
+            }
+            else{
+                $resultadoDetalles = "NO hay cambios de productos";
+            }
+ 
+            if($result === true)
+            {
+                $conn->commit();
+                return 'ok ' . $resultadoDetalles;
+                //return 'ok' . " - ¡Factura electrónica actualizada correctamente!. Folio: " . $nuevoEncabezado->getFolioDoc() . ".";
+            }
+            else
+            {
+                $conn->rollBack(); //Si hay algun problema, se devuelve toda la transacción (incuyendo tablas de detalle)
+                return $resultadoDetalles; //Se retorna el mensaje de error desde detalleDocumento
+            }
+
+        }catch(PDOException $pe){
+            $conn->rollBack();
+            return "err : " . $pe->getMessage();
+        }
+    }
+
     function consultarEncabezadoDocumento(){
 
         require 'parametrosBD.php';

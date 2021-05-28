@@ -429,8 +429,8 @@
             else if (tipoModal == "info"){
                 return "#modalFactInfo";
             }
-            else{
-                return "";
+            else if (tipoModal == "actualizar"){
+                return "#modalFactAct";
             }
         }
 

@@ -1,9 +1,9 @@
-<form action="../../../controlador/controladorEncabezadoDocumento.php" id="formFactInfo" method="POST">            
+<form action="../../../controlador/controladorEncabezadoDocumento.php" id="formFactActualizar" method="POST">            
     <div class="container-fluid">
         <div class="form-group row">
             <div class="col col-md-6 col-12 mb-3 mb-md-0">
                 <label for="cbxEmpresa" class="labelForm">Empresa</label>
-                <select disabled class="form-control" name="empresa" id="cbxEmpresa" required="required">
+                <select class="form-control" name="empresa" id="cbxEmpresa" required="required">
                 <option selected value="" disabled="1">Empresa</option>
                     <?php
                         include_once  $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/controlador/controladorEmpresa.php';
@@ -27,7 +27,7 @@
 
             <div class="col col-md-6 col-12">
                         <label for="cbxTipoDoc" class="labelForm">Tipo de documento</label>
-                        <select disabled class="form-control" name="tipoDoc" id="cbxTipoDoc" required="required">
+                        <select class="form-control" name="tipoDoc" id="cbxTipoDoc" required="required">
                             <option selected value="" disabled="1">Tipo de documento</option>
                             <?php
                                 include_once  $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/controlador/controladorTipoDocumento.php";
@@ -52,7 +52,7 @@
         <div class="form-group row">
             <div class="col col-md-6 col-12 mb-3 mb-md-0">
                 <label for="cbxCliente" class="labelForm">Cliente</label>
-                <select disabled class="form-control" name="cliente" id="cbxCliente" required="required">
+                <select class="form-control" name="cliente" id="cbxCliente" required="required">
                     <option selected value="" disabled="1">Cliente</option>
                     <?php
                         include_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/controlador/controladorCliente.php";
@@ -73,7 +73,7 @@
 
             <div class="col col-md-6 col-12">
                 <label for="txtFolio" class="labelForm">Folio del documento</label>
-                <input readonly required="required" value="<?php echo $_SESSION['encabezado'][0]->getFolioDoc(); ?>" class="form-control" type="number" name="folio" id="txtFolio" placeholder="Folio del documento">
+                <input required="required" value="<?php echo $_SESSION['encabezado'][0]->getFolioDoc(); ?>" class="form-control" type="number" name="folio" id="txtFolio" placeholder="Folio del documento">
             </div>
 
         </div>  
@@ -84,11 +84,11 @@
         <div class="form-group row">
         <div class="col col-lg-6">
             <label for="txtFechaEmision" class="labelForm" >Fecha de emisión</label>
-            <input readonly required="required" value="<?php echo $_SESSION['encabezado'][0]->getFechaEmision(); ?>" class="form-control" type="date" name="fechaEmision" id="txtFechaEmision" placeholder="Fecha de emisión" maxlength="10">
+            <input required="required" value="<?php echo $_SESSION['encabezado'][0]->getFechaEmision(); ?>" class="form-control" type="date" name="fechaEmision" id="txtFechaEmision" placeholder="Fecha de emisión" maxlength="10">
             </div>
             <div class="col col-lg-6">
             <label for="txtCondPago" class="labelForm">Condicion de pago</label>
-            <input readonly required="required" value="<?php echo $_SESSION['encabezado'][0]->getCondPago(); ?>" class="form-control" type="text" name="condPago" id="txtCondPago" placeholder="Condición de pago">
+            <input required="required" value="<?php echo $_SESSION['encabezado'][0]->getCondPago(); ?>" class="form-control" type="text" name="condPago" id="txtCondPago" placeholder="Condición de pago">
                 </div>
         </div>
 
@@ -96,7 +96,7 @@
     <div class="container-fluid">
         <div class="form-group">
                 <label for="cbxEstadoDoc" class="labelForm">Estado del documento</label>
-                <select disabled class="form-control" name="estadoDoc" id="cbxEstadoDoc" required="required">
+                <select class="form-control" name="estadoDoc" id="cbxEstadoDoc" required="required">
                     <option selected value="" disabled="1">Estado del documento</option>
                     <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Creado") {echo "selected";} ?> class ="text-info" value="Creado">Creado</option>
                     <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Emitido") {echo "selected";}; ?> class="text-success" value="Emitido">Emitido</option>
@@ -106,7 +106,65 @@
     
     </div>
 
-    <div class="container-fluid mt-4 mb-3">
+    <div class="container-fluid">
+        <label><strong>Agregar productos</strong></label>
+    </div>
+
+    <div class="container-fluid">
+        <div class="container-fluid bg-light pb-1">
+            <div class="form-group row ">
+                <div class="col-7">
+                    <label for="cbxProducto" class="labelForm">Selecciona producto</label>
+                    <select onchange="cargaPrecioUnitYUM('actualizar')"  class="form-control" name="producto" id="cbxProducto">
+                        <option selected value="" disabled="1">Selecciona Producto</option>
+                        <?php
+                            include_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/controlador/controladorProducto.php";
+
+                            $listaProductos = getTodosLosProductos();
+
+                            foreach($listaProductos as $productos){
+                                echo "<option value='" . $productos->getCodProd() . "' data-prod-precio=" . floatval($productos->getPrecioUnitaro()) . " data-prod-um='" . $productos->getUnidadMedida()->getNombreUM() ."'>" . $productos->getDescripcion(). "</option>"; 
+                            }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="col-5">
+                    <label for="txtPrecioUnitario" class="labelForm">Unidad Medida</label>
+                    <input readonly=true class="form-control" type="text" name="unidadMeida" id="txtUnidadMedida" placeholder="-">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+            
+                <div class="col-4">
+                    <label for="txtPrecioUnitario" class="labelForm">Precio Unitario</label>
+                    <input readonly=true class="form-control" type="text" name="precioUnitario" id="txtPrecioUnitario" placeholder="-">
+                </div>
+
+                <div class="col-2">
+                    <label for="txtPrecioUnitario" class="labelForm">% Descuento</label>
+                    <input class="form-control" onkeydown="return validarNumeroEntero(event)" type="text" name="porcDesc" value=0 id="txtPorcDesc" placeholder="" maxlength="3">
+                </div>
+
+                <div class="col-5">
+                    <label for="txtCantidad" class="labelForm">Cantidad</label>
+                    <input class="form-control" onkeydown="return validarNumeroEntero(event)" type="text" name="cantidad" id="txtCantidad" placeholder="Cantidad" maxlength="10">
+                </div>
+
+                <div class="col-offset-1">
+                    <label for="btnAgregar" class="labelForm"> &nbsp;  </label>
+                    <div class="text-center">
+                        <button onclick="agregarProd('actualizar')" type="button" class="btn btn-success" id="btnAgregar" name="btnAgregar"><i class="bi bi-plus-circle-fill"></i></button>                 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container-fluid mt-3 mb-3">
         <!-- tabla -->
         <div class="container-fluid table-responsive bg-light">  
             <table id="tablaProd" class="table is-striped table-hover " style="width:100%;">
@@ -119,6 +177,7 @@
                     <th class="text-center">Precio Unit</th>
                     <th class="text-center">Descuento</th>
                     <th class="text-center">Valor</th>
+                    <th class='text-center'>Borrar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -174,6 +233,11 @@
                         <input type="hidden" name="valor[]" value="<?php echo $detalle->getValor()?>"></input>
                     </td>
 
+                    <td class="text-center align-middle">
+                        <button type="button" onclick="eliminarProd(this, '#modalFactAct')" class="btn btn-danger"><span class="bi bi-dash-circle-fill"></span></button>
+
+                    </td>
+
                 </tr>
                 <?php } ?>
 
@@ -205,7 +269,7 @@
         <div class="form-group row">
             <div class="col col-lg-12">
                 <label class="labelForm" for="txtObservaciones">Observaciones</label>
-                <textarea disabled class="form-control" id="txtObservaciones" name="observaciones" rows="2"><?php echo $_SESSION['encabezado'][0]->getObservaciones() ?></textarea>
+                <textarea class="form-control" id="txtObservaciones" name="observaciones" rows="2"><?php echo $_SESSION['encabezado'][0]->getObservaciones() ?></textarea>
             </div>
         </div>
     </div>
@@ -214,8 +278,14 @@
         <div class="form-group row">
             <div class="col col-lg-12">
                 <label class="labelForm" for="txtCancelado">Cancelado por</label>
-                <input readonly value = "<?php echo $_SESSION['encabezado'][0]->getCanceladoPor() ?>" class="form-control" type="text" name="cancelado" id="txtCancelado" placeholder="">
+                <input value = "<?php echo $_SESSION['encabezado'][0]->getCanceladoPor() ?>" class="form-control" type="text" name="cancelado" id="txtCancelado" placeholder="">
             </div>
         </div>
-    </div>                     
+    </div>
+
+    <div class="container-fluid mt-4">
+        <div class="form-group">
+            <button class="btn btn-dark col-lg-12" id="btnAccion" name="actualizar" onclick="return validarCampos('actualizar')" type="submit">Actualizar</button>
+        </div>
+    </div>                        
 </form>
