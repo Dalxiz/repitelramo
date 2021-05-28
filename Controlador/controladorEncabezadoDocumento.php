@@ -64,6 +64,33 @@
       die();
    }
 
+   //Para cargar modal con datos
+   if(isset($_POST['cargarModal']))
+   { 
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/usuario.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/empresa.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/tipoDocumento.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/encabezadoDocumento.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/detalleDocumento.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/producto.php';
+
+
+      require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
+      
+      session_start();
+      $folio = $_POST['folio'];
+      $idTipoDoc = $_POST['idTipoDoc'];
+      $cargarModal = $_POST['cargarModal'];
+
+      //Cambiamos elemento session
+      $_SESSION['encabezado'] = consultarEncabezadoDocumentoPorFolio($idTipoDoc,$folio);
+
+      //Devoler el modal actualizado:
+      if($cargarModal == "informacion"){
+         return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/modalInformacionFactura.php';
+      }
+   }
+
 
      function getTodosEncabezadoDocumento(){
 

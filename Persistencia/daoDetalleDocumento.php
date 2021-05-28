@@ -79,6 +79,45 @@
         }
     }
 
+    function consultarDetalleDocumentoPorFolio($idTipoDoc, $folioComp){
+
+        require 'parametrosBD.php';
+        require_once 'daoProducto.php';
+
+        try
+        {
+            $conexion = new PDO("mysql:host=$host;dbname=$nombreBaseDatos;charset=UTF8", $usuario, $password);
+
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $listaDetalles=[];
+
+            $querySelect = $conexion->query("SELECT * FROM DETALLE_DOCUMENTO WHERE idTipoDoc = " . $idTipoDoc . " AND folioDoc = " . $folioComp);
+
+            foreach($querySelect->fetchAll() as $tablaDetalleBBDD)
+            {
+
+                $producto = consultarProductoPorCodigo($tablaDetalleBBDD['codProd']);
+
+                $detalleSel = new DetalleDocumento($tablaDetalleBBDD['idDetalle'], "", $producto, $tablaDetalleBBDD['precioUnitario'], 
+                $tablaDetalleBBDD['cantUnitaria'], $tablaDetalleBBDD['descuento'], $tablaDetalleBBDD['valor']);
+              
+                $listaDetalles[]=$detalleSel; //1,2,3,4,5,6,7,
+            }
+
+            if(count($listaDetalles) > 0){
+                return $listaDetalles;
+            }else{
+                return ($lista=[]);
+            }
+        }
+        catch(PDOException $pe)
+        {
+            return $pe->getMessage();
+
+        }
+    }
+
     ///POR IMPLEMENTAR
     function actualizarDetalleDocumento(Producto $nuevoProducto){
 

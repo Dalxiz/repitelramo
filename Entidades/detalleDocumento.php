@@ -13,7 +13,7 @@
         private $descuento;
         private $valor;
 
-        function __construct($idDetalle, EncabezadoDocumento $encabezadoDocumento, Producto $producto,$precioUnitario,$cantUnitaria,$descuento,$valor){
+        function __construct($idDetalle, $encabezadoDocumento, Producto $producto,$precioUnitario,$cantUnitaria,$descuento,$valor){
             $this->idDetalle=$idDetalle;
             $this->encabezadoDocumento=$encabezadoDocumento;
             $this->producto=$producto;

@@ -97,6 +97,10 @@
         function addNuevoDetalle(DetalleDocumento $detalle){
             $this->listaDetalles[]=$detalle;
         }
+
+        function addVariosDetalles(array $detalle){
+            $this->listaDetalles=$detalle;
+        }
     }
 
 ?>

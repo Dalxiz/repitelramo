@@ -174,49 +174,100 @@
         }
     }
 
+    function consultarEncabezadoDocumentoPorFolio($idTipoDoc, $folioComp){
+
+        require 'parametrosBD.php';
+        require_once 'daoEmpresa.php';
+        require_once 'daoUsuario.php';
+        require_once 'daoTipoDocumento.php';
+        require_once 'daoClientes.php';
+        require_once 'daoDetalleDocumento.php';
+
+        
+        try
+        {
+            $conexion = new PDO("mysql:host=$host;dbname=$nombreBaseDatos;charset=UTF8", $usuario, $password);
+
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $listaEncabezados=[];
+
+            $querySelect = $conexion->query("SELECT * FROM ENCABEZADO_DOCUMENTO WHERE idTipoDoc = " .$idTipoDoc . " AND folioDoc = " .$folioComp );
+
+            foreach($querySelect->fetchAll() as $tablaEncabezadoBBDD)
+            {
+
+                $usuario = consultarUsuarioPorId($tablaEncabezadoBBDD['idUsu']);
+                $empresa = consultarEmpresaPorRut($tablaEncabezadoBBDD['rutEmp']);
+                $tipoDoc = consultarTiposDocumentoPorId($tablaEncabezadoBBDD['idTipoDoc']);
+                $cliente = consultarClientePorRut($tablaEncabezadoBBDD['rutCliente']);
+
+                $encabeadoSel= new EncabezadoDocumento($usuario, $empresa, $tipoDoc, $tablaEncabezadoBBDD['folioDoc'],
+                $tablaEncabezadoBBDD['fechaEmision'], $cliente, $tablaEncabezadoBBDD['condPago'], $tablaEncabezadoBBDD['estadoDoc'], 
+                $tablaEncabezadoBBDD['neto'], $tablaEncabezadoBBDD['iva'], $tablaEncabezadoBBDD['total'], $tablaEncabezadoBBDD['observaciones'],
+                $tablaEncabezadoBBDD['canceladoPor']);
+
+                $encabeadoSel->addVariosDetalles(consultarDetalleDocumentoPorFolio($idTipoDoc, $folioComp));
+
+                $listaEncabezados[]=$encabeadoSel; //1,2,3,4,5,6,7,
+            }
+
+            if(count($listaEncabezados) > 0){
+                return $listaEncabezados;
+            }else{
+                return ($lista=[]);
+            }
+        }
+        catch(PDOException $pe)
+        {
+            return $pe->getMessage();
+
+        }
+    }
+
     //Metodo solo para ingresar encabezado, no usado por ahora y por ahora usado solo registrarDocumentoCompleto()
     function registrarEncabezadoDocumento(EncabezadoDocumento $nuevoEncabezado){
 
-    require 'parametrosBD.php';
+        require 'parametrosBD.php';
 
-    try{
-        $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
+        try{
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
 
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $query = $conn->prepare("INSERT INTO ENCABEZADO_DOCUMENTO (idUsu, rutEmp, idTipoDoc, folioDoc, fechaEmision,
-                                rutCliente, condPago, estadoDoc, neto, iva, total, observaciones, canceladoPor) 
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $query = $conn->prepare("INSERT INTO ENCABEZADO_DOCUMENTO (idUsu, rutEmp, idTipoDoc, folioDoc, fechaEmision,
+                                    rutCliente, condPago, estadoDoc, neto, iva, total, observaciones, canceladoPor) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $result = $query->execute([$nuevoEncabezado->getUsuario()->getIdUsu(),
-                                    $nuevoEncabezado->getEmpresa()->getRutEmp(),
-                                    $nuevoEncabezado->getTipoDoc()->getIdTipoDoc(),
-                                    $nuevoEncabezado->getFolioDoc(),
-                                    $nuevoEncabezado->getFechaEmision(),
-                                    $nuevoEncabezado->getCliente()->getRutCliente(),
-                                    $nuevoEncabezado->getCondPago(),
-                                    $nuevoEncabezado->getEstadoDoc(),
-                                    $nuevoEncabezado->getNeto(),
-                                    $nuevoEncabezado->getIva(),
-                                    $nuevoEncabezado->getTotal(),
-                                    !empty($nuevoEncabezado->getObservaciones()) ? $nuevoEncabezado->getObservaciones() : NULL ,
-                                    !empty($nuevoEncabezado->getCanceladoPor()) ?  $nuevoEncabezado->getCanceladoPor() : NULL,                                    
-                                    ]);
-        
-        if($result === true)
-        {
-            return 'ok' ;
+            $result = $query->execute([$nuevoEncabezado->getUsuario()->getIdUsu(),
+                                        $nuevoEncabezado->getEmpresa()->getRutEmp(),
+                                        $nuevoEncabezado->getTipoDoc()->getIdTipoDoc(),
+                                        $nuevoEncabezado->getFolioDoc(),
+                                        $nuevoEncabezado->getFechaEmision(),
+                                        $nuevoEncabezado->getCliente()->getRutCliente(),
+                                        $nuevoEncabezado->getCondPago(),
+                                        $nuevoEncabezado->getEstadoDoc(),
+                                        $nuevoEncabezado->getNeto(),
+                                        $nuevoEncabezado->getIva(),
+                                        $nuevoEncabezado->getTotal(),
+                                        !empty($nuevoEncabezado->getObservaciones()) ? $nuevoEncabezado->getObservaciones() : NULL ,
+                                        !empty($nuevoEncabezado->getCanceladoPor()) ?  $nuevoEncabezado->getCanceladoPor() : NULL,                                    
+                                        ]);
+            
+            if($result === true)
+            {
+                return 'ok' ;
+            }
+            else
+            {
+                return 'err';
+            }
+
+        }catch(PDOException $pe){
+
+            return "err : " . $pe->getMessage();
         }
-        else
-        {
-            return 'err';
-        }
-
-    }catch(PDOException $pe){
-
-        return "err : " . $pe->getMessage();
     }
-}
 
     
 

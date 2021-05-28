@@ -153,7 +153,7 @@
 
             $listaProductos=[];
 
-            $querySelect = $conexion->query("SELECT * FROM PRODUCTO WHERE codProd = " . $codProd );
+            $querySelect = $conexion->query("SELECT * FROM PRODUCTO WHERE codProd = '" . $codProd . "'" );
 
             foreach($querySelect->fetchAll() as $tablaProdBBDD)
             {
