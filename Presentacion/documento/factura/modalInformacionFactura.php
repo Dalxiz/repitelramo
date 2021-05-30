@@ -86,10 +86,25 @@
             <label for="txtFechaRegistro" class="labelForm" >Fecha de registro</label>
             <input readonly required="required" value="<?php echo $_SESSION['encabezado'][0]->getFechaRegistro(); ?>" class="form-control" type="date" name="fechaRegistro" id="txtFechaRegistro" placeholder="Fecha de registro" maxlength="10">
             </div>
+            
+            <!-- Si es factura emitida, se muestra fecha de emisión -->
+            <?php  if($_SESSION['encabezado'][0]->getEstadoDoc() == "Emitido") {?>
             <div class="col col-lg-6">
-            <label for="txtCondPago" class="labelForm">Condicion de pago</label>
-            <input readonly required="required" value="<?php echo $_SESSION['encabezado'][0]->getCondPago(); ?>" class="form-control" type="text" name="condPago" id="txtCondPago" placeholder="Condición de pago">
-                </div>
+                <label for="txtFechaEmision" class="labelForm" >Fecha de emisión</label>
+                <input readonly required="required" value="<?php echo $_SESSION['encabezado'][0]->getFechaEmision(); ?>" class="form-control" type="date" name="fechaEmision" id="txtFechaEmision" placeholder="Fecha de emisión" maxlength="10">
+            </div>
+            <div class="col col-lg-12 mt-3">
+            
+            <?php } else{ ?>
+
+            <div class="col col-lg-6">
+
+            <?php } ?>
+            
+                <label for="txtCondPago" class="labelForm">Condicion de pago</label>
+                <input readonly required="required" value="<?php echo $_SESSION['encabezado'][0]->getCondPago(); ?>" class="form-control" type="text" name="condPago" id="txtCondPago" placeholder="Condición de pago">
+            </div>
+
         </div>
 
     </div>

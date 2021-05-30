@@ -77,10 +77,6 @@
     <div class="container-fluid contenedorTabla table-responsive">
 
         <!-- alert -->
-        <div class='alert alert-info alert-dismissible'>
-                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong><i class="text-primary bi bi-info-circle-fill"></i> Atención:</strong> Solo es posible modificar las facturas registradas, una vez emitidas o anuladas no pueden editarse. 
-        </div>
 
         <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") === 0) {  ?>
             
@@ -98,7 +94,12 @@
         
         <?php    } ?>
 
-        <!-- contenedor de registro nuevo y libro factura q -->
+        <div class='alert alert-info alert-dismissible'>
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong><i class="text-primary bi bi-info-circle-fill"></i> Atención:</strong> Solo es posible modificar las facturas registradas, una vez emitidas o anuladas no pueden editarse. 
+        </div>
+
+        <!-- contenedor botones de registro nuevo y libro factura q -->
         <div class="container-fluid contenedorBoton">
             <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalFact" data-prod-accion='nueva'><i class="bi bi-plus-circle-fill"></i> Nueva Factura</button>
             
@@ -139,7 +140,7 @@
                     if (count($listaEncabezados) > 0) {
                         foreach ($listaEncabezados as $encabezado) {
                             $listaFolios[] = array($encabezado->getTipoDoc()->getIdTipoDoc() . $encabezado->getFolioDoc());
-                        if($encabezado->getTipoDoc()->getNombreTipoDoc() == "Factura Electrónica"){
+                            if($encabezado->getTipoDoc()->getNombreTipoDoc() == "Factura Electrónica"){
                 ?>
                 <tr>
                     <td>
@@ -491,7 +492,7 @@
                 <div class="modal-body">
                     <form action="../../../controlador/controladorEncabezadoDocumento.php" method="POST">
                     
-                    <div id="divFechaEmision" class="form-group col-lg-6">
+                    <div id="divFechaEmision" class="form-group col-lg-12">
                     <label for="txtNuevaFechaEmision" class="labelForm" >Ingrese la Fecha de Emisión</label>
                         <input required="required" class="form-control" type="date" name="fechaEmision" id="txtNuevaFechaEmision" placeholder="Fecha de registro" maxlength="10">
                     
@@ -514,6 +515,24 @@
                         </div>
                     </div>
                     </form>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+    <!-- ventana modal libro de ventas -->
+    <div class="modal fade bd-example-modal-lg" id="modalLibro" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 ><i class="bi bi-bookmark-check-fill"> </i><span>Libro de ventas del mes</span></h5>
+                    <button class="close" data-dismiss="modal" aria-label="cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
                 </div>                
             </div>
         </div>
@@ -842,20 +861,17 @@
         //Evento click sobre libro factura
         $('.factura-libro').click(function(){
             
-            var folio = $(this).data('folio');
-            var idTipoDoc = $(this).data('tipo-doc');
-
             // AJAX request
             $.ajax({
                 url: '/repitelramo/controlador/controladorEncabezadoDocumento.php',
                 type: 'post',
-                data: {folio: folio, idTipoDoc:idTipoDoc, cargarModal: "libro"},
+                data: {cargarModal: "libro"},
                 success: function(response){ 
                     // Add response in Modal body
-                    $('#modalFactInfo .modal-body').html("Por Implementar");
+                    $('#modalLibro .modal-body').html(response);
                 
                     // Display Modal
-                    $('#modalFactInfo').modal('show'); 
+                    $('#modalLibro').modal('show'); 
                 }
             });
         });

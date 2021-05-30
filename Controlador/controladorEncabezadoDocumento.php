@@ -64,7 +64,7 @@
       die();
    }
 
-   if(isset($_POST['actualizar']))
+   else if(isset($_POST['actualizar']))
    { 
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/usuario.php';
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/empresa.php';
@@ -128,9 +128,10 @@
       die();
    }
 
-   //Para cargar modal con datos
-   if(isset($_POST['cargarModal']))
+   //Para cargar modal de inforación y actualización con datos
+   else if(isset($_POST['cargarModal']))
    { 
+
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/usuario.php';
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/empresa.php';
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/tipoDocumento.php';
@@ -139,27 +140,35 @@
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/producto.php';
 
       require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
-      
-      session_start();
-      $folio = $_POST['folio'];
-      $idTipoDoc = $_POST['idTipoDoc'];
+
       $cargarModal = $_POST['cargarModal'];
 
-      //Cambiamos elemento session
-      $_SESSION['encabezado'] = consultarEncabezadoDocumentoPorFolio($idTipoDoc,$folio);
-
-      //Devoler el modal actualizado:
-      if($cargarModal == "informacion"){
-         return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/modalInformacionFactura.php';
+      if($cargarModal == "libro"){
+         return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/modalLibroVentas.php';
       }
 
-      else if($cargarModal == "actualizar"){
-         return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/modalActualizarFactura.php';
+      else{
+      
+         session_start();
+         $folio = $_POST['folio'];
+         $idTipoDoc = $_POST['idTipoDoc'];
+
+         //Cambiamos elemento session
+         $_SESSION['encabezado'] = consultarEncabezadoDocumentoPorFolio($idTipoDoc,$folio);
+
+         //Devoler el modal actualizado:
+         if($cargarModal == "informacion"){
+            return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/modalInformacionFactura.php';
+         }
+
+         else if($cargarModal == "actualizar"){
+            return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/modalActualizarFactura.php';
+         }
       }
 
    }
 
-   if(isset($_POST['cambiarestado']))
+   else if(isset($_POST['cambiarestado']))
    { 
       require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
       
@@ -180,6 +189,31 @@
 
       header("Location: /repitelramo/presentacion/documento/factura/principalFactura.php?msj=". $mensaje);
 
+   }//Libro de venta
+   else if (isset($_POST['consulta'])) {
+      
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/usuario.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/empresa.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/tipoDocumento.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/encabezadoDocumento.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
+
+      session_start();
+      
+      $fecha = $_POST['fecha'];
+      
+      $anio = substr($fecha,0,4);
+      
+      $mes = substr($fecha,5,2);
+
+      $lista = consultaLibroVenta($mes,$anio);
+
+      $_SESSION['libro'] = $lista;
+
+      return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/resultadoLibro.php';
+      
+      die();
+      
    }
 
 
@@ -197,32 +231,5 @@
         return $lista;
      }
 
-   if (isset($_POST['consulta'])) {
-      
-      session_start();
-      
-      $fecha = $_POST['fecha'];
-      
-      $anio = substr($fecha,0,4);
-      
-      $mes = substr($fecha,5,2);
-      
-
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/usuario.php';
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/empresa.php';
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/tipoDocumento.php';
-      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/encabezadoDocumento.php';
-      require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
-
-      $lista = consultaLibroVenta($mes,$anio);
-
-      $_SESSION['libro'] = $lista;
-
-      // header("Location: /repitelramo/presentacion/documento/factura/libroVentas.php");
-
-      return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/resultadoLibro.php';
-      
-      die();
-      
-   }
+   
 ?>

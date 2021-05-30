@@ -149,8 +149,6 @@
             
             $query = $conn->prepare("UPDATE ENCABEZADO_DOCUMENTO SET estadoDoc=?, fechaEmision=?
                                     WHERE idTipoDoc=? AND folioDoc=?");
-    
-            $resultadoDetalles;
 
             $result = $query->execute([$estado,
                                        !empty($fechaEmision) ? $fechaEmision : NULL, 
@@ -159,13 +157,16 @@
             if($result === true)
             {
                 $conn->commit();
-                return 'ok ' . $resultadoDetalles;
-                //return 'ok' . " - ¡Factura electrónica actualizada correctamente!. Folio: " . $nuevoEncabezado->getFolioDoc() . ".";
+                if ($estado == "Emitido"){
+                    return 'ok ' . " - ¡Factura con folio '$folio' emitida correctamente!";
+                } else {
+                    return 'ok ' . " - ¡Factura con folio '$folio' anulada correctamente!";
+                }
             }
             else
             {
-                $conn->rollBack(); //Si hay algun problema, se devuelve toda la transacción (incuyendo tablas de detalle)
-                return $resultadoDetalles; //Se retorna el mensaje de error desde detalleDocumento
+                $conn->rollBack(); 
+                return $result; 
             }
 
         }catch(PDOException $pe){
@@ -217,72 +218,6 @@
         {
             return $pe->getMessage();
 
-        }
-    }
-
-    ///POR IMPLEMENTAR
-    function actualizarEncabezadoDocumento(Producto $nuevoProducto){
-
-        require 'parametrosBD.php';
-
-        try{
-            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
-
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $queryUpdate = $conn->prepare("UPDATE PRODUCTO SET descripcion=?, idUM=?, precioUnitario=? 
-                                    WHERE codProd=?");
-    
-            $result = $queryUpdate->execute([$nuevoProducto->getDescripcion(), $nuevoProducto->getUnidadMedida()->getIdUM(),
-                                        $nuevoProducto->getPrecioUnitaro(), $nuevoProducto->getCodProd()]);
-            
-            if($result === true)
-            {
-                return 'ok';
-            }
-            else
-            {
-                return 'err';
-            }
-
-        }catch(PDOException $pe){
-
-            return "err : " . $pe->getMessage();
-            
-        }
-    }
-
-    ///POR IMPLEMENTAR
-    function cambiarEstadoEncabezadoDocumento(Producto $nuevoProducto){
-
-        require 'parametrosBD.php';
-
-        try{
-            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
-
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $queryDelete = $conn->prepare("DELETE FROM PRODUCTO WHERE codProd=?");
-    
-            $result = $queryDelete->execute([$nuevoProducto->getCodProd()]);
-            
-            if($result === true)
-            {
-                return 'ok  - Producto: ' . $nuevoProducto->getCodProd() . ' - ' . $nuevoProducto->getDescripcion() . ' Eliminado Correctamente!';
-            }
-            else
-            {
-                return 'err';
-            }
-
-        }catch(PDOException $pe){
-
-            if(strpos($pe->getMessage(),"violation: 1451")){
-                return "err : El Código del Producto: '" . $nuevoProducto->getCodProd() ."' esta siendo utilizado por documentos, no es posible eliminarlo. Contactese con el administador del sistema si desea eleminarlo del sistema";
-            }
-
-            return "err : " . $pe->getMessage();
-            
         }
     }
 
