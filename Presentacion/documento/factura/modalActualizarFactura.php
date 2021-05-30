@@ -27,7 +27,7 @@
 
             <div class="col col-md-6 col-12">
                         <label for="cbxTipoDoc" class="labelForm">Tipo de documento</label>
-                        <select  class="form-control" name="tipoDoc" id="cbxTipoDoc" required="required">
+                        <select disabled class="form-control" name="tipoDoc" id="cbxTipoDoc" required="required">
                             <option selected value="" disabled="1">Tipo de documento</option>
                             <?php
                                 include_once  $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/controlador/controladorTipoDocumento.php";
@@ -96,7 +96,7 @@
     <div class="container-fluid">
         <div class="form-group">
                 <label for="cbxEstadoDoc" class="labelForm">Estado del documento</label>
-                <select class="form-control" name="estadoDoc" id="cbxEstadoDoc" required="required">
+                <select disabled class="form-control" name="estadoDoc" id="cbxEstadoDoc" required="required">
                     <option selected value="" disabled="1">Estado del documento</option>
                     <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Registrado") {echo "selected";} ?> class ="text-info" value="Registrado">Registrado</option>
                     <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Emitido") {echo "selected";}; ?> class="text-success" value="Emitido">Emitido</option>

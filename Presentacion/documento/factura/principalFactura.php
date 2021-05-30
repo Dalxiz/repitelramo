@@ -77,6 +77,11 @@
     <div class="container-fluid contenedorTabla table-responsive">
 
         <!-- alert -->
+        <div class='alert alert-info alert-dismissible'>
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong><i class="text-primary bi bi-info-circle-fill"></i> Atención:</strong> Solo es posible modificar las facturas registradas, una vez emitidas o anuladas no pueden editarse. 
+        </div>
+
         <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") === 0) {  ?>
             
             <div class='alert alert-success alert-dismissible'>
@@ -159,7 +164,9 @@
                     <td class="text-center">
                         <div style="min-width : 136px">
                             <button type="button" class="btn btn-success factura-info" data-folio='<?php echo $encabezado->getFolioDoc();?>' data-tipo-doc='<?php echo $encabezado->getTipoDoc()->getIdTipoDoc(); ?>'><i class="bi bi-eye-fill"></i></button>
+                            <?php if($encabezado->getEstadoDoc() === "Registrado"){ ?>
                             <button type="button" class="btn btn-warning factura-actualizar" data-toggle="modal" data-folio='<?php echo $encabezado->getFolioDoc();?>' data-tipo-doc='<?php echo $encabezado->getTipoDoc()->getIdTipoDoc(); ?>'><i class="bi bi-pencil-fill"></i></button>
+                            <?php } ?> 
                             <span class="btn btn-danger factura-eliminar"  data-toggle="modal" ><i class="bi bi-trash2-fill"></i></span>
                         </div>
                     </td>
@@ -209,7 +216,7 @@
     
                                 <div class="col col-md-6 col-12">
                                             <label for="cbxTipoDoc" class="labelForm">Tipo de documento</label>
-                                            <select class="form-control" name="tipoDoc" id="cbxTipoDoc" required="required">
+                                            <select disabled class="form-control" name="tipoDoc" id="cbxTipoDoc" required="required">
                                                 <option selected value="" disabled="1">Tipo de documento</option>
                                                 <?php
                                                     include_once "../../../controlador/controladorTipoDocumento.php";
@@ -218,9 +225,13 @@
 
                                                     foreach($listaTipoDoc as $tipoDoc){
                                                         echo "<option value='" . $tipoDoc->getIdTipoDoc() . "'>" . $tipoDoc->getNombreTipoDoc(). "</option>"; 
+                                                        if($tipoDoc->getIdTipoDoc() == '1'){
+                                                            echo "<option selected value='" . $tipoDoc->getIdTipoDoc() . "'>" . $tipoDoc->getNombreTipoDoc(). "</option>"; 
+                                                        }
                                                     }
                                                 ?>
                                             </select>
+                                           <!-- <input type="hidden" name="tipoDoc" value="1" > -->
                                     </div>  
                             </div>
                         </div>
@@ -268,7 +279,7 @@
                         <div class="container-fluid">
                             <div class="form-group">
                                     <label for="cbxEstadoDoc" class="labelForm">Estado del documento</label>
-                                    <select class="form-control" name="estadoDoc" id="cbxEstadoDoc" required="required">
+                                    <select disabled class="form-control" name="estadoDoc" id="cbxEstadoDoc" required="required">
                                         <option value="" disabled="1">Estado del documento</option>
                                         <option selected class ="text-info" value="Registrado">Registrado</option>
                                         <option class="text-success" value="Emitido">Emitido</option>
@@ -486,6 +497,7 @@
     
         //Validar campos, ver si ya existe el folio antes de enviar datos al servidro
         function validarCampos(e){
+            var tipoModal = determinarTipoDeModal(e);
             //Coroborar si existe ya el folio, solo si es registro nuevo:
             if(e === "registrar"){
                 var arrayDeFolios = <?php echo json_encode($listaFolios); ?>; //El array de folios la pasamos desde PHP por json a javascript
@@ -506,6 +518,9 @@
                 alert("¡Agrege productos!");
                 return false;
             }
+
+            $(tipoModal + ' #cbxTipoDoc').prop('disabled', false);
+            $(tipoModal + ' #cbxEstadoDoc').prop('disabled', false);
 
         }
 
