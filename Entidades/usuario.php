@@ -1,7 +1,6 @@
 <?php 
 
     require_once 'tipoUsuario.php';
-
     class Usuario{
 
         private $idUsu;

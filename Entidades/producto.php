@@ -1,7 +1,6 @@
 <?php 
 
     require_once 'unidadMedida.php';
-
     class Producto{
 
         private $codProd;

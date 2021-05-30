@@ -60,7 +60,7 @@
                 $productoSel= new Producto($tablaProdBBDD['codProd'], $tablaProdBBDD['descripcion'],
                 $unidadMedida, $tablaProdBBDD['precioUnitario']);
 
-                $listaProductos[]=$productoSel; //1,2,3,4,5,6,7,
+                $listaProductos[]=$productoSel;
             }
 
             if(count($listaProductos) > 0){
@@ -101,9 +101,7 @@
             }
 
         }catch(PDOException $pe){
-
             return "err : " . $pe->getMessage();
-            
         }
     }
 
@@ -132,7 +130,7 @@
         }catch(PDOException $pe){
 
             if(strpos($pe->getMessage(),"violation: 1451")){
-                return "err : El Código del Producto: '" . $nuevoProducto->getCodProd() ."' esta siendo utilizado por documentos, no es posible eliminarlo. Contactese con el administador del sistema si desea eleminarlo del sistema";
+                return "err : El Código del Producto: '" . $nuevoProducto->getCodProd() ."' esta siendo utilizado por documentos, no es posible eliminarlo. Contáctese con el administador del sistema si desea eleminarlo del sistema";
             }
 
             return "err : " . $pe->getMessage();
@@ -163,7 +161,7 @@
                 $productoSel= new Producto($tablaProdBBDD['codProd'], $tablaProdBBDD['descripcion'],
                 $unidadMedida, $tablaProdBBDD['precioUnitario']);
 
-                $listaProductos[]=$productoSel; //1,2,3,4,5,6,7,
+                $listaProductos[]=$productoSel;
             }
 
             if(count($listaProductos) > 0){
@@ -178,8 +176,5 @@
 
         }
     }
-
-
-    
 
 ?>

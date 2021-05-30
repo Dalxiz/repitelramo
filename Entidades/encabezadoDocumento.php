@@ -3,7 +3,6 @@
     require_once 'usuario.php';
     require_once 'empresa.php';
     require_once 'clientes.php';
-
     class EncabezadoDocumento{
 
         private $usuario;//clave foranea de usuario

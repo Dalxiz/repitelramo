@@ -73,7 +73,6 @@
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/detalleDocumento.php';
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/producto.php';
 
-
       require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
       require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoProducto.php";
 
@@ -139,7 +138,6 @@
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/detalleDocumento.php';
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/producto.php';
 
-
       require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
       
       session_start();
@@ -158,7 +156,6 @@
       else if($cargarModal == "actualizar"){
          return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/modalActualizarFactura.php';
       }
-
 
    }
 

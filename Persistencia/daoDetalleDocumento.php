@@ -87,7 +87,7 @@
                 $detalleSel = new DetalleDocumento("", "", $producto, $tablaDetalleBBDD['precioUnitario'], 
                 $tablaDetalleBBDD['cantUnitaria'], $tablaDetalleBBDD['descuento'], $tablaDetalleBBDD['valor']);
               
-                $listaDetalles[]=$detalleSel; //1,2,3,4,5,6,7,
+                $listaDetalles[]=$detalleSel;
             }
 
             if(count($listaDetalles) > 0){
