@@ -137,6 +137,41 @@
         }
     }
 
+    function cambiarEstadoDoc($idTipoDoc, $folio, $estado){
+        
+        require 'parametrosBD.php';
+
+        try{
+            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conn->beginTransaction(); //Comenzar trasnacción para evitar duplicados
+            
+            $query = $conn->prepare("UPDATE ENCABEZADO_DOCUMENTO SET estadoDoc=?
+                                    WHERE idTipoDoc=? AND folioDoc=?");
+    
+            $resultadoDetalles;
+
+            $result = $query->execute([$estado, $idTipoDoc, $folio]);
+ 
+            if($result === true)
+            {
+                $conn->commit();
+                return 'ok ' . $resultadoDetalles;
+                //return 'ok' . " - ¡Factura electrónica actualizada correctamente!. Folio: " . $nuevoEncabezado->getFolioDoc() . ".";
+            }
+            else
+            {
+                $conn->rollBack(); //Si hay algun problema, se devuelve toda la transacción (incuyendo tablas de detalle)
+                return $resultadoDetalles; //Se retorna el mensaje de error desde detalleDocumento
+            }
+
+        }catch(PDOException $pe){
+            $conn->rollBack();
+            return "err : " . $pe->getMessage();
+        }
+}
+
     function consultarEncabezadoDocumento(){
 
         require 'parametrosBD.php';

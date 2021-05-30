@@ -159,6 +159,28 @@
 
    }
 
+   if(isset($_POST['cambiarestado']))
+   { 
+      require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
+      
+      session_start();
+      $folio = $_POST['emitirFolio'];
+      $idTipoDoc = $_POST['emitirTipoDoc'];
+      $estado = $_POST['cambiarestado'];
+      $mensaje = "";
+
+      if($estado == "emitir"){
+         $mensaje = cambiarEstadoDoc ($idTipoDoc, $folio, "Emitido");
+      }
+
+      if($estado == "anular"){
+         $mensaje = cambiarEstadoDoc ($idTipoDoc, $folio, "Anulado");
+      }
+
+      header("Location: /repitelramo/presentacion/documento/factura/principalFactura.php?msj=". $mensaje);
+
+   }
+
 
      function getTodosEncabezadoDocumento(){
 

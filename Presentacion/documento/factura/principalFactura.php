@@ -138,10 +138,18 @@
                     if (count($listaEncabezados) > 0) {
                         foreach ($listaEncabezados as $encabezado) {
                             $listaFolios[] = array($encabezado->getTipoDoc()->getIdTipoDoc() . $encabezado->getFolioDoc());
-
+                        if($encabezado->getTipoDoc()->getNombreTipoDoc() == "Factura Electrónica"){
                 ?>
                 <tr>
-                    <td><?php echo $encabezado->getFolioDoc();?></td>
+                    <td>
+                        <div class="row">
+                            <span class=" col-8">
+                                <?php echo $encabezado->getFolioDoc();?>
+                            </span>
+                            <button type="button" title="Información factura" class="btn btn-outline-success factura-info" data-folio='<?php echo $encabezado->getFolioDoc();?>' data-tipo-doc='<?php echo $encabezado->getTipoDoc()->getIdTipoDoc(); ?>'><i class="bi bi-eye-fill"></i></button>
+                        <div>
+                    </td>
+
                     <td><?php echo $encabezado->getTipoDoc()->getNombreTipoDoc(); ?></td>
                     <td><?php echo date("d-m-Y", strtotime($encabezado->getFechaRegistro())); //Formatear fecha ?></td>
                     <td><?php echo $encabezado->getCliente()->getNombRazonSocial() ?></td>
@@ -163,17 +171,25 @@
 
                     <td class="text-center">
                         <div style="min-width : 136px">
-                            <button type="button" class="btn btn-success factura-info" data-folio='<?php echo $encabezado->getFolioDoc();?>' data-tipo-doc='<?php echo $encabezado->getTipoDoc()->getIdTipoDoc(); ?>'><i class="bi bi-eye-fill"></i></button>
                             <?php if($encabezado->getEstadoDoc() === "Registrado"){ ?>
-                            <button type="button" class="btn btn-warning factura-actualizar" data-toggle="modal" data-folio='<?php echo $encabezado->getFolioDoc();?>' data-tipo-doc='<?php echo $encabezado->getTipoDoc()->getIdTipoDoc(); ?>'><i class="bi bi-pencil-fill"></i></button>
+                                <span class="btn btn-info factura-emitir"  data-toggle="modal"  data-target="#modalFactEstado" title="Emitir"
+                                data-fact-tipodoc='<?php echo $encabezado->getTipoDoc()->getIdTipoDoc()?>' 
+                                data-fact-folio='<?php echo $encabezado->getFolioDoc();?>' data-fact-accion="emitir">
+                                <i class="bi bi bi-check-circle-fill"></i></span>
+
+                                <span class="btn btn-danger factura-anular"  data-toggle="modal" data-target="#modalFactEstado" title="Anular"
+                                data-fact-tipodoc='<?php echo $encabezado->getTipoDoc()->getIdTipoDoc()?>' 
+                                data-fact-folio='<?php echo $encabezado->getFolioDoc();?>' data-fact-accion="anular">
+                                <i class="bi bi-x-circle-fill"></i></span>
+                                
+                                <button type="button" class="btn btn-warning factura-actualizar" data-toggle="modal" title="Modificar" data-folio='<?php echo $encabezado->getFolioDoc();?>' data-tipo-doc='<?php echo $encabezado->getTipoDoc()->getIdTipoDoc(); ?>'><i class="bi bi-pencil-fill"></i></button>
                             <?php } ?> 
-                            <span class="btn btn-danger factura-eliminar"  data-toggle="modal" ><i class="bi bi-trash2-fill"></i></span>
                         </div>
                     </td>
                 </tr>
 
             
-                <?php   }
+                <?php   }}
                     }else{ ?>
                     <tr><td colspan=8 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen facturas registradas</td></tr> 
                 <?php   } ?>    
@@ -430,8 +446,6 @@
                 </div>
                 <div class="modal-body">
 
-                
-                    
                 </div>                
             </div>
         </div>
@@ -449,8 +463,40 @@
                 </div>
                 <div class="modal-body">
 
-                
-                    
+
+                </div>                
+            </div>
+        </div>
+    </div>
+
+    <!-- ventana modal cambiar estado -->
+    <div class="modal fade " id="modalFactEstado" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 ><i id="iconoModalEstado" class="bi bi-bookmark-check-fill"> </i><span id="txtTituloModalEstado">Emitir Factura</span></h5>
+                    <button class="close" data-dismiss="modal" aria-label="cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="../../../controlador/controladorEncabezadoDocumento.php" method="POST">
+                    <div class="form-group m-5">
+                        <div class="text-center">
+                        <label class="lead">¿Seguro que desea <strong id="spanAccionEstado"></strong> la Factura Eletrónica folio '<span id="spanFolioEstado"></span>'?</label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="emitirFolio" id="emitirFolio">
+                    <input type="hidden" name="emitirTipoDoc" id="emitirTipoDoc">
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <button class="btn btn-success col-lg-12" id="btnAccionEstado" name="cambiarestado" value="emitir" type="submit">Emitir</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button class="btn btn-danger col-lg-12" id="btnCancelarEstado" data-dismiss="modal" type="button">Cancelar</button>
+                        </div>
+                    </div>
+                    </form>
                 </div>                
             </div>
         </div>
@@ -695,6 +741,41 @@
             $(tipoModal +' #txtTotal').val(totalFor);
         }
 
+        //Enviar valores al modal de cambiar estado, segun sea anulacion o emisión
+        $('#modalFactEstado').on('show.bs.modal', function (e) {
+            var opener=e.relatedTarget;
+            
+            var idTipoDoc=$(opener).data('fact-tipodoc');
+            var folioDoc=$(opener).data('fact-folio');
+            var accion=$(opener).data('fact-accion');
+        
+            $('#emitirTipoDoc').val(idTipoDoc);
+            $('#emitirFolio').val(folioDoc);
+
+
+            if(accion == 'emitir'){
+                $("#iconoModalEstado").attr("class", "bi bi-bookmark-check-fill");
+                $("#txtTituloModalEstado").text("Emitir Factura")
+                $('#spanAccionEstado').text("emitir");
+                $('#spanFolioEstado').text(folioDoc);
+                $("#btnAccionEstado").text("Emitir");
+                $("#btnAccionEstado").val("emitir");
+
+            }
+
+            else if(accion == 'anular'){
+                $("#iconoModalEstado").attr("class", "bi bi-bookmark-x-fill");
+                $("#txtTituloModalEstado").text("Anular Factura")
+                $('#spanAccionEstado').text("anular");
+                $('#spanFolioEstado').text(folioDoc);
+                $("#btnAccionEstado").text("Anular");
+                $("#btnAccionEstado").val("anular");
+            }
+
+
+        });
+
+
         //Evento click sobre icono de información de factura, toma el folio-tipoDoc y se lo envia por ajax a traves de post al controlador.
         $('.factura-info').click(function(){
         
@@ -737,47 +818,26 @@
             });
         });
     
-    //Evento click sobre eliminar.
-    $('.factura-eliminar').click(function(){
-        
-        var folio = $(this).data('folio');
-        var idTipoDoc = $(this).data('tipo-doc');
-
-        // AJAX request
-        $.ajax({
-            url: '/repitelramo/controlador/controladorEncabezadoDocumento.php',
-            type: 'post',
-            data: {folio: folio, idTipoDoc:idTipoDoc, cargarModal: "actualizar"},
-            success: function(response){ 
-                // Add response in Modal body
-                $('#modalFactInfo .modal-body').html("Por Implementar");
+        //Evento click sobre libro factura
+        $('.factura-libro').click(function(){
             
-                // Display Modal
-                $('#modalFactInfo').modal('show'); 
-            }
-        });
-    });
+            var folio = $(this).data('folio');
+            var idTipoDoc = $(this).data('tipo-doc');
 
-     //Evento click sobre eliminar.
-     $('.factura-libro').click(function(){
-        
-        var folio = $(this).data('folio');
-        var idTipoDoc = $(this).data('tipo-doc');
-
-        // AJAX request
-        $.ajax({
-            url: '/repitelramo/controlador/controladorEncabezadoDocumento.php',
-            type: 'post',
-            data: {folio: folio, idTipoDoc:idTipoDoc, cargarModal: "libro"},
-            success: function(response){ 
-                // Add response in Modal body
-                $('#modalFactInfo .modal-body').html("Por Implementar");
-            
-                // Display Modal
-                $('#modalFactInfo').modal('show'); 
-            }
+            // AJAX request
+            $.ajax({
+                url: '/repitelramo/controlador/controladorEncabezadoDocumento.php',
+                type: 'post',
+                data: {folio: folio, idTipoDoc:idTipoDoc, cargarModal: "libro"},
+                success: function(response){ 
+                    // Add response in Modal body
+                    $('#modalFactInfo .modal-body').html("Por Implementar");
+                
+                    // Display Modal
+                    $('#modalFactInfo').modal('show'); 
+                }
+            });
         });
-    });
 
     </script>
         
