@@ -83,8 +83,8 @@
     
         <div class="form-group row">
         <div class="col col-lg-6">
-            <label for="txtFechaEmision" class="labelForm" >Fecha de emisión</label>
-            <input readonly required="required" value="<?php echo $_SESSION['encabezado'][0]->getFechaEmision(); ?>" class="form-control" type="date" name="fechaEmision" id="txtFechaEmision" placeholder="Fecha de emisión" maxlength="10">
+            <label for="txtFechaRegistro" class="labelForm" >Fecha de registro</label>
+            <input readonly required="required" value="<?php echo $_SESSION['encabezado'][0]->getFechaRegistro(); ?>" class="form-control" type="date" name="fechaRegistro" id="txtFechaRegistro" placeholder="Fecha de registro" maxlength="10">
             </div>
             <div class="col col-lg-6">
             <label for="txtCondPago" class="labelForm">Condicion de pago</label>
@@ -98,7 +98,7 @@
                 <label for="cbxEstadoDoc" class="labelForm">Estado del documento</label>
                 <select disabled class="form-control" name="estadoDoc" id="cbxEstadoDoc" required="required">
                     <option selected value="" disabled="1">Estado del documento</option>
-                    <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Creado") {echo "selected";} ?> class ="text-info" value="Creado">Creado</option>
+                    <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Registrado") {echo "selected";} ?> class ="text-info" value="Registrado">Registrado</option>
                     <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Emitido") {echo "selected";}; ?> class="text-success" value="Emitido">Emitido</option>
                     <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Anulado") {echo "selected";} ?> class="text-danger" value="Anulado">Anulado</option>
                 </select>

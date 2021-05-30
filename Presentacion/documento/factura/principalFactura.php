@@ -112,8 +112,9 @@
                 <tr>
                 <th>Folio Documento</th>
                 <th>Tipo de Documento</th>
-                <th>Fecha de Emisión</th>
+                <th>Fecha de Registro</th>
                 <th>Cliente</th>
+                <th>Estado Documento</th>
                 <th>Total Neto</th>
                 <th>IVA</th>
                 <th>Total Bruto</th>
@@ -137,8 +138,19 @@
                 <tr>
                     <td><?php echo $encabezado->getFolioDoc();?></td>
                     <td><?php echo $encabezado->getTipoDoc()->getNombreTipoDoc(); ?></td>
-                    <td><?php echo date("d-m-Y", strtotime($encabezado->getFechaEmision())); //Formatear fecha ?></td>
+                    <td><?php echo date("d-m-Y", strtotime($encabezado->getFechaRegistro())); //Formatear fecha ?></td>
                     <td><?php echo $encabezado->getCliente()->getNombRazonSocial() ?></td>
+
+                    <?php if($encabezado->getEstadoDoc() === "Registrado"){ ?>
+                    <td><span class="badge badge-pill badge-info align-middle p-2 ml-2"><?php echo $encabezado->getEstadoDoc() ?></span></td>           
+                    <?php }else if($encabezado->getEstadoDoc() === "Emitido"){ ?>
+                    <td ><span class="badge badge-pill badge-success align-middle p-2 ml-2"><?php echo $encabezado->getEstadoDoc() ?></span></td>
+                    <?php }else if($encabezado->getEstadoDoc() === "Anulado"){ ?>
+                    <td ><span class="badge badge-pill badge-danger align-middle p-2 ml-2"><?php echo $encabezado->getEstadoDoc() ?></span></td>
+                    <?php }else { ?>
+                    <td ><span class="badge badge-pill badge-dark align-middle p-2 ml-2"><?php echo $encabezado->getEstadoDoc() ?></span></td>
+                    <?php } ?>                   
+
                     <td><?php echo number_format ($encabezado->getNeto(), 0, ",", ".")//number_format para poner separador de miles ?></td>
                     <td><?php echo str_replace(",00", "", number_format ($encabezado->getIva(), 2, ",", "." ) ) //str_replace para no mostrar ,00 innceesarios?></td> 
                     <td><?php echo number_format ( $encabezado->getTotal(), 0, ",", "." ) ?></td>          
@@ -243,8 +255,8 @@
                         
                             <div class="form-group row">
                             <div class="col col-lg-6">
-                                <label for="txtFechaEmision" class="labelForm" >Fecha de emisión</label>
-                                <input required="required" class="form-control" type="date" name="fechaEmision" id="txtFechaEmision" placeholder="Fecha de emisión" maxlength="10">
+                                <label for="txtFechaRegistro" class="labelForm" >Fecha de registro</label>
+                                <input required="required" class="form-control" type="date" name="fechaRegistro" id="txtFechaRegistro" placeholder="Fecha de registro" maxlength="10">
                                 </div>
                                 <div class="col col-lg-6">
                                 <label for="txtCondPago" class="labelForm">Condicion de pago</label>
@@ -257,8 +269,8 @@
                             <div class="form-group">
                                     <label for="cbxEstadoDoc" class="labelForm">Estado del documento</label>
                                     <select class="form-control" name="estadoDoc" id="cbxEstadoDoc" required="required">
-                                        <option selected value="" disabled="1">Estado del documento</option>
-                                        <option class ="text-info" value="Creado">Creado</option>
+                                        <option value="" disabled="1">Estado del documento</option>
+                                        <option selected class ="text-info" value="Registrado">Registrado</option>
                                         <option class="text-success" value="Emitido">Emitido</option>
                                         <option class="text-danger" value="Anulado">Anulado</option>
                                     </select>

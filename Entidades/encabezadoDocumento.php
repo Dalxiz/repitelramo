@@ -10,6 +10,7 @@
         private $empresa;// clave foranea empresa
         private $tipoDoc;
         private $folioDoc;
+        private $fechaRegistro;
         private $fechaEmision;
         private $cliente;// clave foranea cliente
         private $condPago;
@@ -21,11 +22,12 @@
         private $canceladoPor;
         private $listaDetalles = [];
 
-        function __construct(Usuario $usuario,Empresa $empresa,TipoDocumento $tipoDoc,$folioDoc,$fechaEmision, Cliente $cliente,$condPago,$estadoDoc,$neto,$iva,$total,$observaciones,$canceladoPor){
+        function __construct(Usuario $usuario,Empresa $empresa,TipoDocumento $tipoDoc,$folioDoc,$fechaRegistro,$fechaEmision, Cliente $cliente,$condPago,$estadoDoc,$neto,$iva,$total,$observaciones,$canceladoPor){
             $this->usuario=$usuario;
             $this->empresa=$empresa;
             $this->tipoDoc=$tipoDoc;
             $this->folioDoc=$folioDoc;
+            $this->fechaRegistro=$fechaRegistro;
             $this->fechaEmision=$fechaEmision;
             $this->cliente=$cliente;
             $this->condPago=$condPago;
@@ -52,6 +54,10 @@
 
         function getFolioDoc(){
             return $this->folioDoc;
+        }
+
+        function getFechaRegistro(){
+            return $this->fechaRegistro;
         }
 
         function getFechaEmision(){

@@ -16,7 +16,7 @@
       $idEmp = $_POST['empresa'];
       $idTipoDoc = $_POST['tipoDoc'];
       $folioDoc = $_POST['folio'];
-      $fechaEmision = $_POST['fechaEmision'];
+      $fechaRegistro = $_POST['fechaRegistro'];
       $rutCliente = $_POST['cliente'];
       $condPago = $_POST['condPago'];
       $estadoDoc = $_POST['estadoDoc'];
@@ -47,7 +47,7 @@
       $tipoDocumento = new TipoDocumento($idTipoDoc,"");
       $cliente = new Cliente($rutCliente, "", "", "", "", "", "", "", "");
 
-      $nuevoEncabezado = new EncabezadoDocumento($usuario, $empresa, $tipoDocumento, $folioDoc, $fechaEmision, $cliente, 
+      $nuevoEncabezado = new EncabezadoDocumento($usuario, $empresa, $tipoDocumento, $folioDoc, $fechaRegistro, "", $cliente, 
                                                  $condPago, $estadoDoc, $neto, $iva, $total, $observaciones, $canceladoPor);
 
       for($i = 0 ; $i < count($idProductos) ; $i++){
@@ -82,7 +82,7 @@
       $idEmp = $_POST['empresa'];
       $idTipoDoc = $_POST['tipoDoc'];
       $folioDoc = $_POST['folio'];
-      $fechaEmision = $_POST['fechaEmision'];
+      $fechaRegistro = $_POST['fechaRegistro'];
       $rutCliente = $_POST['cliente'];
       $condPago = $_POST['condPago'];
       $estadoDoc = $_POST['estadoDoc'];
@@ -113,7 +113,7 @@
       $tipoDocumento = new TipoDocumento($idTipoDoc,"");
       $cliente = new Cliente($rutCliente, "", "", "", "", "", "", "", "");
 
-      $nuevoEncabezado = new EncabezadoDocumento($usuario, $empresa, $tipoDocumento, $folioDoc, $fechaEmision, $cliente, 
+      $nuevoEncabezado = new EncabezadoDocumento($usuario, $empresa, $tipoDocumento, $folioDoc, $fechaRegistro, "", $cliente, 
                                                  $condPago, $estadoDoc, $neto, $iva, $total, $observaciones, $canceladoPor);
 
       for($i = 0 ; $i < count($idProductos) ; $i++){

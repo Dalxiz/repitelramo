@@ -13,7 +13,7 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $conn->beginTransaction(); //Comenzar trasnacción para evitar duplicados
             
-            $query = $conn->prepare("INSERT INTO ENCABEZADO_DOCUMENTO (idUsu, rutEmp, idTipoDoc, folioDoc, fechaEmision,
+            $query = $conn->prepare("INSERT INTO ENCABEZADO_DOCUMENTO (idUsu, rutEmp, idTipoDoc, folioDoc, fechaRegistro,
                                     rutCliente, condPago, estadoDoc, neto, iva, total, observaciones, canceladoPor) 
                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
@@ -22,7 +22,7 @@
                                        $nuevoEncabezado->getEmpresa()->getRutEmp(),
                                        $nuevoEncabezado->getTipoDoc()->getIdTipoDoc(),
                                        $nuevoEncabezado->getFolioDoc(),
-                                       $nuevoEncabezado->getFechaEmision(),
+                                       $nuevoEncabezado->getFechaRegistro(),
                                        $nuevoEncabezado->getCliente()->getRutCliente(),
                                        $nuevoEncabezado->getCondPago(),
                                        $nuevoEncabezado->getEstadoDoc(),
@@ -76,7 +76,7 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $conn->beginTransaction(); //Comenzar trasnacción para evitar duplicados
             
-            $query = $conn->prepare("UPDATE ENCABEZADO_DOCUMENTO SET rutEmp=?, idTipoDoc=?, folioDoc=?, fechaEmision=?,
+            $query = $conn->prepare("UPDATE ENCABEZADO_DOCUMENTO SET rutEmp=?, idTipoDoc=?, folioDoc=?, fechaRegistro=?,
                                     rutCliente=?, condPago=?, estadoDoc=?, neto=?, iva=?, total=?, observaciones=?, canceladoPor=? 
                                     WHERE idTipoDoc=? AND folioDoc=?");
     
@@ -85,7 +85,7 @@
             $result = $query->execute([$nuevoEncabezado->getEmpresa()->getRutEmp(),
                                        $nuevoEncabezado->getTipoDoc()->getIdTipoDoc(),
                                        $nuevoEncabezado->getFolioDoc(),
-                                       $nuevoEncabezado->getFechaEmision(),
+                                       $nuevoEncabezado->getFechaRegistro(),
                                        $nuevoEncabezado->getCliente()->getRutCliente(),
                                        $nuevoEncabezado->getCondPago(),
                                        $nuevoEncabezado->getEstadoDoc(),
@@ -167,7 +167,7 @@
                 $cliente = consultarClientePorRut($tablaEncabezadoBBDD['rutCliente']);
 
                 $encabeadoSel= new EncabezadoDocumento($usuario, $empresa, $tipoDoc, $tablaEncabezadoBBDD['folioDoc'],
-                $tablaEncabezadoBBDD['fechaEmision'], $cliente, $tablaEncabezadoBBDD['condPago'], $tablaEncabezadoBBDD['estadoDoc'], 
+                $tablaEncabezadoBBDD['fechaRegistro'], $tablaEncabezadoBBDD['fechaEmision'], $cliente, $tablaEncabezadoBBDD['condPago'], $tablaEncabezadoBBDD['estadoDoc'], 
                 $tablaEncabezadoBBDD['neto'], $tablaEncabezadoBBDD['iva'], $tablaEncabezadoBBDD['total'], $tablaEncabezadoBBDD['observaciones'],
                 $tablaEncabezadoBBDD['canceladoPor']);
 
@@ -282,7 +282,7 @@
                 $cliente = consultarClientePorRut($tablaEncabezadoBBDD['rutCliente']);
 
                 $encabeadoSel= new EncabezadoDocumento($usuario, $empresa, $tipoDoc, $tablaEncabezadoBBDD['folioDoc'],
-                $tablaEncabezadoBBDD['fechaEmision'], $cliente, $tablaEncabezadoBBDD['condPago'], $tablaEncabezadoBBDD['estadoDoc'], 
+                $tablaEncabezadoBBDD['fechaRegistro'], $tablaEncabezadoBBDD['fechaEmision'],  $cliente, $tablaEncabezadoBBDD['condPago'], $tablaEncabezadoBBDD['estadoDoc'], 
                 $tablaEncabezadoBBDD['neto'], $tablaEncabezadoBBDD['iva'], $tablaEncabezadoBBDD['total'], $tablaEncabezadoBBDD['observaciones'],
                 $tablaEncabezadoBBDD['canceladoPor']);
 
@@ -314,7 +314,7 @@
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $query = $conn->prepare("INSERT INTO ENCABEZADO_DOCUMENTO (idUsu, rutEmp, idTipoDoc, folioDoc, fechaEmision,
+            $query = $conn->prepare("INSERT INTO ENCABEZADO_DOCUMENTO (idUsu, rutEmp, idTipoDoc, folioDoc, fechaRegistro,
                                     rutCliente, condPago, estadoDoc, neto, iva, total, observaciones, canceladoPor) 
                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -322,7 +322,7 @@
                                         $nuevoEncabezado->getEmpresa()->getRutEmp(),
                                         $nuevoEncabezado->getTipoDoc()->getIdTipoDoc(),
                                         $nuevoEncabezado->getFolioDoc(),
-                                        $nuevoEncabezado->getFechaEmision(),
+                                        $nuevoEncabezado->getFechaRegistro(),
                                         $nuevoEncabezado->getCliente()->getRutCliente(),
                                         $nuevoEncabezado->getCondPago(),
                                         $nuevoEncabezado->getEstadoDoc(),

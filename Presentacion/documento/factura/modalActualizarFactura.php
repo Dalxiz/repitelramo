@@ -4,7 +4,7 @@
             <div class="col col-md-6 col-12 mb-3 mb-md-0">
                 <label for="cbxEmpresa" class="labelForm">Empresa</label>
                 <select class="form-control" name="empresa" id="cbxEmpresa" required="required">
-                <option selected value="" disabled="1">Empresa</option>
+                <option value="" disabled="1">Empresa</option>
                     <?php
                         include_once  $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/controlador/controladorEmpresa.php';
 
@@ -27,7 +27,7 @@
 
             <div class="col col-md-6 col-12">
                         <label for="cbxTipoDoc" class="labelForm">Tipo de documento</label>
-                        <select class="form-control" name="tipoDoc" id="cbxTipoDoc" required="required">
+                        <select  class="form-control" name="tipoDoc" id="cbxTipoDoc" required="required">
                             <option selected value="" disabled="1">Tipo de documento</option>
                             <?php
                                 include_once  $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/controlador/controladorTipoDocumento.php";
@@ -73,7 +73,7 @@
 
             <div class="col col-md-6 col-12">
                 <label for="txtFolio" class="labelForm">Folio del documento</label>
-                <input required="required" value="<?php echo $_SESSION['encabezado'][0]->getFolioDoc(); ?>" class="form-control" type="number" name="folio" id="txtFolio" placeholder="Folio del documento">
+                <input required="required" readonly value="<?php echo $_SESSION['encabezado'][0]->getFolioDoc(); ?>" class="form-control" type="number" name="folio" id="txtFolio" placeholder="Folio del documento">
             </div>
 
         </div>  
@@ -83,8 +83,8 @@
     
         <div class="form-group row">
         <div class="col col-lg-6">
-            <label for="txtFechaEmision" class="labelForm" >Fecha de emisión</label>
-            <input required="required" value="<?php echo $_SESSION['encabezado'][0]->getFechaEmision(); ?>" class="form-control" type="date" name="fechaEmision" id="txtFechaEmision" placeholder="Fecha de emisión" maxlength="10">
+            <label for="txtFechaRegistro" class="labelForm" >Fecha de registro</label>
+            <input required="required" value="<?php echo $_SESSION['encabezado'][0]->getFechaRegistro(); ?>" class="form-control" type="date" name="fechaRegistro" id="txtFechaRegistro" placeholder="Fecha de registro" maxlength="10">
             </div>
             <div class="col col-lg-6">
             <label for="txtCondPago" class="labelForm">Condicion de pago</label>
@@ -98,7 +98,7 @@
                 <label for="cbxEstadoDoc" class="labelForm">Estado del documento</label>
                 <select class="form-control" name="estadoDoc" id="cbxEstadoDoc" required="required">
                     <option selected value="" disabled="1">Estado del documento</option>
-                    <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Creado") {echo "selected";} ?> class ="text-info" value="Creado">Creado</option>
+                    <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Registrado") {echo "selected";} ?> class ="text-info" value="Registrado">Registrado</option>
                     <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Emitido") {echo "selected";}; ?> class="text-success" value="Emitido">Emitido</option>
                     <option <?php if($_SESSION['encabezado'][0]->getEstadoDoc() == "Anulado") {echo "selected";} ?> class="text-danger" value="Anulado">Anulado</option>
                 </select>
