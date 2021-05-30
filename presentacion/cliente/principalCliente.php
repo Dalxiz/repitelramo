@@ -16,36 +16,7 @@
     <!-- css de icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../dist/css/number.css">
-        <style>
-            .contenedor{
-                width: 40%;
-                height: 50%;
-                padding-top: 2rem;
-                padding-bottom: 2rem;
-                border: 1px solid silver;
-                border-radius: 5px;
-            }
-            h3{
-                color: white;
-            }
-            .contenedorH3{
-                background-color: #343A40;
-                height: 3rem;
-                padding-top: 5px;
-            }
-            .contenedorBoton{
-                padding-top: 7px;
-                margin-bottom: 40px;
-                margin-left: -1rem;
-            }
-            .contenedorTabla{
-                padding-top: 15px;
-                width: 100%;
-                padding-left: 2.5rem;
-                padding-right: 2.5rem;
-            }
-            
-        </style>
+    <link rel="stylesheet" href="/repitelramo/presentacion/dist/css/principalCliente.css">
     <title>Mantenedor Cliente</title>
 </head>
 <body>

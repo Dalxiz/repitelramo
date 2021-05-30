@@ -1,22 +1,4 @@
-<style>
-    html, body{
-        height: 100%;
-    }
-
-    body{
-      margin-bottom:50px;
-    }
-        
-      .contenedor-footer {
-        width: auto;
-        padding: 0 15px;
-      }
-
-      .footer {
-        background-color: #f5f5f5;
-      }
-
-    </style>
+<link rel="stylesheet" href="/repitelramo/presentacion/dist/css/footer.css">
 
 <footer class="footer mt-5 py-3">
     <div class="contenedor-footer text-center">

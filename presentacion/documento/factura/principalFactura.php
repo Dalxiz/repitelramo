@@ -19,51 +19,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../../dist/js/main.js"></script>
 
+    <link rel="stylesheet" href="/repitelramo/presentacion/dist/css/principalFactura.css">
+
 
     <title>Administración de Facturas</title>
-
-    <style>
-        .contenedor{
-            width: 40%;
-            height: 50%;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-            border: 1px solid silver;
-            border-radius: 5px;
-        }
-        h3{
-            color: white;
-        }
-        .contenedorH3{
-            background-color: #343A40;
-            height: 3rem;
-            padding-top: 5px;
-        }
-        .contenedorBoton{
-            padding-top: 7px;
-            margin-bottom: 40px;
-            margin-left: -1rem;
-        }
-        .contenedorTabla{
-            padding-top: 15px;
-            width: 100%;
-            padding-left: 4rem;
-            padding-right: 4rem;
-        }
-        .labelForm{
-            font-size: 0.8rem;
-            margin-bottom: .3rem;
-        }
-
-
-        /*Modificación tamaño a diferentes pantallas del modal*/
-        @media (max-width: 992px) AND (min-width: 576px){
-        .modal-dialog {
-            max-width: 85%;
-            margin: 1.75rem auto;
-        }
-        }
-        </style>
 
 </head>
 <body>

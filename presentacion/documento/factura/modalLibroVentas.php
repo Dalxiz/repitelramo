@@ -9,11 +9,7 @@
                     <div class="form-group col-lg-4 pt-3 mt-3">
                         <button type="button" name="consulta"  id="consulta"class="btn btn-success"><i class="bi bi-search"></i> Generar</button>
                     </div>
-                </div>
-                <div class="form-group col-lg-4 alaign-content-end">
-                    <label for="">Total mes:</label>
-                    <input class="form-control" type="number" name="" id="" disabled>
-                </div>
+                </div>                
             </div>
             <div class="row">
                 <table class="table is-striped table-hover m-3">
