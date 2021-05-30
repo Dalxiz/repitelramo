@@ -29,32 +29,29 @@
 
         <script type="text/javascript">
 
-        function validarNumeroEntero(e){
-            if(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8 || e.keyCode == 9 
-                || e.ctrlKey == true || (e.ctrlKey == true && e.keyCode == 86) || (e.ctrlKey == true && e.keyCode == 67))) {
-                return false;
-            }
-        }
-
-        function validarCampos(){
-            var codProd = document.getElementById("txtCodProd").value;
-            var descripcion = document.getElementById("txtDescripcion").value;
-            var precioUnitario = document.getElementById("txtPrecioUnitario").value;
-            var unidadMedida = document.getElementById("cbxUnidadMedida").value;
-            var accion = document.getElementById("btnAccion").getAttribute("name");
-
-            if(codProd === "" || descripcion === "" || precioUnitario === "" || unidadMedida == ""){
-                if( accion == "registrar"){
-                alert("¡Debe rellenar todos los campos antes de ingresar un producto!");
-                }
-                else{
-                    alert("¡Debe rellenar todos los campos antes de actualizar un producto!");
-
+            function validarNumeroEntero(e){
+                if(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8 || e.keyCode == 9 
+                    || e.ctrlKey == true || (e.ctrlKey == true && e.keyCode == 86) || (e.ctrlKey == true && e.keyCode == 67))) {
+                    return false;
                 }
             }
 
+            function validarCampos(){
+                var codProd = document.getElementById("txtCodProd").value;
+                var descripcion = document.getElementById("txtDescripcion").value;
+                var precioUnitario = document.getElementById("txtPrecioUnitario").value;
+                var unidadMedida = document.getElementById("cbxUnidadMedida").value;
+                var accion = document.getElementById("btnAccion").getAttribute("name");
 
-        }
+                if(codProd === "" || descripcion === "" || precioUnitario === "" || unidadMedida == ""){
+                    if( accion == "registrar"){
+                        alert("¡Debe rellenar todos los campos antes de ingresar un producto!");
+                    }
+                    else{
+                        alert("¡Debe rellenar todos los campos antes de actualizar un producto!");
+                    }
+                }
+            }
 
         </script>
 
@@ -91,7 +88,6 @@
                 font-size: 0.8rem;
                 margin-bottom: .3rem;
             }
-    
 
             </style>
         <title>Mantenedor Producto</title>
@@ -127,9 +123,6 @@
         <div class="container-fluid contenedorBoton">
             <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalProd" data-prod-accion='Nuevo Producto'><i class="bi bi-plus-circle-fill"></i> Nuevo Producto</button>
         </div>
-
-
-
         
         <table id="example" class="table is-striped table-hover " style="width:100%">
             <thead>
@@ -141,6 +134,7 @@
                 <th class='text-center'>Acción</th>
                 </tr>
             </thead>
+
             <tbody>
                 <?php 
 
@@ -174,11 +168,7 @@
                         <tr><td colspan=4 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td></tr> 
                     <?php 
                     }
-
-                
                 ?>            
-            
-            
         </table>
 
         <!-- ventana modal -->
@@ -255,14 +245,6 @@
 
             //Obtenemos los valores de los atributos definidos con data-*
 
-            /* MANERA 1:
-            var prodId=$(opener).attr('data-prod-id');
-            var prodDesc=$(opener).attr('data-prod-des');
-            var prodUM=$(opener).attr('data-prod-um');
-            var prodPrecio=$(opener).attr('data-prod-precio');
-            */
-
-            /* MANERA 2: */
             var prodId=$(opener).data('prod-id');
             var prodDesc=$(opener).data('prod-des');
             var prodUM=$(opener).data('prod-um');

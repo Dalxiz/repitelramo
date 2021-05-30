@@ -11,7 +11,7 @@
             $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $conn->beginTransaction(); //Comenzar trasnacción para evitar duplicados
+            $conn->beginTransaction(); //Comenzar transacción para evitar duplicados
             
             $query = $conn->prepare("INSERT INTO ENCABEZADO_DOCUMENTO (idUsu, rutEmp, idTipoDoc, folioDoc, fechaEmision,
                                     rutCliente, condPago, estadoDoc, neto, iva, total, observaciones, canceladoPor) 
@@ -40,8 +40,6 @@
                     break;
                 }
             }
-
-            
             
             if($result === true)
             {
@@ -146,7 +144,6 @@
         require_once 'daoUsuario.php';
         require_once 'daoTipoDocumento.php';
         require_once 'daoClientes.php';
-
         
         try
         {
@@ -288,7 +285,7 @@
 
                 $encabeadoSel->addVariosDetalles(consultarDetalleDocumentoPorFolio($idTipoDoc, $folioComp));
 
-                $listaEncabezados[]=$encabeadoSel; //1,2,3,4,5,6,7,
+                $listaEncabezados[]=$encabeadoSel;
             }
 
             if(count($listaEncabezados) > 0){

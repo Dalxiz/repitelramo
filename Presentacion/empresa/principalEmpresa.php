@@ -28,29 +28,24 @@
 
     <script type="text/javascript">
 
-
-    //OJO ESTO
         function validarCampos(){
-            var codProd = document.getElementById("txtCodProd").value;
-            var descripcion = document.getElementById("txtDescripcion").value;
-            var precioUnitario = document.getElementById("txtPrecioUnitario").value;
-            var unidadMedida = document.getElementById("cbxUnidadMedida").value;
+            var rutEmp = document.getElementById("txtRutEmp").value;
+            var dvEmp = document.getElementById("txtDvEmpresa").value;
+            var razonSocialEmp = document.getElementById("txtRazonSocial").value;
+            var giroEmp = document.getElementById("txtGiroEmpresa").value;
             var accion = document.getElementById("btnAccion").getAttribute("name");
 
-            if(codProd === "" || descripcion === "" || precioUnitario === "" || unidadMedida == ""){
+            if(rutEmp === "" || dvEmp === "" || razonSocialEmp === "" || giroEmp == ""){
                 if( accion == "registrar"){
-                alert("¡Debe rellenar todos los campos antes de ingresar un producto!");
+                    alert("¡Debe rellenar todos los campos antes de ingresar una Empresa!");
                 }
                 else{
-                    alert("¡Debe rellenar todos los campos antes de actualizar un producto!");
-
+                    alert("¡Debe rellenar todos los campos antes de actualizar una Empresa!");
                 }
             }
-
-
         }
 
-</script>
+    </script>
 
     <style>
         .contenedor{
@@ -85,10 +80,10 @@
             margin-bottom: .3rem;
         }
  
-
         </style>
 
 </head>
+
 <body>
     <?php require_once '../menu.php' ?>
    
@@ -107,20 +102,20 @@
             <strong>¡Operación Realizada!</strong> <?php echo $_GET['msj'] ?> 
         </div>
     
-    <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"err") !== false) { ?>
+        <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"err") !== false) { ?>
 
-            <div class='alert alert-danger alert-dismissible'>
-                <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>¡Operación Incorrecta!</strong> Sucedió algo inesperado:  <?php echo $_GET['msj'] ?> 
-            </div>
-    
-    <?php    } ?>
+                <div class='alert alert-danger alert-dismissible'>
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>¡Operación Incorrecta!</strong> Sucedió algo inesperado:  <?php echo $_GET['msj'] ?> 
+                </div>
+        
+        <?php    
+    } ?>
 
         <!-- contenedor de registro nuevo  -->
         <div class="container-fluid contenedorBoton">
             <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalEmp" data-emp-accion='nueva'><i class="bi bi-plus-circle-fill"></i> Nueva Empresa</button>
         </div>
-        
 
         <table id="example" class="table is-striped table-hover" style="width:100%">
         <thead>
@@ -148,29 +143,20 @@
                         <td> <span class='label label-primary'> <?php echo $empresa->getdvEmp();?> </span></td>
                         <td> <span class='label label-primary'> <?php echo $empresa->getrazonEmp();?> </span></td>
                         <td> <span class='label label-primary'> <?php echo $empresa->getgiroEmp();?> </span></td>
-
-                    
                       
                         <td class="text-center">
-                            <!--<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEmp" 
-                            data-emp-rut="<?php echo $empresa->getRutEmp();?>" 
-                            data-emp-dvemp="<?php echo $empresa->getdvEmp();?>" 
-                            data-emp-razonsocial="<?php echo $empresa->getrazonEmp();?>"
-                            data-emp-giro="<?php echo $empresa->getgiroEmp();?>"><i class="bi bi-pencil-fill"></i></button>-->
-
+                            
                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEmp" 
                             data-emp-rut="<?php echo $empresa->getRutEmp();?>" 
                             data-emp-dvemp="<?php echo $empresa->getdvEmp();?>" 
                             data-emp-razonsocial="<?php echo $empresa->getrazonEmp();?>"
                             data-emp-giro="<?php echo $empresa->getgiroEmp();?>" data-emp-accion='actualizar'><i class="bi bi-pencil-fill"></i></button>
 
-                        <span class="btn btn-danger"  data-toggle="modal" data-target="#modalEmp" 
+                            <span class="btn btn-danger"  data-toggle="modal" data-target="#modalEmp" 
                                 data-emp-rut='<?php echo $empresa->getRutEmp() ?>'
                                 data-emp-dvemp='<?php echo $empresa->getdvEmp() ?>' 
                                 data-emp-razonsocial='<?php echo $empresa->getrazonEmp() ?>'
                                 data-emp-giro='<?php echo $empresa->getgiroEmp() ?>' data-emp-accion='eliminar'><i class="bi bi-trash2-fill"></i></span>
-
-
                         </td>
                     </tr>    
                 <?php
@@ -184,28 +170,24 @@
             <?php 
             }
 
-
-
             ?>
         </tbody>         
     </table>
 
     <!-- Modal -->
     <div class="modal fade" id="modalEmp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="tituloModal">Nueva Empresa</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModal">Nueva Empresa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-        </div>
-        <div class="modal-body">
-
-
-        <form action="../../controlador/controladorEmpresa.php" id="formEmp" method="POST">
-                        
+                <div class="modal-body">
+                    <form action="../../controlador/controladorEmpresa.php" id="formEmp" method="POST">
+                                
                         <div class="container-fluid">
                             <div class="form-group">
                                 <label for="txtRutEmp" class="labelForm" ></label>
@@ -223,19 +205,18 @@
                                 <label for="txtGiroEmpresa" class="labelForm"></label>
                                 <input required="required" class="form-control" type="text" name="giroEmpresa" id="txtGiroEmpresa" placeholder="Giro de la empresa">
                             </div>
-
                         </div>
+                </div>
 
-        </div>
-        <div class="container-fluid">
-                            <div class="form-group">
-                                <button class="btn btn-dark col-lg-12" id="btnAccion" name="registrar" onclick="validarCampos()" type="submit">Registrar</button>
-                            </div>
-                        </div> 
+                    <div class="container-fluid">
+                        <div class="form-group">
+                        <button class="btn btn-dark col-lg-12" id="btnAccion" name="registrar" onclick="validarCampos()" type="submit">Registrar</button>
+                        </div>
+                    </div> 
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-     </div>
 
      <script type="text/javascript">
         
@@ -244,7 +225,6 @@
         var opener=e.relatedTarget;//Esta var tiene el elemento que llamó al modal (osea el botón correspondiente)
 
         //Obtenemos los valores de los atributos definidos con data-*
-
         var rutEmp=$(opener).data('emp-rut'); 
         var dvEmp=$(opener).data('emp-dvemp');  
         var razonEmp=$(opener).data('emp-razonsocial'); 
@@ -259,8 +239,6 @@
         $('#formEmp #txtGiroEmpresa').val(giroEmp);
         $('#tituloModal').text(tituloModal);
 
-
-
         //Segun el modal abierto, los atributos cambian:
         if(accion == "nueva"){
             //Condición de disabled o readonly
@@ -273,13 +251,12 @@
             $('#tituloModal').text("Nueva Empresa");
             $('#cbxUnidadMedida').val('') //ComboBox se selecciona opción con valor vacío
             $('#btnAccion').text("Registrar"); //Texto Botón
-            $('#formProd label').attr("hidden",true); 
+            $('#formEmp label').attr("hidden",true); 
             $('#btnAccion').attr("class", "btn btn-dark col-lg-12");
 
             //Icono del modal
             $('#iconoModal').attr("class","bi bi-bookmark-plus-fill"); 
         }
-
         else if (accion == "actualizar"){
             $('#txtRutEmp').attr("readonly", true);
             $('#txtDvEmpresa').attr("readonly", false);
@@ -290,14 +267,13 @@
             $('#tituloModal').text("Actualzar Empresa");
             $('#btnAccion').text("Actualizar");
             $('#btnAccion').attr("class", "btn btn-dark col-lg-12");
-            $('#formProd label').removeAttr('hidden'); 
+            $('#formEmp label').removeAttr('hidden'); 
 
             //Icono del modal
             $('#iconoModal').attr("class","bi bi-pencil-square"); 
 
-            $('#formProd #lblEliminar').attr("hidden",true); 
+            $('#formEmp #lblEliminar').attr("hidden",true); 
         }
-
         else if (accion == "eliminar"){
             $('#txtRutEmp').attr("readonly", true);
             $('#txtDvEmpresa').attr("readonly", true);
@@ -308,12 +284,12 @@
             $('#tituloModal').text("Eliminar Empresa");
             $('#btnAccion').text("Eliminar");
             $('#btnAccion').attr("class", "btn btn-danger col-lg-12");
-            $('#formProd label').removeAttr('hidden'); 
+            $('#formEmp label').removeAttr('hidden'); 
 
             //Icono del modal
             $('#iconoModal').attr("class","bi bi-x-octagon-fill"); 
 
-            $('#formProd #lblEliminar').removeAttr("hidden"); 
+            $('#formEmp #lblEliminar').removeAttr("hidden"); 
         }
 
         });

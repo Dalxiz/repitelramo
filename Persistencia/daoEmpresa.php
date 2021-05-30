@@ -19,7 +19,7 @@
 
             if($result === true)
             {
-                return 'ok'  . " - Empresa: " . $newEmpresa->getRutEmp() . " - " . $newEmpresa->getRazonEmp()  . " Registrada Correctamente!";
+                return 'ok'  . " - Empresa: " . $newEmpresa->getRutEmp() . " - " . $newEmpresa->getRazonEmp()  . " ¡Registrada Correctamente!";
             }
             else
             {
@@ -41,10 +41,8 @@
 
         require_once 'parametrosBD.php';
 
-
        try{
            $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
-
            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $queryUpdate = $conn->prepare("UPDATE EMPRESA SET dvEmp=:dvEmp, razonSocialEmp=:razonEmp, giroEmp=:giroEmp
@@ -54,7 +52,6 @@
             $queryUpdate->bindValue("dvEmp", $newEmpresa->getDvEmp());
             $queryUpdate->bindValue("razonEmp", $newEmpresa->getRazonEmp());
             $queryUpdate->bindValue("giroEmp", $newEmpresa->getGiroEmp());
-
 
             $resultado = $queryUpdate->execute();
             
@@ -86,18 +83,13 @@
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $listaEmpresas=[];
-
             $querySelect = $conexion->query("SELECT * FROM EMPRESA");
 
             foreach($querySelect->fetchAll() as $tablaEmprBBDD)
             {
-
-                //$unidadMedida = consultarUMPorId($tablaEmprBBDD['idUM']);
-
                 $empresaSel= new Empresa($tablaEmprBBDD['rutEmp'], $tablaEmprBBDD['dvEmp'],
                 $tablaEmprBBDD['razonSocialEmp'], $tablaEmprBBDD['giroEmp']);
-
-                $listaEmpresas[]=$empresaSel; //1,2,3,4,5,6,7,
+                $listaEmpresas[]=$empresaSel;
             }
 
             if(count($listaEmpresas) > 0){
@@ -109,7 +101,6 @@
         catch(PDOException $pe)
         {
             return $pe->getMessage();
-
         }
     }
 
@@ -128,11 +119,9 @@
 
             foreach($querySelect->fetchAll() as $tablaEmprBBDD)
             {
-
                 $empresaSel= new Empresa($tablaEmprBBDD['rutEmp'], $tablaEmprBBDD['dvEmp'],
                 $tablaEmprBBDD['razonSocialEmp'], $tablaEmprBBDD['giroEmp']);
-
-                $listaEmpresas[]=$empresaSel; //1,2,3,4,5,6,7,
+                $listaEmpresas[]=$empresaSel;
             }
 
             if(count($listaEmpresas) > 0){
@@ -173,7 +162,7 @@
         }catch(PDOException $pe){
 
             if(strpos($pe->getMessage(),"violation: 1451")){
-                return "err : El Rut de la Empresa: '" . $newEmpresa->getRutEmp() ."' esta siendo utilizado por documentos, no es posible eliminarlo. Contactese con el administador del sistema si desea eliminarlo";
+                return "err : El Rut de la Empresa: '" . $newEmpresa->getRutEmp() ."' esta siendo utilizado por documentos, no es posible eliminarlo. Contáctese con el administador del sistema si desea eliminarlo";
             }
 
             return "err : " . $pe->getMessage();
