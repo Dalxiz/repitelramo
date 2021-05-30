@@ -179,6 +179,7 @@
 
    if (isset($_POST['consulta'])) {
       
+      session_start();
       
       $fecha = $_POST['fecha'];
       
@@ -195,8 +196,12 @@
 
       $lista = consultaLibroVenta($mes,$anio);
 
-      return $lista;
-      header("Location: /repitelramo/presentacion/documento/factura/libroVentas.php");
+      $_SESSION['libro'] = $lista;
+
+      // header("Location: /repitelramo/presentacion/documento/factura/libroVentas.php");
+
+      return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/resultadoLibro.php';
+      
       die();
       
    }

@@ -366,7 +366,7 @@
 
             $listaEncabezados=[];
 
-            $querySelect = $conexion->query("SELECT * FROM encabezado_documento WHERE MONTH(fechaEmision) =".$mes." AND YEAR(fechaEmision) =".$anio);
+            $querySelect = $conexion->query("SELECT * FROM encabezado_documento WHERE MONTH(fechaEmision) ='".$mes."' AND YEAR(fechaEmision) ='".$anio."'");
 
             foreach($querySelect->fetchAll() as $tablaEncabezadoBBDD)
             {
@@ -381,7 +381,7 @@
                 $tablaEncabezadoBBDD['neto'], $tablaEncabezadoBBDD['iva'], $tablaEncabezadoBBDD['total'], $tablaEncabezadoBBDD['observaciones'],
                 $tablaEncabezadoBBDD['canceladoPor']);
 
-                $encabeadoSel->addVariosDetalles(consultarDetalleDocumentoPorFolio($idTipoDoc, $folioComp));
+                // $encabeadoSel->addVariosDetalles(consultarDetalleDocumentoPorFolio($idTipoDoc, $folioComp));
 
                 $listaEncabezados[]=$encabeadoSel; //1,2,3,4,5,6,7,
             }

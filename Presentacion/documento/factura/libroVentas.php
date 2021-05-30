@@ -30,15 +30,15 @@
   <div class="container mt-5">
         <div class="col-lg-10 form-control h-100">
             <div class="row">
-                <form action="../../../controlador/controladorEncabezadoDocumento.php" method="post" class="col-lg-8 d-flex">
+                <!-- <form action="../../../controlador/controladorEncabezadoDocumento.php" method="post" class="col-lg-8 d-flex"> -->
                     <div class="form-group col-lg-8">
                         <label for="">Mes</label>
                         <input type="month" name="fecha" id="fecha" class="form-control" value="2019-08">
                     </div>
                     <div class="form-group col-lg-4 pt-3 mt-3">
-                        <button type="submit" name="consulta" class="btn btn-secondary"><i class="bi bi-search"></i> Generar</button>
+                        <button type="button" name="consulta"  id="consulta"class="btn btn-secondary"><i class="bi bi-search"></i> Generar</button>
                     </div>
-                </form>
+                <!-- </form> -->
                 <div class="form-group col-lg-4 alaign-content-end">
                     <label for="">Total mes:</label>
                     <input class="form-control" type="number" name="" id="" disabled>
@@ -58,47 +58,31 @@
                             <th>Accion</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <?php 
-
-                        require '../../../controlador/controladorEncabezadoDocumento.php';
-
-                        $listaEncabezados = getTodosEncabezadoDocumento();
-                        $listaFolios; //Para guardar folios y luego corroborar si el folio ingresado ya existe con javascript
-
-                        if (count($listaEncabezados) > 0) {
-                            foreach ($listaEncabezados as $encabezado) {
-                                $listaFolios[] = array($encabezado->getTipoDoc()->getIdTipoDoc() . $encabezado->getFolioDoc());
-
-                    ?>
-                    <tr>
-                        <td><?php echo $encabezado->getFolioDoc();?></td>
-                        <td><?php echo $encabezado->getTipoDoc()->getNombreTipoDoc(); ?></td>
-                        <td><?php echo date("d-m-Y", strtotime($encabezado->getFechaEmision())); //Formatear fecha ?></td>
-                        <td><?php echo $encabezado->getCliente()->getNombRazonSocial() ?></td>
-                        <td><?php echo number_format ($encabezado->getNeto(), 0, ",", ".")//number_format para poner separador de miles ?></td>
-                        <td><?php echo str_replace(",00", "", number_format ($encabezado->getIva(), 2, ",", "." ) ) //str_replace para no mostrar ,00 innceesarios?></td> 
-                        <td><?php echo number_format ( $encabezado->getTotal(), 0, ",", "." ) ?></td>          
-
-
-                        <td>
-                            <div style="min-width : 136px">
-                                <button type="button" class="btn btn-success factura-info" data-folio='<?php echo $encabezado->getFolioDoc();?>' data-tipo-doc='<?php echo $encabezado->getTipoDoc()->getIdTipoDoc(); ?>'><i class="bi bi-eye-fill"></i></button>                                
-                            </div>
-                        </td>
-                    </tr>
-
-                
-                    <?php   }
-                        }else{ ?>
-                        <tr><td colspan=8 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen facturas registradas</td></tr> 
-                    <?php   } ?>    
+                    <tbody id="resultado">
+                    
                 </tbody>   
                 </table>
             </div>
         </div>
   </div>
+  <script>
+  //Evento click sobre eliminar.
+     $('#consulta').click(function(){
         
+       var fecha=$("#fecha").val();
+        // AJAX request
+        $.ajax({
+            url: '/repitelramo/controlador/controladorEncabezadoDocumento.php',
+            type: 'post',
+            data: {consulta: "consulta", fecha:fecha},
+            success: function(response){ 
+                // Add response in Modal body
+                $('#resultado').html(response);
+            
+            }
+        });
+    });
+    </script> 
     
 </body>
 
