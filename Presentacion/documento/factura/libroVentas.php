@@ -30,15 +30,15 @@
   <div class="container mt-5">
         <div class="col-lg-10 form-control h-100">
             <div class="row">
-                <!-- <form action="../../../controlador/controladorEncabezadoDocumento.php" method="post" class="col-lg-8 d-flex"> -->
+                <div class="col-lg-8 d-flex">
                     <div class="form-group col-lg-8">
                         <label for="">Mes</label>
-                        <input type="month" name="fecha" id="fecha" class="form-control" value="2019-08">
+                        <input type="month" name="fecha" id="fecha" class="form-control" value="2021-05">
                     </div>
                     <div class="form-group col-lg-4 pt-3 mt-3">
-                        <button type="button" name="consulta"  id="consulta"class="btn btn-secondary"><i class="bi bi-search"></i> Generar</button>
+                        <button type="button" name="consulta"  id="consulta"class="btn btn-success"><i class="bi bi-search"></i> Generar</button>
                     </div>
-                <!-- </form> -->
+                </div>
                 <div class="form-group col-lg-4 alaign-content-end">
                     <label for="">Total mes:</label>
                     <input class="form-control" type="number" name="" id="" disabled>
@@ -50,7 +50,7 @@
                         <tr>
                             <th>Folio</th>
                             <th>Tipo Documento</th>
-                            <th>Fecha Emision</th>
+                            <th>Fecha Emisión</th>
                             <th>Cliente</th>
                             <th>Total Neto</th>
                             <th>IVA</th>
