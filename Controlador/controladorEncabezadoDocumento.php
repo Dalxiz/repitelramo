@@ -73,7 +73,6 @@
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/detalleDocumento.php';
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/producto.php';
 
-
       require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
       require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoProducto.php";
 
@@ -139,7 +138,6 @@
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/detalleDocumento.php';
       require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/producto.php';
 
-
       require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
       
       session_start();
@@ -159,7 +157,6 @@
          return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/modalActualizarFactura.php';
       }
 
-
    }
 
 
@@ -176,4 +173,33 @@
         
         return $lista;
      }
+
+   if (isset($_POST['consulta'])) {
+      
+      session_start();
+      
+      $fecha = $_POST['fecha'];
+      
+      $anio = substr($fecha,0,4);
+      
+      $mes = substr($fecha,5,2);
+      
+
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/usuario.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/empresa.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/tipoDocumento.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/encabezadoDocumento.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
+
+      $lista = consultaLibroVenta($mes,$anio);
+
+      $_SESSION['libro'] = $lista;
+
+      // header("Location: /repitelramo/presentacion/documento/factura/libroVentas.php");
+
+      return require $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/presentacion/documento/factura/resultadoLibro.php';
+      
+      die();
+      
+   }
 ?>

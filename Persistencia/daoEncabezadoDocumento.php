@@ -11,7 +11,7 @@
             $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $conn->beginTransaction(); //Comenzar trasnacción para evitar duplicados
+            $conn->beginTransaction(); //Comenzar transacción para evitar duplicados
             
             $query = $conn->prepare("INSERT INTO ENCABEZADO_DOCUMENTO (idUsu, rutEmp, idTipoDoc, folioDoc, fechaRegistro,
                                     rutCliente, condPago, estadoDoc, neto, iva, total, observaciones, canceladoPor) 
@@ -40,8 +40,6 @@
                     break;
                 }
             }
-
-            
             
             if($result === true)
             {
@@ -146,7 +144,6 @@
         require_once 'daoUsuario.php';
         require_once 'daoTipoDocumento.php';
         require_once 'daoClientes.php';
-
         
         try
         {
@@ -288,7 +285,7 @@
 
                 $encabeadoSel->addVariosDetalles(consultarDetalleDocumentoPorFolio($idTipoDoc, $folioComp));
 
-                $listaEncabezados[]=$encabeadoSel; //1,2,3,4,5,6,7,
+                $listaEncabezados[]=$encabeadoSel;
             }
 
             if(count($listaEncabezados) > 0){
@@ -348,6 +345,55 @@
         }
     }
 
-    
+    function consultaLibroVenta($mes,$anio){
+
+        require 'parametrosBD.php';
+        require_once 'daoEmpresa.php';
+        require_once 'daoUsuario.php';
+        require_once 'daoTipoDocumento.php';
+        require_once 'daoClientes.php';
+        require_once 'daoDetalleDocumento.php';
+
+        
+        try
+        {
+            $conexion = new PDO("mysql:host=$host;dbname=$nombreBaseDatos;charset=UTF8", $usuario, $password);
+
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $listaEncabezados=[];
+
+            $querySelect = $conexion->query("SELECT * FROM encabezado_documento WHERE MONTH(fechaEmision) ='".$mes."' AND YEAR(fechaEmision) ='".$anio."'");
+
+            foreach($querySelect->fetchAll() as $tablaEncabezadoBBDD)
+            {
+
+                $usuario = consultarUsuarioPorId($tablaEncabezadoBBDD['idUsu']);
+                $empresa = consultarEmpresaPorRut($tablaEncabezadoBBDD['rutEmp']);
+                $tipoDoc = consultarTiposDocumentoPorId($tablaEncabezadoBBDD['idTipoDoc']);
+                $cliente = consultarClientePorRut($tablaEncabezadoBBDD['rutCliente']);
+
+                $encabeadoSel= new EncabezadoDocumento($usuario, $empresa, $tipoDoc, $tablaEncabezadoBBDD['folioDoc'],
+                $tablaEncabezadoBBDD['fechaEmision'], $cliente, $tablaEncabezadoBBDD['condPago'], $tablaEncabezadoBBDD['estadoDoc'], 
+                $tablaEncabezadoBBDD['neto'], $tablaEncabezadoBBDD['iva'], $tablaEncabezadoBBDD['total'], $tablaEncabezadoBBDD['observaciones'],
+                $tablaEncabezadoBBDD['canceladoPor']);
+
+                // $encabeadoSel->addVariosDetalles(consultarDetalleDocumentoPorFolio($idTipoDoc, $folioComp));
+
+                $listaEncabezados[]=$encabeadoSel; //1,2,3,4,5,6,7,
+            }
+
+            if(count($listaEncabezados) > 0){
+                return $listaEncabezados;
+            }else{
+                return ($lista=[]);
+            }
+        }
+        catch(PDOException $pe)
+        {
+            return $pe->getMessage();
+
+        }
+    }
 
 ?>

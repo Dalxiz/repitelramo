@@ -11,7 +11,6 @@
 
             $nuevaEmpresa = new Empresa($rutEmp, $dvEmpresa,  $razonSocial, $giroEmpresa);
 
-            //header("Location: ../presentacion/alumno/registrar.php?msj=" . registrarAlumno($nuevoAlumno) . " [Alumno: " . $nuevoAlumno->getNombreCompleto() . "]");
             $mensaje = insertarEmpresa($nuevaEmpresa);
             header("Location: ../presentacion/empresa/principalEmpresa.php?msj=".  $mensaje );
 
@@ -29,9 +28,8 @@
 
             $nuevaEmpresa = new Empresa($rutEmp, $dvEmpresa,  $razonSocial, $giroEmpresa);
 
-            //header("Location: ../presentacion/alumno/actualizar.php?msj=" . actualizarAlumno($nuevoAlumno) . " [Alumno: " . $nuevoAlumno->getNombreCompleto() . "]");
             $mensaje = actualizarEmpresa($nuevaEmpresa);
-            header("Location: ../presentacion/empresa/principalEmpresa.php?msj=".  $mensaje );
+            header("Location: ../presentacion/empresa/principalEmpresa.php?msj=".  $mensaje . " Registro Actualizado Correctamente");
 
             die();    
         }
@@ -49,7 +47,7 @@
     
                 $mensaje = eliminarEmpresa($newEmpresa);
                 
-                header("Location: ../presentacion/empresa/principalEmpresa.php?msj=".  $mensaje );
+                header("Location: ../presentacion/empresa/principalEmpresa.php?msj=".  $mensaje);
     
                 die();
         }

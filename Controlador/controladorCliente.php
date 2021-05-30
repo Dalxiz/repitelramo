@@ -52,12 +52,6 @@
         $rutCliente = $_POST['Rut'];
         $dvcliente = $_POST['Dv'];
         $nombRazonSocial = $_POST['Razon'];
-        // $giroCliente = $_POST['Giro'];
-        // $direccion = $_POST['Direccion'];
-        // $comuna = $_POST['Comuna'];
-        // $ciudad = $_POST['Ciudad'];
-        // $telefono = $_POST['Telefono'];
-        // $email = $_POST['Email'];
 
         $cliente = new cliente($rutCliente,$dvcliente,$nombRazonSocial,"","","","","","");
 
@@ -76,7 +70,5 @@
 
         return $lista;
     }
-
-    
 
 ?>
