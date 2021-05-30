@@ -167,14 +167,15 @@
       $folio = $_POST['emitirFolio'];
       $idTipoDoc = $_POST['emitirTipoDoc'];
       $estado = $_POST['cambiarestado'];
+      $fechaEmision = $_POST['fechaEmision'];
       $mensaje = "";
 
       if($estado == "emitir"){
-         $mensaje = cambiarEstadoDoc ($idTipoDoc, $folio, "Emitido");
+         $mensaje = cambiarEstadoDoc ($idTipoDoc, $folio, $fechaEmision, "Emitido");
       }
 
       if($estado == "anular"){
-         $mensaje = cambiarEstadoDoc ($idTipoDoc, $folio, "Anulado");
+         $mensaje = cambiarEstadoDoc ($idTipoDoc, $folio, $fechaEmision, "Anulado");
       }
 
       header("Location: /repitelramo/presentacion/documento/factura/principalFactura.php?msj=". $mensaje);

@@ -118,6 +118,7 @@
                 <th>Folio Documento</th>
                 <th>Tipo de Documento</th>
                 <th>Fecha de Registro</th>
+                <th>Fecha de Emisión</th>
                 <th>Cliente</th>
                 <th>Estado Documento</th>
                 <th>Total Neto</th>
@@ -152,6 +153,14 @@
 
                     <td><?php echo $encabezado->getTipoDoc()->getNombreTipoDoc(); ?></td>
                     <td><?php echo date("d-m-Y", strtotime($encabezado->getFechaRegistro())); //Formatear fecha ?></td>
+                    
+                    <!-- fecha emisión -->
+                    <?php if($encabezado->getFechaEmision() != ""){ ?>
+                    <td><?php echo date("d-m-Y", strtotime($encabezado->getFechaEmision())); //Formatear fecha ?></td>
+                    <?php }else{ ?>
+                    <td>N/A</td>
+                    <?php } ?>
+
                     <td><?php echo $encabezado->getCliente()->getNombRazonSocial() ?></td>
 
                     <?php if($encabezado->getEstadoDoc() === "Registrado"){ ?>
@@ -481,7 +490,15 @@
                 </div>
                 <div class="modal-body">
                     <form action="../../../controlador/controladorEncabezadoDocumento.php" method="POST">
-                    <div class="form-group m-5">
+                    
+                    <div id="divFechaEmision" class="form-group col-lg-6">
+                    <label for="txtNuevaFechaEmision" class="labelForm" >Ingrese la Fecha de Emisión</label>
+                        <input required="required" class="form-control" type="date" name="fechaEmision" id="txtNuevaFechaEmision" placeholder="Fecha de registro" maxlength="10">
+                    
+                    </div>
+
+
+                    <div class="form-group m-4 ">
                         <div class="text-center">
                         <label class="lead">¿Seguro que desea <strong id="spanAccionEstado"></strong> la Factura Eletrónica folio '<span id="spanFolioEstado"></span>'?</label>
                         </div>
@@ -755,21 +772,25 @@
 
             if(accion == 'emitir'){
                 $("#iconoModalEstado").attr("class", "bi bi-bookmark-check-fill");
-                $("#txtTituloModalEstado").text("Emitir Factura")
+                $("#txtTituloModalEstado").text("Emitir Factura");
+                $("#divFechaEmision").removeAttr("hidden");
                 $('#spanAccionEstado').text("emitir");
                 $('#spanFolioEstado').text(folioDoc);
                 $("#btnAccionEstado").text("Emitir");
                 $("#btnAccionEstado").val("emitir");
+                $("#txtNuevaFechaEmision").attr("required", "required");
 
             }
 
             else if(accion == 'anular'){
                 $("#iconoModalEstado").attr("class", "bi bi-bookmark-x-fill");
-                $("#txtTituloModalEstado").text("Anular Factura")
+                $("#txtTituloModalEstado").text("Anular Factura");
+                $("#divFechaEmision").attr("hidden", true);
                 $('#spanAccionEstado').text("anular");
                 $('#spanFolioEstado').text(folioDoc);
                 $("#btnAccionEstado").text("Anular");
                 $("#btnAccionEstado").val("anular");
+                $("#txtNuevaFechaEmision").removeAttr("required");
             }
 
 

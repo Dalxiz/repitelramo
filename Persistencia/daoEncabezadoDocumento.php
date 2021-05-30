@@ -137,7 +137,7 @@
         }
     }
 
-    function cambiarEstadoDoc($idTipoDoc, $folio, $estado){
+    function cambiarEstadoDoc($idTipoDoc, $folio, $fechaEmision, $estado){
         
         require 'parametrosBD.php';
 
@@ -147,12 +147,14 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $conn->beginTransaction(); //Comenzar trasnacción para evitar duplicados
             
-            $query = $conn->prepare("UPDATE ENCABEZADO_DOCUMENTO SET estadoDoc=?
+            $query = $conn->prepare("UPDATE ENCABEZADO_DOCUMENTO SET estadoDoc=?, fechaEmision=?
                                     WHERE idTipoDoc=? AND folioDoc=?");
     
             $resultadoDetalles;
 
-            $result = $query->execute([$estado, $idTipoDoc, $folio]);
+            $result = $query->execute([$estado,
+                                       !empty($fechaEmision) ? $fechaEmision : NULL, 
+                                       $idTipoDoc, $folio]);
  
             if($result === true)
             {
