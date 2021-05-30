@@ -176,4 +176,28 @@
         
         return $lista;
      }
+
+   if (isset($_POST['consulta'])) {
+      
+      
+      $fecha = $_POST['fecha'];
+      
+      $anio = substr($fecha,0,4);
+      
+      $mes = substr($fecha,5,2);
+      
+
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/usuario.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/empresa.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/tipoDocumento.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . '/repitelramo/entidades/encabezadoDocumento.php';
+      require_once $_SERVER['DOCUMENT_ROOT'] . "/repitelramo/persistencia/daoEncabezadoDocumento.php";
+
+      $lista = consultaLibroVenta($mes,$anio);
+
+      return $lista;
+      header("Location: /repitelramo/presentacion/documento/factura/libroVentas.php");
+      die();
+      
+   }
 ?>

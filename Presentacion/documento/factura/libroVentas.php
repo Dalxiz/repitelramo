@@ -36,7 +36,7 @@
                         <input type="month" name="fecha" id="fecha" class="form-control" value="2019-08">
                     </div>
                     <div class="form-group col-lg-4 pt-3 mt-3">
-                        <button type="submit" class="btn btn-secondary"><i class="bi bi-search"></i> Generar</button>
+                        <button type="submit" name="consulta" class="btn btn-secondary"><i class="bi bi-search"></i> Generar</button>
                     </div>
                 </form>
                 <div class="form-group col-lg-4 alaign-content-end">
