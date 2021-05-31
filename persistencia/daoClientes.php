@@ -29,6 +29,10 @@
             }
             
         } catch (PDOException $pe) {
+            
+            if(strpos($pe->getMessage(),"violation: 1062")){
+                return "err : El Cliente con RUT: '" . $nuevoCliente->getRutCompleto() ."' ya se encuentra registrado. El RUT debe ser único.";
+            }
             return "err : ". $pe->getMessage();
         }
     }
@@ -91,6 +95,11 @@
                 return 'err';
             }
         } catch (PDOException $pe) {
+
+            if(strpos($pe->getMessage(),"violation: 1451")){
+                return "err : El cliente con RUT: '" . $rutCliente->getRutCompleto() ."' esta siendo utilizado por documentos, no es posible eliminarlo. Contáctese con el administador del sistema si desea eleminarlo del sistema";
+            }
+
             return 'Ocurrio un error:' . $pe->getMessage();
         }
     }

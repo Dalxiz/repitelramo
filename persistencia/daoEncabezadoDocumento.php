@@ -54,6 +54,10 @@
 
         }catch(PDOException $pe){
             $conn->rollBack();
+            
+            if(strpos($pe->getMessage(),"violation: 1062")){
+                return "err : Factura electrónica con Folio: '" . $nuevoEncabezado->getFolioDoc() ."' ya se encuentra registrado. El folio debe ser único.";
+            }
             return "err : " . $pe->getMessage();
         }
     }
