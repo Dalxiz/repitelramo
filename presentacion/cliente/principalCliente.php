@@ -15,8 +15,17 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/> 
     <!-- css de icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <!-- script de jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!-- script de bootstrap 4 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <!-- script de datatable -->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
+
+    <script type="text/javascript" src="/repitelramo/presentacion/dist/js/main.js"></script>
+
     <link rel="stylesheet" href="../dist/css/number.css">
-    <link rel="stylesheet" href="/repitelramo/presentacion/dist/css/principalCliente.css">
+    <link rel="stylesheet" href="/repitelramo/presentacion/dist/css/mantenedorGenerico.css">
     <title>Mantenedor Cliente</title>
 </head>
 <body>
@@ -113,6 +122,7 @@
             </tr>           
           
     </table>
+    </div>
 
     <!-- ventana modal registrar-->
     <div class="modal fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
@@ -130,33 +140,33 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col col-lg-9">
-                                        <input class="form-control" name="Rut" id="" placeholder="Ingrese su Rut" type="text" pattern="\d*" maxlength="8">                        
+                                        <input class="form-control" name="Rut" placeholder="Ingrese su Rut" type="text" pattern="\d*" maxlength="8" required>                        
                                     </div>
                                     <div class="col col-xs-3">                        
-                                        <input class="form-control l" type="text" name="Dv" id="" placeholder="Dv" maxlength="1">
+                                        <input class="form-control l" type="text" name="Dv" placeholder="Dv" maxlength="1" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="container-fluid">
                             <div class="form-group">
-                                <input class="form-control" type="text" name="Razon" id="" placeholder="Razón Social">
+                                <input class="form-control" type="text" name="Razon" placeholder="Razón Social" required>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="text" name="Giro" id="" placeholder="Giro">
+                                <input class="form-control" type="text" name="Giro" placeholder="Giro" required>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="text" name="Direccion" id="" placeholder="Direccion">
+                                <input class="form-control" type="text" name="Direccion" placeholder="Direccion" required>
                             </div>               
                         </div>
                         <div class="container-fluid">
                             <div class="form-group">
                                     <div class="row">
                                         <div class="col col-lg-6">
-                                            <input class="form-control" type="text" name="Comuna" id="" placeholder="Comuna">                        
+                                            <input class="form-control" type="text" name="Comuna" placeholder="Comuna" required>                        
                                         </div>
                                         <div class="col col-lg-6">                        
-                                            <input class="form-control l" type="text" name="Ciudad" id="" placeholder="Ciudad">
+                                            <input class="form-control l" type="text" name="Ciudad"  placeholder="Ciudad" required>
                                         </div>
                                     </div>
                             </div>
@@ -165,10 +175,10 @@
                             <div class="form-group">
                                     <div class="row">
                                         <div class="col col-lg-6">
-                                            <input class="form-control" type="number" name="Telefono" id="" placeholder="Telefono">                        
+                                            <input class="form-control" type="number" name="Telefono" placeholder="Telefono">                        
                                         </div>
                                         <div class="col col-lg-6">                        
-                                            <input class="form-control l" type="email" name="Email" id="" placeholder="E-mail">
+                                            <input class="form-control l" type="email" name="Email" placeholder="E-mail">
                                         </div>
                                     </div>
                             </div>
@@ -183,6 +193,7 @@
             </div>
         </div>
     </div>
+ 
     
     <!-- ventana modal editar-->
     <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
@@ -270,22 +281,23 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col col-lg-9">
-                                        <input class="form-control" type="number" readonly="true" name="Rut" id="txtRut" placeholder="Ingrese su Rut" type="text" pattern="\d*" maxlength="8">                        
+                                        <input class="form-control" type="number" readonly="true" name="Rut" id="txtRutEl" placeholder="Ingrese su Rut" type="text" pattern="\d*" maxlength="8">                        
                                     </div>
                                     <div class="col col-xs-3">                        
-                                        <input class="form-control l" type="text" readonly="true" name="Dv" id="txtDv" placeholder="Dv" maxlength="1">
+                                        <input class="form-control l" type="text" readonly="true" name="Dv" id="txtDvEl" placeholder="Dv" maxlength="1">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="container-fluid">
                             <div class="form-group">
-                                <input class="form-control" type="text" name="Razon" readonly="true" id="txtRazon" placeholder="Razón Social">
-                            </div>                     
+                                <input class="form-control" type="text" name="Razon" readonly="true" id="txtRazonEl" placeholder="Razón Social">
+                            </div> 
+                            </div>                    
                         <div class="container-fluid">
                             <div class="form-group">
                                 <center>
-                                <label for="">¿Seguro que desea Eliminar los registros?</label>
+                                <label for="">¿Seguro qsssue desea Eliminar el registro?</label>
                                 </center>
                             </div>
                         </div> 
@@ -296,7 +308,7 @@
                                         <button class="btn btn-success col-lg-12" name="eliminar" type="submit">Si</button>                        
                                     </div>
                                     <div class="col col-xs-6">                        
-                                    <button class="btn btn-danger col-lg-12" type="submit">no</button>
+                                    <button class="btn btn-danger col-lg-12" data-dismiss="modal" type="button">No</button>
                                     </div>
                                 </div>
                             </div>
@@ -306,21 +318,8 @@
             </div>
         </div>
     </div>
-  </div>
-</div>
 
-    
-    <!-- script de jquery -->
-    
-
-    <!-- script de bootstrap 4 -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-
-    <!-- script de datatable -->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
-
-    <script type="text/javascript" src="../dist/js/main.js"></script>
+    <script type="text/javascript" src="/repitelramo/presentacion/dist/js/principalCliente.js"></script>
 
 </body>
     <?php require_once '../footer.php' ?>

@@ -29,7 +29,7 @@
             $nuevaEmpresa = new Empresa($rutEmp, $dvEmpresa,  $razonSocial, $giroEmpresa);
 
             $mensaje = actualizarEmpresa($nuevaEmpresa);
-            header("Location: ../presentacion/empresa/principalEmpresa.php?msj=".  $mensaje . " Registro Actualizado Correctamente");
+            header("Location: ../presentacion/empresa/principalEmpresa.php?msj=".  $mensaje);
 
             die();    
         }

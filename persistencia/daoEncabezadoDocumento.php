@@ -96,7 +96,7 @@
                                        $_SESSION['encabezado'][0]->getFolioDoc()]);
 
             if($nuevoEncabezado->getListaDetalles() != $_SESSION['encabezado'][0]->getListaDetalles()){
-                $resultadoDetalles = "SI hay cambios de productos";
+                //SI hay cambios de productos se realizan cambios a la tabla detalle
                 $resultadoDetalles = eliminarDetalleDocumentoDesdeEncabezado($nuevoEncabezado, $conn);
                 
                 if(strpos($resultadoDetalles, "err") === 0 ){
@@ -115,15 +115,11 @@
 
                 }  
             }
-            else{
-                $resultadoDetalles = "NO hay cambios de productos";
-            }
  
             if($result === true)
             {
                 $conn->commit();
-                return 'ok ' . $resultadoDetalles;
-                //return 'ok' . " - ¡Factura electrónica actualizada correctamente!. Folio: " . $nuevoEncabezado->getFolioDoc() . ".";
+                return 'ok' . " - ¡Factura electrónica actualizada correctamente!. Folio: " . $nuevoEncabezado->getFolioDoc() . ".";
             }
             else
             {

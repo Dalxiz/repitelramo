@@ -1,11 +1,3 @@
-<?php
-    require_once "../Entidades/tipoUsuario.php";
-    require_once "../Persistencia/daoTipoUsuario.php";
-
-    $lista = consultarTiposUsuarios();
-    $lista2 = consultarTUPorId($idTipoUsu);
-
-    return $lista;
-    return $lista2;
-
+<?php 
+    //Por ahora no es necesario, al crear un mantenedor a futuro posiblemente se use
 ?>

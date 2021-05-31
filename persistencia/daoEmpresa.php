@@ -19,7 +19,7 @@
 
             if($result === true)
             {
-                return 'ok'  . " - Empresa: " . $newEmpresa->getRutEmp() . " - " . $newEmpresa->getRazonEmp()  . " ¡Registrada Correctamente!";
+                return 'ok'  . " - Empresa: " . $newEmpresa->getRutCompleto() . " - " . $newEmpresa->getRazonEmp()  . " - ¡Registrada Correctamente!";
             }
             else
             {
@@ -28,7 +28,7 @@
 
         } catch (PDOException $pe) {
             if(strpos($pe->getMessage(),"violation: 1062")){
-                return "err : El Rut de la Empresa: '" . $newEmpresa->getRutEmp() ."' ya se encuentra registrada. El rut debe ser único.";
+                return "err : El Rut de la Empresa: '" . $newEmpresa->getRutCompleto() ."' ya se encuentra registrada. El rut debe ser único.";
             }
 
             else{
@@ -57,7 +57,7 @@
             
             if($resultado)
             {
-                return "ok";
+                return 'ok'  . " - Empresa: " . $newEmpresa->getRutCompleto() . " - " . $newEmpresa->getRazonEmp()  . " - Actualizada Correctamente!";
             }
             else
             {

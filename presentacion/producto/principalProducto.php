@@ -23,16 +23,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
         <script type="text/javascript" src="../dist/js/main.js"></script>
-
+        <link rel="stylesheet" href="/repitelramo/presentacion/dist/css/mantenedorGenerico.css">
         <link rel="stylesheet" href="../dist/css/number.css">
-
-
-        <script type="text/javascript">
-
-            
-
-        </script>
-        <link rel="stylesheet" href="/repitelramo/presentacion/dist/css/principalProducto.css">
+        
         <title>Mantenedor Producto</title>
     </head>
     <body>

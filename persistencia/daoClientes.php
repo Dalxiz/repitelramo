@@ -22,7 +22,8 @@
                                         $nuevoCliente->getEmail()]);    
 
             if ($result) {
-                return 'ok';
+                return 'ok'  . " - Cliente con RUT: " . $nuevoCliente->getRutCompleto() . " - " . $nuevoCliente->getNombRazonSocial()  . " Registrado Correctamente!";
+
             }else {
                 return 'err';
             }
@@ -59,7 +60,7 @@
             $resultado = $queryUpdate->execute();
 
             if ($resultado) {
-                return 'ok';
+                return 'ok'  . " - Cliente con RUT: " . $nuevoClientes->getRutCompleto() . " - Modificado Correctamente!";
             }else {
                 return 'err';
             }
@@ -85,7 +86,7 @@
             $res=$queryDelete->execute();
 
             if ($res) {
-                return 'ok';
+                return 'ok'  . " - Cliente con RUT: " . $rutCliente->getRutCompleto() . " - Eliminado Correctamente!";
             }else{
                 return 'err';
             }
