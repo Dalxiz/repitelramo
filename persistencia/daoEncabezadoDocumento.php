@@ -330,7 +330,7 @@
 
             $listaEncabezados=[];
 
-            $querySelect = $conexion->query("SELECT * FROM encabezado_documento WHERE MONTH(fechaEmision) ='".$mes."' AND YEAR(fechaEmision) ='".$anio."'");
+            $querySelect = $conexion->query("SELECT * FROM ENCABEZADO_DOCUMENTO WHERE MONTH(fechaEmision) ='".$mes."' AND YEAR(fechaEmision) ='".$anio."'");
 
             foreach($querySelect->fetchAll() as $tablaEncabezadoBBDD)
             {
