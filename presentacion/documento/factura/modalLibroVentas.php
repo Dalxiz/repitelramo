@@ -31,21 +31,8 @@
             </div>
         </div>
   </div>
-  <script>
-  //Evento click sobre generar.
-     $('#consulta').click(function(){
-        
-       var fecha=$("#fecha").val();
-        // AJAX request
-        $.ajax({
-            url: '/repitelramo/controlador/controladorEncabezadoDocumento.php',
-            type: 'post',
-            data: {consulta: "consulta", fecha:fecha},
-            success: function(response){ 
-                // Add response in Modal body
-                $('#resultado').html(response);
-            
-            }
-        });
-    });
-    </script> 
+  
+  <!-- //Evento click sobre generar. -->
+  <script src="/repitelramo/presentacion/dist/js/modalLibroVentas.js"></script>
+     
+    

@@ -14,21 +14,11 @@
     <!-- Js boostrap 4 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="/repitelramo/presentacion/dist/css/principal.css">
+    
     <title>Panel Principal</title>
 
-    <style>
-        
-      .contenedor-footer {
-        width: auto;
-        max-width: 680px;
-        padding: 0 15px;
-      }
-
-      .footer {
-        background-color: #f5f5f5;
-      }
-
-    </style>
+    
 </head>
 <body>
 
