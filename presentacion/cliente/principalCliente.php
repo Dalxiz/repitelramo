@@ -297,7 +297,7 @@
                         <div class="container-fluid">
                             <div class="form-group">
                                 <center>
-                                <label for="">¿Seguro qsssue desea Eliminar el registro?</label>
+                                <label for="">¿Seguro que desea Eliminar el registro?</label>
                                 </center>
                             </div>
                         </div> 

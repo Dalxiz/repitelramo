@@ -65,7 +65,7 @@
             <!-- Botón libro de venta restringido solo para admin -->
             <?php if($_SESSION['usuario']->getTipoUsuario()->getNombreTipoUsu() == "Administrador"){?>
 
-                <button type="button" class="btn btn-outline-dark factura-libro" data-toggle="modal" data-prod-accion='libro'><i class="bi bi-plus-circle-fill"></i> Libro de Venta</button>
+                <button type="button" class="btn btn-outline-dark factura-libro" data-toggle="modal" data-prod-accion='libro'><i class="bi bi-journal-bookmark-fill"></i> Libro de Venta</button>
             
             <?php } ?>
 
@@ -209,9 +209,12 @@
                                                     $listaTipoDoc = getTodosTipoDocumento();
 
                                                     foreach($listaTipoDoc as $tipoDoc){
-                                                        echo "<option value='" . $tipoDoc->getIdTipoDoc() . "'>" . $tipoDoc->getNombreTipoDoc(). "</option>"; 
+                                                    
                                                         if($tipoDoc->getIdTipoDoc() == '1'){
                                                             echo "<option selected value='" . $tipoDoc->getIdTipoDoc() . "'>" . $tipoDoc->getNombreTipoDoc(). "</option>"; 
+                                                        }
+                                                        else{
+                                                            echo "<option value='" . $tipoDoc->getIdTipoDoc() . "'>" . $tipoDoc->getNombreTipoDoc(). "</option>"; 
                                                         }
                                                     }
                                                 ?>
@@ -250,11 +253,11 @@
                         <div class="container-fluid">
                         
                             <div class="form-group row">
-                            <div class="col col-lg-6">
+                            <div class="col col-md-6 col-12 mb-3 mb-md-0">
                                 <label for="txtFechaRegistro" class="labelForm" >Fecha de registro</label>
                                 <input required="required" class="form-control" type="date" name="fechaRegistro" id="txtFechaRegistro" placeholder="Fecha de registro" maxlength="10">
                                 </div>
-                                <div class="col col-lg-6">
+                                <div class="col col-md-6 col-12">
                                 <label for="txtCondPago" class="labelForm">Condicion de pago</label>
                                 <input required="required" class="form-control" type="text" name="condPago" id="txtCondPago" placeholder="Condición de pago">
                                  </div>
@@ -281,7 +284,7 @@
                         <div class="container-fluid">
                             <div class="container-fluid bg-light pb-1">
                                 <div class="form-group row ">
-                                    <div class="col-7">
+                                    <div class="col col-md-7 col-12 mb-3 mb-md-0">
                                         <label for="cbxProducto" class="labelForm">Selecciona producto</label>
                                         <select onchange="cargaPrecioUnitYUM('registrar')"  class="form-control" name="producto" id="cbxProducto">
                                             <option selected value="" disabled="1">Selecciona Producto</option>
@@ -297,7 +300,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-5">
+                                    <div class="col col-md-5 col-12">
                                         <label for="txtPrecioUnitario" class="labelForm">Unidad Medida</label>
                                         <input readonly=true class="form-control" type="text" name="unidadMeida" id="txtUnidadMedida" placeholder="-">
                                     </div>
@@ -306,22 +309,22 @@
 
                                 <div class="form-group row">
                                 
-                                    <div class="col-4">
+                                    <div class="col col-md-4 col-12 mb-3 mb-md-0">
                                         <label for="txtPrecioUnitario" class="labelForm">Precio Unitario</label>
                                         <input readonly=true class="form-control" type="text" name="precioUnitario" id="txtPrecioUnitario" placeholder="-">
                                     </div>
 
-                                    <div class="col-2">
+                                    <div class="col col-md-2 col-12 mb-3 mb-md-0">
                                         <label for="txtPrecioUnitario" class="labelForm">% Descuento</label>
                                         <input class="form-control" onkeydown="return validarNumeroEntero(event)" type="text" name="porcDesc" value=0 id="txtPorcDesc" placeholder="" maxlength="3">
                                     </div>
 
-                                    <div class="col-5">
+                                    <div class="col col-md-5 col-6 mb-3 mb-md-0">
                                         <label for="txtCantidad" class="labelForm">Cantidad</label>
                                         <input class="form-control" onkeydown="return validarNumeroEntero(event)" type="text" name="cantidad" id="txtCantidad" placeholder="Cantidad" maxlength="10">
                                     </div>
     
-                                    <div class="col-offset-1">
+                                    <div class="col-md-offset-1">
                                         <label for="btnAgregar" class="labelForm"> &nbsp;  </label>
                                         <div class="text-center">
                                             <button onclick="agregarProd('registrar')" type="button" class="btn btn-success" id="btnAgregar" name="btnAgregar"><i class="bi bi-plus-circle-fill"></i></button>                 
@@ -359,15 +362,15 @@
 
                         <div class="container-fluid">
                             <div class="form-group row">
-                                <div class="col col-lg-4">
+                                <div class="col col-md-4 col-sm-6 col-12 mb-3 mb-md-0">
                                     <label class="labelForm" for="txtNeto">Neto</label>
                                     <input readonly="true" required="required" class="form-control" type="text" name="neto" id="txtNeto" placeholder="-">
                                 </div>
-                                <div class="col col-lg-4">
+                                <div class="col col-md-4 col-sm-6 col-12 mb-3 mb-md-0">
                                     <label class="labelForm" for="txtIVA">IVA</label>
                                     <input readonly="true" required="required" class="form-control" type="text" name="iva" id="txtIVA" placeholder="-">
                                 </div>
-                                <div class="col col-lg-4">
+                                <div class="col col-md-4 col-sm-12 col-12 mb-3 mb-md-0">
                                     <label class="labelForm" for="txtTotal">Total</label>
                                     <input readonly="true" required="required" class="form-control" type="text" name="total" id="txtTotal" placeholder="-">
                                 </div>
@@ -425,7 +428,7 @@
         <div class="modal-dialog modal-lg modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 ><i id="iconoModal" class="bi bi-bookmark-plus-fill"> </i><span id="txtTituloModal">Modificar Factura</span></h5>
+                    <h5 ><i id="iconoModal" class="bi bi-pencil-square"> </i><span id="txtTituloModal">Modificar Factura</span></h5>
                     <button class="close" data-dismiss="modal" aria-label="cerrar">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -484,7 +487,7 @@
         <div class="modal-dialog modal-lg modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 ><i class="bi bi-bookmark-check-fill"> </i><span>Libro de ventas del mes</span></h5>
+                    <h5 ><i class="bi bi-journal-bookmark-fill"> </i><span>Libro de ventas del mes</span></h5>
                     <button class="close" data-dismiss="modal" aria-label="cerrar">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -520,16 +523,17 @@
             }
 
             //Corroborar si existen productos agregados:
-            var cantCeldas = (($('#tablaProd td').length));
+            var cantCeldas = (($(tipoModal + ' td').length));
             if (cantCeldas == 0){
                 alert("¡Agrege productos!");
                 return false;
             }
 
-            $(tipoModal + ' #cbxTipoDoc').prop('disabled', false);
-            $(tipoModal + ' #cbxEstadoDoc').prop('disabled', false);
+            //$(tipoModal + ' #cbxTipoDoc').prop('disabled', false);
+            //$(tipoModal + ' #cbxEstadoDoc').prop('disabled', false);
 
         }
+
 
     </script>
         

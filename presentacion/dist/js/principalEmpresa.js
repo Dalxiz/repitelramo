@@ -52,6 +52,8 @@ $('#modalEmp').on('show.bs.modal', function (e) {
 
         //Icono del modal
         $('#iconoModal').attr("class","bi bi-bookmark-plus-fill"); 
+
+        $('#formEmp .labelForm').attr("hidden",true); 
     }
     else if (accion == "actualizar"){
         $('#txtRutEmp').attr("readonly", true);
@@ -60,7 +62,7 @@ $('#modalEmp').on('show.bs.modal', function (e) {
         $('#txtGiroEmpresa').attr("readonly", false);
         
         $('#btnAccion').attr("name", "actualizar");
-        $('#tituloModal').text("Actualzar Empresa");
+        $('#tituloModal').text("Actualizar Empresa");
         $('#btnAccion').text("Actualizar");
         $('#btnAccion').attr("class", "btn btn-dark col-lg-12");
         $('#formEmp label').removeAttr('hidden'); 
@@ -68,7 +70,6 @@ $('#modalEmp').on('show.bs.modal', function (e) {
         //Icono del modal
         $('#iconoModal').attr("class","bi bi-pencil-square"); 
 
-        $('#formEmp #lblEliminar').attr("hidden",true); 
     }
     else if (accion == "eliminar"){
         $('#txtRutEmp').attr("readonly", true);
@@ -85,7 +86,6 @@ $('#modalEmp').on('show.bs.modal', function (e) {
         //Icono del modal
         $('#iconoModal').attr("class","bi bi-x-octagon-fill"); 
 
-        $('#formEmp #lblEliminar').removeAttr("hidden"); 
     }
 
     });

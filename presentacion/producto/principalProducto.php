@@ -25,87 +25,88 @@
         <script type="text/javascript" src="../dist/js/main.js"></script>
         <link rel="stylesheet" href="/repitelramo/presentacion/dist/css/mantenedorGenerico.css">
         <link rel="stylesheet" href="../dist/css/number.css">
-        
+
         <title>Mantenedor Producto</title>
     </head>
     <body>
         <?php require_once '../menu.php' ?>
     
         <div class="container-fluid contenedorH3"> 
-                <h3>Mantenedor Productos</h3>
+            <h3>Mantenedor Productos</h3>
         </div>
         
         <!-- datatable -->
         <div class="container-fluid contenedorTabla table-responsive">
         
-        <!-- alert -->
-        <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") === 0) {  ?>
-            
-            <div class='alert alert-success alert-dismissible'>
-                <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>¡Operación Realizada!</strong> <?php echo $_GET['msj'] ?> 
-            </div>
-        
-        <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"err") !== false) { ?>
-
-                <div class='alert alert-danger alert-dismissible'>
+            <!-- alert -->
+            <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") === 0) {  ?>
+                
+                <div class='alert alert-success alert-dismissible'>
                     <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>¡Operación Incorrecta!</strong> Sucedió algo inesperado:  <?php echo $_GET['msj'] ?> 
+                    <strong>¡Operación Realizada!</strong> <?php echo $_GET['msj'] ?> 
                 </div>
-        
-        <?php    } ?>
+            
+            <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"err") !== false) { ?>
 
-        <!-- contenedor de registro nuevo -->
-        <div class="container-fluid contenedorBoton">
-            <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalProd" data-prod-accion='Nuevo Producto'><i class="bi bi-plus-circle-fill"></i> Nuevo Producto</button>
-        </div>
-        
-        <table id="example" class="table is-striped table-hover " style="width:100%">
-            <thead>
-                <tr>
-                <th>Codigo Producto</th>
-                <th>Descripción Producto</th>
-                <th>Unidad de Medida</th>
-                <th>Precio Unitario</th>
-                <th class='text-center'>Acción</th>
-                </tr>
-            </thead>
+                    <div class='alert alert-danger alert-dismissible'>
+                        <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>¡Operación Incorrecta!</strong> Sucedió algo inesperado:  <?php echo $_GET['msj'] ?> 
+                    </div>
+            
+            <?php    } ?>
 
-            <tbody>
-                <?php 
-
-                    require '../../controlador/controladorProducto.php';
-
-                    $listaProductos = getTodosLosProductos();
-
-                    if (count($listaProductos) > 0) {
-                        foreach ($listaProductos as $producto) {
-                    ?>
+            <!-- contenedor de registro nuevo -->
+            <div class="container-fluid contenedorBoton">
+                <button type="button" class="btn btn-outline-dark " data-toggle="modal" data-target="#modalProd" data-prod-accion='Nuevo Producto'><i class="bi bi-plus-circle-fill"></i> Nuevo Producto</button>
+            </div>
+            
+            <table id="example" class="table is-striped table-hover " style="width:100%">
+                <thead>
                     <tr>
-                        <td><?php echo $producto->getCodProd();?></td>
-                        <td><?php echo $producto->getDescripcion(); ?></td>
-                        <td><?php echo $producto->getUnidadMedida()->getNombreUM()?></td>
-                        <td><?php echo number_format ( $producto->getPrecioUnitaro(),  0, ",", "." ) //numberFormat para poner separador de miles y sacar decimales 0 ?></td>
-
-                        <td class="text-center">
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalProd" data-prod-id='<?php echo $producto->getCodProd() ?>'
-                                        data-prod-des='<?php echo $producto->getDescripcion() ?>' data-prod-um='<?php echo $producto->getUnidadMedida()->getIdUm() ?>'
-                                        data-prod-precio='<?php echo floatval($producto->getPrecioUnitaro())?>' data-prod-accion='Actualizar Producto'><i class="bi bi-pencil-fill"></i></button>
-                            <span class="btn btn-danger"  data-toggle="modal" data-target="#modalProd" data-prod-id='<?php echo $producto->getCodProd() ?>'
-                                        data-prod-des='<?php echo $producto->getDescripcion() ?>' data-prod-um='<?php echo $producto->getUnidadMedida()->getIdUm() ?>'
-                                        data-prod-precio='<?php echo floatval($producto->getPrecioUnitaro()) ?>' data-prod-accion='Eliminar Producto'><i class="bi bi-trash2-fill"></i></span>
-                        </td>
+                    <th>Codigo Producto</th>
+                    <th>Descripción Producto</th>
+                    <th>Unidad de Medida</th>
+                    <th>Precio Unitario</th>
+                    <th class='text-center'>Acción</th>
                     </tr>
-                    <?php
-                        }
-                    }else
-                    {
-                        ?> 
-                        <tr><td colspan=4 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td></tr> 
+                </thead>
+
+                <tbody>
                     <?php 
-                    }
-                ?>            
-        </table>
+
+                        require '../../controlador/controladorProducto.php';
+
+                        $listaProductos = getTodosLosProductos();
+
+                        if (count($listaProductos) > 0) {
+                            foreach ($listaProductos as $producto) {
+                        ?>
+                        <tr>
+                            <td><?php echo $producto->getCodProd();?></td>
+                            <td><?php echo $producto->getDescripcion(); ?></td>
+                            <td><?php echo $producto->getUnidadMedida()->getNombreUM()?></td>
+                            <td><?php echo number_format ( $producto->getPrecioUnitaro(),  0, ",", "." ) //numberFormat para poner separador de miles y sacar decimales 0 ?></td>
+
+                            <td class="text-center">
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalProd" data-prod-id='<?php echo $producto->getCodProd() ?>'
+                                            data-prod-des='<?php echo $producto->getDescripcion() ?>' data-prod-um='<?php echo $producto->getUnidadMedida()->getIdUm() ?>'
+                                            data-prod-precio='<?php echo floatval($producto->getPrecioUnitaro())?>' data-prod-accion='Actualizar Producto'><i class="bi bi-pencil-fill"></i></button>
+                                <span class="btn btn-danger"  data-toggle="modal" data-target="#modalProd" data-prod-id='<?php echo $producto->getCodProd() ?>'
+                                            data-prod-des='<?php echo $producto->getDescripcion() ?>' data-prod-um='<?php echo $producto->getUnidadMedida()->getIdUm() ?>'
+                                            data-prod-precio='<?php echo floatval($producto->getPrecioUnitaro()) ?>' data-prod-accion='Eliminar Producto'><i class="bi bi-trash2-fill"></i></span>
+                            </td>
+                        </tr>
+                        <?php
+                            }
+                        }else
+                        {
+                            ?> 
+                            <tr><td colspan=4 class='text-center'><span class='glyphicon glyphicon-plus'></span>&nbsp;No existen productos registrados</td></tr> 
+                        <?php 
+                        }
+                    ?>            
+            </table>
+        </div>
 
         <!-- ventana modal -->
         <div class="modal fade" id="modalProd" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
@@ -169,8 +170,6 @@
                     </div>                
                 </div>
             </div>
-        </div>
-
         </div>
 
         <script src="/repitelramo/presentacion/dist/js/principalProducto.js" type="text/javascript"></script> 

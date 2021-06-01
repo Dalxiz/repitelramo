@@ -8,7 +8,7 @@
     <tr>
         <td><?php echo $encabezado->getFolioDoc();?></td>
         <td><?php echo $encabezado->getTipoDoc()->getNombreTipoDoc(); ?></td>
-        <td><?php echo date("d-m-Y", strtotime($encabezado->getFechaEmision())); //Formatear fecha ?></td>
+        <td style="min-width: 100px"><?php echo date("d-m-Y", strtotime($encabezado->getFechaEmision())); //Formatear fecha ?></td>
         <td><?php echo $encabezado->getCliente()->getNombRazonSocial() ?></td>
         <td><?php echo number_format ($encabezado->getNeto(), 0, ",", ".")//number_format para poner separador de miles ?></td>
         <td><?php echo str_replace(",00", "", number_format ($encabezado->getIva(), 2, ",", "." ) ) //str_replace para no mostrar ,00 innceesarios?></td> 

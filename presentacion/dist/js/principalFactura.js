@@ -225,6 +225,8 @@
                 $('#spanFolioEstado').text(folioDoc);
                 $("#btnAccionEstado").text("Emitir");
                 $("#btnAccionEstado").val("emitir");
+                $("#btnAccionEstado").attr("class", "btn btn-success col-lg-12");
+                $("#btnCancelarEstado").attr("class", "btn btn-danger col-lg-12");
                 $("#txtNuevaFechaEmision").attr("required", "required");
 
             }
@@ -237,11 +239,21 @@
                 $('#spanFolioEstado').text(folioDoc);
                 $("#btnAccionEstado").text("Anular");
                 $("#btnAccionEstado").val("anular");
+                $("#btnAccionEstado").attr("class", "btn btn-danger col-lg-12");
+                $("#btnCancelarEstado").attr("class", "btn btn-info col-lg-12");
                 $("#txtNuevaFechaEmision").removeAttr("required");
             }
 
 
         });
+
+        //Al momento de hacer submit en nueva fact o actualizar, se saca disabled de combobox para poder enviar los datos correctamente
+         $("#formFactNueva, #modalFactAct").submit(function (e){
+            $("#formFactNueva #cbxTipoDoc, #modalFactAct #cbxTipoDoc").prop('disabled', false);
+            $("#formFactNueva #cbxEstadoDoc, #modalFactAct #cbxEstadoDoc").prop('disabled', false);
+            this.submit();
+        });
+
 
 
         //Evento click sobre icono de información de factura, toma el folio-tipoDoc y se lo envia por ajax a traves de post al controlador.
